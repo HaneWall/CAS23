@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.14
+# v0.19.26
 
 #> [frontmatter]
 #> chapter = 1
@@ -7,8 +7,8 @@
 #> order = 7
 #> title = "Basic Julia"
 #> layout = "layout.jlhtml"
-#> description = ""
 #> tags = ["preliminaries"]
+#> description = ""
 
 using Markdown
 using InteractiveUtils
@@ -20,21 +20,21 @@ Before being able to run this notebook successfully locally, you will need to [s
 "
 
 
-# ╔═╡ 3b038ee0-edeb-11ea-0977-97cc30d1c6ff
-md"## Variables
+# ╔═╡ ba3659ad-f5fb-42fe-9141-9a4582c6d057
+md"""
+## Variablen
 
-We can define a variable using `=` (assignment). Then we can use its value in other expressions:
-"
+Wir können mithilfe des '=' Zuweisungsoperators Variablen definieren. Einmal festgelegt können wir dann die Größe auch in anderen Zellen nutzen.
+ """
 
 # ╔═╡ 3e8e0ea0-edeb-11ea-22e0-c58f7c2168ce
 x = 3
-
 
 # ╔═╡ 59b66862-edeb-11ea-2d62-71dcc79dbfab
 y = 2x
 
 # ╔═╡ 5e062a24-edeb-11ea-256a-d938f77d7815
-md"By default Julia displays the output of the last operation. (You can suppress the output by adding `;` (a semicolon) at the end.)
+md"Standardmäßig zeigt Pluto/Julia die Ausgabe über der ausgeführten Zelle an. Dies kann man beispielsweise durch ein Semikolon am Ende einer Zeile unterdrücken. Außerdem wichtig: Möchte man mehrere 
 "
 
 # ╔═╡ 7e46f0e8-edeb-11ea-1092-4b5e8acd9ee0
@@ -44,7 +44,7 @@ md"We can ask what type a variable has using `typeof`:"
 typeof(y)
 
 # ╔═╡ 8e2dd3be-edeb-11ea-0703-354fb31c12f5
-md"## Functions"
+md"## Funktionen"
 
 # ╔═╡ 96b5a28c-edeb-11ea-11c0-597615962f54
 md"We can use a short-form, one-line function definition for simple functions:"
@@ -217,7 +217,7 @@ md"A nice alternative syntax to create matrices following a certain pattern is a
 
 # ╔═╡ Cell order:
 # ╟─0d3aec92-edeb-11ea-3adb-cd0dc17cbdab
-# ╟─3b038ee0-edeb-11ea-0977-97cc30d1c6ff
+# ╟─ba3659ad-f5fb-42fe-9141-9a4582c6d057
 # ╠═3e8e0ea0-edeb-11ea-22e0-c58f7c2168ce
 # ╠═59b66862-edeb-11ea-2d62-71dcc79dbfab
 # ╟─5e062a24-edeb-11ea-256a-d938f77d7815
