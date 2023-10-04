@@ -1,15 +1,15 @@
 Dict(
     :main => [
-        "welcome" => collections["welcome"].pages,
-        "Preliminaries" => collections["preliminaries"].pages,
-        "Module 2: Social Science & Data Science" => collections["module2"].pages,
+        "Willkommen" => collections["welcome"].pages,
+        "Einführung" => collections["preliminaries"].pages,
+        "Aufgabenblätter" => collections["module2"].pages,
         #"Module 3: Climate Science" => collections["module3"].pages,
 
     ],
     :about => Dict(
         :authors => [
             (name = "Prof. Jens Starke", url = "http://www.jstarke.eu"),
-            (name = "Hannes Wallner", url = "https://www.the-second.com")
+            (name = "Hannes Wallner", url = "http://www.jstarke.eu")
         ],
         :title => "CAS Julia",
         :subtitle => "Eine interaktive Einführung",
