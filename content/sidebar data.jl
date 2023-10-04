@@ -8,14 +8,14 @@ Dict(
     ],
     :about => Dict(
         :authors => [
-            (name = "Instructor One", url = "https://www.the-one.eu"),
-            (name = "Second Instructor", url = "https://www.the-second.com")
+            (name = "Prof. Jens Starke", url = "http://www.jstarke.eu"),
+            (name = "Hannes Wallner", url = "https://www.the-second.com")
         ],
-        :title => "A Great Course",
-        :subtitle => "Even Greater Than You Thought",
-        :term => "Winter 2023",
-        :institution => "University of Greatness",
-        :institution_url => "http://www.uva.nl",
+        :title => "CAS Julia",
+        :subtitle => "Eine interaktive Einführung",
+        :term => "Winter 2023/2024",
+        :institution => "Universität Rostock",
+        :institution_url => "http://www.uni-rostock.de",
         :institution_logo => "julia-logo-color.svg",
         :institution_logo_darkmode => "julia-logo-dark.svg"
     )
