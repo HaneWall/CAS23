@@ -1,0 +1,31 @@
+julia:
+  stage: build
+  image: julia:1
+  script:
+    - cd generate
+    - cp generate.jl generate2.jl
+    - julia -e '
+          import Pkg;
+          Pkg.add("Pluto"); import Pluto;
+          Pluto.PkgUtils.write_nb_to_dir("./generate2.jl", ".")'
+    - julia --project=. -e '
+          import Pkg;
+          Pkg.instantiate();
+          include("generate.jl")'
+    - cd ..
+  artifacts:
+    paths:
+      - website/__site
+  cache:
+    paths:
+      - pluto_state_cache
+
+pages:
+  stage: deploy
+  script:
+    - mv ./website/__site public
+  artifacts:
+    paths:
+      - public
+  rules:
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
