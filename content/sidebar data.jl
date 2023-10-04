@@ -13,7 +13,7 @@ Dict(
         ],
         :title => "A Great Course",
         :subtitle => "Even Greater Than You Thought",
-        :term => "Spring 2023",
+        :term => "Winter 2023",
         :institution => "University of Greatness",
         :institution_url => "http://www.uva.nl",
         :institution_logo => "julia-logo-color.svg",
