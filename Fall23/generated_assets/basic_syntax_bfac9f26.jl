@@ -3,9 +3,9 @@
 
 #> [frontmatter]
 #> chapter = 1
-#> section = 7
-#> order = 7
-#> title = "Basic Julia"
+#> section = 1
+#> order = 1
+#> title = "Erste Schritte"
 #> layout = "layout.jlhtml"
 #> tags = ["preliminaries"]
 #> description = ""
