@@ -49,11 +49,8 @@ end
 # ╔═╡ 3fa50afa-c2eb-4dd2-80bc-2a891d6289c1
 md"""
 Dadurch beschränken wir auch die Sichtbarkeit der Variable c in anderen Zellen. 
-Man definiert die Variablen also lokal in der Zelle (`local scope`). Demnach erhalten wir nach Abfrage der Variablen `c` in einer anderen Zelle einen Error:
+Man definiert die Variablen also lokal in der Zelle (`local scope`). Demnach erhalten wir nach Abfrage der Variablen `c` in einer anderen Zelle einen Error.
 """
-
-# ╔═╡ 3c9700f5-9c87-4e35-9d01-e4a355bd982a
-c
 
 # ╔═╡ bdc1f6f8-4f0f-459f-941a-b29b0fae0b87
 md"""
@@ -284,7 +281,6 @@ md"A nice alternative syntax to create matrices following a certain pattern is a
 # ╟─5e062a24-edeb-11ea-256a-d938f77d7815
 # ╠═f4e9eb19-2ddf-4155-aa35-5ee94cb82554
 # ╟─3fa50afa-c2eb-4dd2-80bc-2a891d6289c1
-# ╠═3c9700f5-9c87-4e35-9d01-e4a355bd982a
 # ╟─bdc1f6f8-4f0f-459f-941a-b29b0fae0b87
 # ╠═6ad8fcba-b82e-4ba7-a977-20e5611a0e77
 # ╠═b42d72a4-3e27-4766-91c3-da5e62a0a3a7
