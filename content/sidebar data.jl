@@ -9,14 +9,14 @@ Dict(
     :about => Dict(
         :authors => [
             (name = "Prof. Jens Starke", url = "http://www.jstarke.eu"),
-            (name = "Hannes Wallner", url = "http://www.jstarke.eu")
+            (name = "Hannes Wallner", url = "https://github.com/HaneWall")
         ],
         :title => "CAS Julia",
         :subtitle => "Eine interaktive Einführung",
         :term => "Winter 2023/2024",
         :institution => "Universität Rostock",
         :institution_url => "http://www.uni-rostock.de",
-        :institution_logo => "julia-logo-color.svg",
-        :institution_logo_darkmode => "julia-logo-dark.svg"
+        :institution_logo => "black-logo-uni-julia.svg",
+        :institution_logo_darkmode => "white-logo-uni-julia.svg"
     )
 )
