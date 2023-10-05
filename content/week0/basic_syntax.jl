@@ -4,7 +4,7 @@
 #> [frontmatter]
 #> chapter = 1
 #> section = 1
-#> order = 1
+#> order = 7
 #> title = "Erste Schritte"
 #> layout = "layout.jlhtml"
 #> tags = ["preliminaries"]
