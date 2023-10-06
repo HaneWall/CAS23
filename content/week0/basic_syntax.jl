@@ -51,9 +51,6 @@ Dadurch beschränken wir auch die Sichtbarkeit der Variable c in anderen Zellen.
 Man definiert die Variablen also lokal in der Zelle (`local scope`). Demnach erhalten wir nach Abfrage der Variablen `c` in einer anderen Zelle einen Error.
 """
 
-# ╔═╡ f32af973-ce2e-46cf-a056-45a362939069
-c
-
 # ╔═╡ bdc1f6f8-4f0f-459f-941a-b29b0fae0b87
 md"""
 Um mehrere Zeilen ausführen zu können und dennoch die Variablen global (in allen Zellen) bereitzustellen, kann eine `begin ... end` Umgebung genutzt werden.
@@ -463,7 +460,6 @@ bigeinmaleins = [zeile * spalte for zeile in 1:12, spalte in 1:12]
 # ╟─5e062a24-edeb-11ea-256a-d938f77d7815
 # ╠═f4e9eb19-2ddf-4155-aa35-5ee94cb82554
 # ╟─3fa50afa-c2eb-4dd2-80bc-2a891d6289c1
-# ╠═f32af973-ce2e-46cf-a056-45a362939069
 # ╟─bdc1f6f8-4f0f-459f-941a-b29b0fae0b87
 # ╠═6ad8fcba-b82e-4ba7-a977-20e5611a0e77
 # ╠═b42d72a4-3e27-4766-91c3-da5e62a0a3a7
