@@ -1,8 +1,9 @@
 Dict(
     :main => [
         "Willkommen" => collections["welcome"].pages,
-        "Einführung" => collections["preliminaries"].pages,
-        "Aufgabenblätter" => collections["module2"].pages,
+        "Grundlagen Julia" => collections["preliminaries"].pages,
+        "Aufgabenblätter" => collections["assignments"].pages,
+        "Vorlesungen" => collections["lectures"].pages,
         #"Module 3: Climate Science" => collections["module3"].pages,
 
     ],
