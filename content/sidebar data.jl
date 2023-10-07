@@ -3,7 +3,7 @@ Dict(
         "Willkommen" => collections["welcome"].pages,
         "Grundlagen Julia" => collections["preliminaries"].pages,
         "Aufgabenblätter" => collections["assignments"].pages,
-        "Vorlesungen" => collections["lectures"].pages,
+        #"Vorlesungen" => collections["lectures"].pages,
         #"Module 3: Climate Science" => collections["module3"].pages,
 
     ],
