@@ -4,8 +4,8 @@
 #> [frontmatter]
 #> chapter = 1
 #> section = 1
-#> order = 7
-#> title = "Erste Schritte"
+#> order = 1
+#> title = "Variablen, Funktionen, Schleifen, Bedingungen"
 #> layout = "layout.jlhtml"
 #> tags = ["preliminaries"]
 #> description = ""
@@ -13,11 +13,14 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 97da2bc0-f16d-4d57-a0a5-fe8aea53b738
+using PlutoUI
+
 # ╔═╡ 0d3aec92-edeb-11ea-3adb-cd0dc17cbdab
 md"# Erste Schritte in Julia
 ✋ Bevor Ihr hier anfangt, solltet Ihr vermutlich zunächst Julia installieren und das Package Pluto herunterladen. Eine genaue Anleitung findet Ihr weiter oben unter dem Reiter Software Installation :).
 
-Ready? 🎬 Dann hier eine kleine Einführung: 
+Ready? 🎬 Dann hier eine kleine Einführung:  
 "
 
 
@@ -35,21 +38,8 @@ x = 3
 y = 2x
 
 # ╔═╡ 5e062a24-edeb-11ea-256a-d938f77d7815
-md"Standardmäßig zeigt Pluto/Julia die Ausgabe über der ausgeführten Zelle an. Dies kann man beispielsweise durch ein Semikolon am Ende einer Zeile unterdrücken. Außerdem wichtig: Möchte man mehrere Zeilen hintereinander ausführen so sollte die Zelle in einer `let ... end` Umgebung eingebunden sein:
+md"Standardmäßig zeigt Pluto/Julia die Ausgabe über der ausgeführten Zelle an. Dies kann man beispielsweise durch ein Semikolon am Ende einer Zeile unterdrücken. 
 "
-
-# ╔═╡ f4e9eb19-2ddf-4155-aa35-5ee94cb82554
-let 
-c = 2 
-d = 3 
-e = 3c+ 2d
-end
-
-# ╔═╡ 3fa50afa-c2eb-4dd2-80bc-2a891d6289c1
-md"""
-Dadurch beschränken wir auch die Sichtbarkeit der Variable c in anderen Zellen. 
-Man definiert die Variablen also lokal in der Zelle (`local scope`). Demnach erhalten wir nach Abfrage der Variablen `c` in einer anderen Zelle einen Error.
-"""
 
 # ╔═╡ bdc1f6f8-4f0f-459f-941a-b29b0fae0b87
 md"""
@@ -65,6 +55,24 @@ end
 
 # ╔═╡ b42d72a4-3e27-4766-91c3-da5e62a0a3a7
 k
+
+# ╔═╡ 2e3f401a-584c-4760-bf07-0ad15c4a28f1
+md"""Möchte man mehrere Zeilen hintereinander ausführen, aber die Sichtbarkeit der Variablen für andere Zellen beschränken so kann man eine `let ... end` Umgebung nutzen."""
+
+# ╔═╡ f4e9eb19-2ddf-4155-aa35-5ee94cb82554
+let 
+c = 2 
+d = 3 
+e = 3c+ 2d
+end
+
+# ╔═╡ 3fa50afa-c2eb-4dd2-80bc-2a891d6289c1
+md"""
+Man definiert die Variablen also lokal in der Zelle (`local scope`). Demnach erhalten wir nach Abfrage der Variablen `c` in einer anderen Zelle einen Error.
+"""
+
+# ╔═╡ 09ae4991-3a11-406f-9aaf-617700cc3b12
+c
 
 # ╔═╡ 7e46f0e8-edeb-11ea-1092-4b5e8acd9ee0
 md"Mithilfe von `typeof` können wir den Typen einer Variablen abfragen:"
@@ -216,241 +224,306 @@ Hierbei haben wir Gebrauch von den `&&` Vergleichsoperator gemacht. Dieser vergl
 Generell kann man sogar mehrere `elseif` Abfragen in einen solcher Umgebung unterbringen.
 """
 
-# ╔═╡ ffee7d80-eded-11ea-26b1-1331df204c67
-md"## `Array`s"
+# ╔═╡ 2fbe982c-a87c-43f9-9b1c-0cb79b1e5291
+md"
+Mihilfe von Bedingungen können wir nun auch noch eine andere Art und Weise einführen Schleifen zu konstruieren. 
+"
 
-# ╔═╡ daeca7d5-0100-41ea-a106-6b1a7ecdcf7a
+# ╔═╡ da828bb9-24bf-4754-bffa-62f82e986934
 md"""
-`Array`s sind gewissermaßen das Fundament der computerorientierten Mathematik. Sie erlauben es uns mehrere Werte zu speichern und auszulesen.
+## While loops / While Schleifen
 """
 
-# ╔═╡ cae4137e-edee-11ea-14af-59a32227de1b
-md"### 1D `Arrays`"
+# ╔═╡ d37d17fc-681b-4b7f-9f0d-bcf449a6e81e
+md"
+While Schleifen laufen solange bis sie eine Abbruchbedingung erreichen. Dies macht Sie um einiges *gefährlicher* als eine `For` Schleife, da Sie eventuell nie Ihre Abbruchbedingung erzielen und somit ewig laufen
+"
 
-# ╔═╡ 714f4fca-edee-11ea-3410-c9ab8825d836
-md"""
-Wir können ein eindimensionales `Array` (1-dimensional, oder 1D `Array`) durch eckige Klammern `[ ]` erzeugen.
-"""
-
-# ╔═╡ 82cc2a0e-edee-11ea-11b7-fbaa5ad7b556
-v = [1, 3, 5]
-
-# ╔═╡ 85916c18-edee-11ea-0738-5f5d78875b86
-typeof(v)
-
-# ╔═╡ 881b7d0c-edee-11ea-0b4a-4bd7d5be2c77
-md"""
-Die `1` im Typen zeigt die Anzahl der Dimensionen. Ausgesprochen: `v` ist ein 1D array, welches Elemente vom Typen `Int64` beherbergt.
-
-Fundamental bei Arrays: Wir können deren Elemente einsehen und ändern. Zum Beispiel können wir durch `array[index]` uns das Element an der Position `index` des Arrays ausgeben lassen.
-"""
-
-# ╔═╡ a298e8ae-edee-11ea-3613-0dd4bae70c26
-v[2]
-
-# ╔═╡ 98664fb6-ebaf-449a-9f20-aaa3f955f44e
-md"""
-Natürlich können wir auch das Element an zweiter Stelle ändern: 
-"""
-
-# ╔═╡ a5ebddd6-edee-11ea-2234-55453ea59c5a
-v[2] = 10
-
-# ╔═╡ b6a3fe2e-7504-4d94-9672-ef564308d387
-v
-
-# ╔═╡ 3c7424db-51c9-41a2-9630-2c188a80d5d5
-md"""
-### Nett zu wissen und noch häufiger zu gebrauchen:
-"""
-
-# ╔═╡ 68c4ead2-edef-11ea-124a-03c2d7dd6a1b
-md"""
-Eine äußerst elegante Art und Weise `Array`s zu erzeugen ist das sogenannte **array comprehension** Muster. Dabei verbinden wir eine For-Schleife mit der Konstruktion eines `Array`s. 
-
-Z.B. alle Quadratzahlen von 1 bis 10 als 1D `Array`: 
-"""
-
-# ╔═╡ 84129294-edef-11ea-0c77-ffa2b9592a26
-v2 = [i^2 for i in 1:10]
-
-# ╔═╡ 0025dea4-99cc-4cb4-9c92-f14d04af56eb
-md"""
-Die Alternative: Zunächst erstellen wir ein 10-Elemente langes Array aus Nullen vom Typ `Int64`.
-"""
-
-# ╔═╡ de160dfe-53ef-4788-86df-157b44e5e1da
-v3 = zeros(Int64, 10)
-
-# ╔═╡ 4341aee5-0631-4171-953c-2ba07e0ee135
-md"""
-Anschließend iterieren wir mittels `for` Schleife über die `Indizes` des `Array`s und verändern die Elemente zu den gewünschten Quadratzahlen.
-"""
-
-# ╔═╡ 3e362465-9e27-45b2-a062-757cbde31eca
-begin 
-for idx in 1:10 
-	v3[idx] = idx^2
-end
-v3
-end
-
-# ╔═╡ cbd56fc2-1c96-45fb-99a9-2deb68a0e2b9
-md"""
-### `Array`-Slicing:
-"""
-
-# ╔═╡ 2a23488b-49bf-4743-9501-21030acc2139
-md"""
-Sagen wir, wir möchten ein Stück aus dem ehemaligen `Array` extrahieren. Spezifischer wir möchten ein neues Array `v4` erzeugen welches dem ursprünglichen `v3` vom `Index` 3 bis 7 entspricht (Grenzen inkludiert). Dies können wir durch den `:` Operator innerhalb der eckigen Klammer gewährleisten. 
-
-"""
-
-# ╔═╡ c386d317-3fdd-4088-b5e7-cc7dadd0b518
-v4 = v3[3:7]
-
-# ╔═╡ b55c6ef3-c81d-4f6a-8f0f-05044d751a9d
-md"""
-Ab und an kommt es vor, dass man eventuell nur jedes `n`-te Element des ursprünglichen `Array`s benötigt. Dafür nutzen wir dann die **slicing**-Syntax, bei der wir zwischen den `Start` und `Stop` `Index` zusätzlich eine Schrittweite `Step` hinzufügen. 
-
-`array[Start:Step:Stop]` . Z.B. nur jedes `2`-te Element des Quadratzahlenarrays:
-"""
-
-# ╔═╡ b26ff5b6-6e68-40e6-9ef1-afa2105f268b
-v5 = v3[1:2:10]
-
-# ╔═╡ 45bba432-2b07-4a72-87e4-688bb2ca40a9
-md"""
-### Konstruktion von `Arrays` mit festgelegter Schrittweite
-"""
-
-# ╔═╡ d5406f4c-023b-4e96-9707-10436b96df56
-md"""
-Mithilfe der **Slicing**-Syntax können wir in Julia auch `Array`s konstruieren. Zunächst bastelt man sich eine **range** mittels `r = Start:Step:Stop`, diese kann dann anschließend mittels `collect(r)` zu einen `Array` umgeformt werden. 
-
-Zum Beispiel hier die Erzeugung eines 1D `Array`s, dessen Elemente von 1 bis 19 mit einer Schrittweite von 3 reichen. 
-"""
-
-# ╔═╡ d13638ef-1837-44a0-afb9-7bedcb7187b9
-arr = collect(1:3:19)
-
-# ╔═╡ d364fa16-edee-11ea-2050-0f6cb70e1bcf
-md"## 2D `Arrays`"
-
-# ╔═╡ db99ae9a-edee-11ea-393e-9de420a545a1
-md"""
-1D `Array`s werden schnell langweilig. Lasst uns nun 2D `Array`s anschauen, die sehr häufig benötigt werden. Ihr werdet feststellen das mit dem Vorwissen von 1D `Array`s der Sprung zu ND `Array`s nur minimal ist. Man kann auf ganz verschiedene Art und Weisen ein 2D `Array` bzw. eine Matrix erzeugen. Alle sind äquivalent:
-"""
-
-# ╔═╡ 04f175f2-edef-11ea-0882-712548ebb7a3
-M = [1 2
-	 3 4]
-
-# ╔═╡ bc19f4aa-404f-48df-ad5f-bfceed049286
-M₂ = [1 2; 3 4]
-
-# ╔═╡ a3881a8c-1bbd-4e42-96af-f8b5786c9cac
-md"""
-Mittels Spaltenvektoren:
-"""
-
-# ╔═╡ 2e12659d-c108-4cab-8b6b-19d2458b92f9
-M₃ = [[1, 3] [2, 4]]
-
-# ╔═╡ 0a8ac112-edef-11ea-1e99-cf7c7808c4f5
-typeof(M)
-
-# ╔═╡ 1295f48a-edef-11ea-22a5-61e8a2e1d005
-md"Die `2` im Typen bestätigt, dass es sich tatsächlich um ein 2D `Array` handelt"
-
-# ╔═╡ 1d95f3ef-1163-44a5-a25e-55f9180d7395
-md"""
-Die Navigation innerhalb eines 2D-`Array`s ist identisch zum eindimensionalen Fall. Da wir nun in zwei Dimensionen arbeiten benötigen wir jedoch für die Position zwei `Indizes`. Der erste `Index` deklariert die Zeile in der wir arbeiten und der zweite `Index` die Spalte.
-
-`array[row, column]` bzw. deutsch: `array[Zeile, Spalte]`
-
-"""
-
-# ╔═╡ 7bbcbd5a-268c-481c-9974-f459140e13d9
-M
-
-# ╔═╡ b013ea63-458c-480a-8967-cd0b944df730
-M[1, 1]
-
-# ╔═╡ c544d9ba-25dd-4d05-8ab1-b6518b40b0f2
-M[2, 2]
-
-# ╔═╡ e4e8ae8d-db66-4fff-bf0c-883a7a8179e8
-md"""
-Natürlich funktioniert auch hier **slicing**.
-"""
-
-# ╔═╡ f4f3e45f-3ea2-4e42-acb1-3ababf16fe46
-M[1, 1:2]
-
-# ╔═╡ c2b3391e-c5fb-4620-a8c8-65167b389106
-M[1:2, 2]
-
-# ╔═╡ 1835d2f4-ea09-479c-9eda-46249619d685
-md"""
-Auch hier können wir natürlich Werte ändern.
-"""
-
-# ╔═╡ 5b08e2a7-9aac-4ec8-958f-3eac7da5f92c
-M[1:2, 2] = [7, 7]
-
-# ╔═╡ e592a31c-f76b-494a-af1e-c9e01e39eb66
-M
-
-# ╔═╡ 8414f2d0-324f-4c1a-8ef4-1af85a984172
-md"""
-### Vorgefertigte Arrays
-"""
-
-# ╔═╡ 3e1fdaa8-edef-11ea-2f03-eb41b2b9ea0f
-md"""
-Für große Matrizen ist es wenig sinnvoll, diese per Hand zu definieren. Hier greift man auf bereits vorgefertigte Konstruktionen von Julia zurück. Z.B. können wir eine Matrix (ein 2D `Array`) voller Nullen durch den Befehl
-
-`zeros(TYP, Anzahl_Zeilen, Anzahl_Spalten)`
-
-
-initialisieren. 
-"""
-
-# ╔═╡ 48f3deca-edef-11ea-2c18-e7419c9030a0
-zeros(3, 5)
-
-# ╔═╡ a8f26af8-edef-11ea-2fc7-2b776f515aea
-md"Wenn wir kein TYP angeben, so geht Julia davon aus das wir Gleitkommazahlen `Float64` meinen. Möchten wir hingegen ganze Zahlen (`Integer`) so können wir dies durch den TYP festlegen."
-
-# ╔═╡ b595373e-edef-11ea-03e2-6599ef14af20
-einmaleins = zeros(Int64, 5, 5)
-
-# ╔═╡ 4cb33c04-edef-11ea-2b35-1139c246c331
-md"Jetzt könnte man mittels zweier in sich gekopppelter `for-Schleifen` über die  `Indizes` iterieren und somit die Matrix auffüllen. Hier z.B. eine 1×1- Tabelle bis 5: "
-
-# ╔═╡ 5faef391-1dbd-4187-9082-afc2051b49f5
-begin
+# ╔═╡ ec615b6b-c900-4add-a523-c006bdeb6e7b
+let 
 	
-for zeilen_idx in 1:5
-	for spalten_idx in 1:5
-		einmaleins[zeilen_idx, spalten_idx] = zeilen_idx * spalten_idx
-	end
-end
-einmaleins
-	
+i = 0
+while i < 5
+	# Ausgabe einer Zeile. Das $ Zeichen wertet die Variable in den runden Klammern aus und führt es in ein `String` über:
+	println("i ist $(i) und damit kleiner als 5")
+	i = i + 1
 end
 
-# ╔═╡ f5346ca1-c6de-4817-a6ac-40f1c06107a9
-md"""
-## Das kleine 1×1 mittels array comprehension
+end
+
+# ╔═╡ 8602aa26-ee1c-43cf-b33e-50cd19b39abc
+TableOfContents()
+
+# ╔═╡ 00000000-0000-0000-0000-000000000001
+PLUTO_PROJECT_TOML_CONTENTS = """
+[deps]
+PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+
+[compat]
+PlutoUI = "~0.7.52"
 """
 
-# ╔═╡ 54e47e9e-edef-11ea-2d75-b5f550902528
-md"Eine sehr nette und elegante Alternative ist abermals das **array comprehension** Muster. Hier das 1×1 bis 12 durch eine einzige Zeile Code."
+# ╔═╡ 00000000-0000-0000-0000-000000000002
+PLUTO_MANIFEST_TOML_CONTENTS = """
+# This file is machine-generated - editing it directly is not advised
 
-# ╔═╡ 6348edce-edef-11ea-1ab4-019514eb414f
-bigeinmaleins = [zeile * spalte for zeile in 1:12, spalte in 1:12]
+julia_version = "1.9.3"
+manifest_format = "2.0"
+project_hash = "f5c06f335ceddc089c816627725c7f55bb23b077"
+
+[[deps.AbstractPlutoDingetjes]]
+deps = ["Pkg"]
+git-tree-sha1 = "91bd53c39b9cbfb5ef4b015e8b582d344532bd0a"
+uuid = "6e696c72-6542-2067-7265-42206c756150"
+version = "1.2.0"
+
+[[deps.ArgTools]]
+uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
+version = "1.1.1"
+
+[[deps.Artifacts]]
+uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
+
+[[deps.Base64]]
+uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
+
+[[deps.ColorTypes]]
+deps = ["FixedPointNumbers", "Random"]
+git-tree-sha1 = "eb7f0f8307f71fac7c606984ea5fb2817275d6e4"
+uuid = "3da002f7-5984-5a60-b8a6-cbb66c0b333f"
+version = "0.11.4"
+
+[[deps.CompilerSupportLibraries_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
+version = "1.0.5+0"
+
+[[deps.Dates]]
+deps = ["Printf"]
+uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
+
+[[deps.Downloads]]
+deps = ["ArgTools", "FileWatching", "LibCURL", "NetworkOptions"]
+uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
+version = "1.6.0"
+
+[[deps.FileWatching]]
+uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
+
+[[deps.FixedPointNumbers]]
+deps = ["Statistics"]
+git-tree-sha1 = "335bfdceacc84c5cdf16aadc768aa5ddfc5383cc"
+uuid = "53c48c17-4a7d-5ca2-90c5-79b7896eea93"
+version = "0.8.4"
+
+[[deps.Hyperscript]]
+deps = ["Test"]
+git-tree-sha1 = "8d511d5b81240fc8e6802386302675bdf47737b9"
+uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
+version = "0.0.4"
+
+[[deps.HypertextLiteral]]
+deps = ["Tricks"]
+git-tree-sha1 = "c47c5fa4c5308f27ccaac35504858d8914e102f9"
+uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
+version = "0.9.4"
+
+[[deps.IOCapture]]
+deps = ["Logging", "Random"]
+git-tree-sha1 = "d75853a0bdbfb1ac815478bacd89cd27b550ace6"
+uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
+version = "0.2.3"
+
+[[deps.InteractiveUtils]]
+deps = ["Markdown"]
+uuid = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
+
+[[deps.JSON]]
+deps = ["Dates", "Mmap", "Parsers", "Unicode"]
+git-tree-sha1 = "31e996f0a15c7b280ba9f76636b3ff9e2ae58c9a"
+uuid = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+version = "0.21.4"
+
+[[deps.LibCURL]]
+deps = ["LibCURL_jll", "MozillaCACerts_jll"]
+uuid = "b27032c2-a3e7-50c8-80cd-2d36dbcbfd21"
+version = "0.6.3"
+
+[[deps.LibCURL_jll]]
+deps = ["Artifacts", "LibSSH2_jll", "Libdl", "MbedTLS_jll", "Zlib_jll", "nghttp2_jll"]
+uuid = "deac9b47-8bc7-5906-a0fe-35ac56dc84c0"
+version = "7.84.0+0"
+
+[[deps.LibGit2]]
+deps = ["Base64", "NetworkOptions", "Printf", "SHA"]
+uuid = "76f85450-5226-5b5a-8eaa-529ad045b433"
+
+[[deps.LibSSH2_jll]]
+deps = ["Artifacts", "Libdl", "MbedTLS_jll"]
+uuid = "29816b5a-b9ab-546f-933c-edad1886dfa8"
+version = "1.10.2+0"
+
+[[deps.Libdl]]
+uuid = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
+
+[[deps.LinearAlgebra]]
+deps = ["Libdl", "OpenBLAS_jll", "libblastrampoline_jll"]
+uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+
+[[deps.Logging]]
+uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
+
+[[deps.MIMEs]]
+git-tree-sha1 = "65f28ad4b594aebe22157d6fac869786a255b7eb"
+uuid = "6c6e2e6c-3030-632d-7369-2d6c69616d65"
+version = "0.1.4"
+
+[[deps.Markdown]]
+deps = ["Base64"]
+uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
+
+[[deps.MbedTLS_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
+version = "2.28.2+0"
+
+[[deps.Mmap]]
+uuid = "a63ad114-7e13-5084-954f-fe012c677804"
+
+[[deps.MozillaCACerts_jll]]
+uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
+version = "2022.10.11"
+
+[[deps.NetworkOptions]]
+uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
+version = "1.2.0"
+
+[[deps.OpenBLAS_jll]]
+deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
+uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
+version = "0.3.21+4"
+
+[[deps.Parsers]]
+deps = ["Dates", "PrecompileTools", "UUIDs"]
+git-tree-sha1 = "716e24b21538abc91f6205fd1d8363f39b442851"
+uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
+version = "2.7.2"
+
+[[deps.Pkg]]
+deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
+uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+version = "1.9.2"
+
+[[deps.PlutoUI]]
+deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
+git-tree-sha1 = "e47cd150dbe0443c3a3651bc5b9cbd5576ab75b7"
+uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+version = "0.7.52"
+
+[[deps.PrecompileTools]]
+deps = ["Preferences"]
+git-tree-sha1 = "03b4c25b43cb84cee5c90aa9b5ea0a78fd848d2f"
+uuid = "aea7be01-6a6a-4083-8856-8a6e6704d82a"
+version = "1.2.0"
+
+[[deps.Preferences]]
+deps = ["TOML"]
+git-tree-sha1 = "00805cd429dcb4870060ff49ef443486c262e38e"
+uuid = "21216c6a-2e73-6563-6e65-726566657250"
+version = "1.4.1"
+
+[[deps.Printf]]
+deps = ["Unicode"]
+uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+
+[[deps.REPL]]
+deps = ["InteractiveUtils", "Markdown", "Sockets", "Unicode"]
+uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+
+[[deps.Random]]
+deps = ["SHA", "Serialization"]
+uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[[deps.Reexport]]
+git-tree-sha1 = "45e428421666073eab6f2da5c9d310d99bb12f9b"
+uuid = "189a3867-3050-52da-a836-e630ba90ab69"
+version = "1.2.2"
+
+[[deps.SHA]]
+uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+version = "0.7.0"
+
+[[deps.Serialization]]
+uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
+
+[[deps.Sockets]]
+uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
+
+[[deps.SparseArrays]]
+deps = ["Libdl", "LinearAlgebra", "Random", "Serialization", "SuiteSparse_jll"]
+uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+
+[[deps.Statistics]]
+deps = ["LinearAlgebra", "SparseArrays"]
+uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+version = "1.9.0"
+
+[[deps.SuiteSparse_jll]]
+deps = ["Artifacts", "Libdl", "Pkg", "libblastrampoline_jll"]
+uuid = "bea87d4a-7f5b-5778-9afe-8cc45184846c"
+version = "5.10.1+6"
+
+[[deps.TOML]]
+deps = ["Dates"]
+uuid = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+version = "1.0.3"
+
+[[deps.Tar]]
+deps = ["ArgTools", "SHA"]
+uuid = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
+version = "1.10.0"
+
+[[deps.Test]]
+deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
+uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[[deps.Tricks]]
+git-tree-sha1 = "aadb748be58b492045b4f56166b5188aa63ce549"
+uuid = "410a4b4d-49e4-4fbc-ab6d-cb71b17b3775"
+version = "0.1.7"
+
+[[deps.URIs]]
+git-tree-sha1 = "b7a5e99f24892b6824a954199a45e9ffcc1c70f0"
+uuid = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"
+version = "1.5.0"
+
+[[deps.UUIDs]]
+deps = ["Random", "SHA"]
+uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
+
+[[deps.Unicode]]
+uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
+
+[[deps.Zlib_jll]]
+deps = ["Libdl"]
+uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
+version = "1.2.13+0"
+
+[[deps.libblastrampoline_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
+version = "5.8.0+0"
+
+[[deps.nghttp2_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
+version = "1.48.0+0"
+
+[[deps.p7zip_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
+version = "17.4.0+0"
+"""
 
 # ╔═╡ Cell order:
 # ╟─0d3aec92-edeb-11ea-3adb-cd0dc17cbdab
@@ -458,11 +531,13 @@ bigeinmaleins = [zeile * spalte for zeile in 1:12, spalte in 1:12]
 # ╠═3e8e0ea0-edeb-11ea-22e0-c58f7c2168ce
 # ╠═59b66862-edeb-11ea-2d62-71dcc79dbfab
 # ╟─5e062a24-edeb-11ea-256a-d938f77d7815
-# ╠═f4e9eb19-2ddf-4155-aa35-5ee94cb82554
-# ╟─3fa50afa-c2eb-4dd2-80bc-2a891d6289c1
 # ╟─bdc1f6f8-4f0f-459f-941a-b29b0fae0b87
 # ╠═6ad8fcba-b82e-4ba7-a977-20e5611a0e77
 # ╠═b42d72a4-3e27-4766-91c3-da5e62a0a3a7
+# ╟─2e3f401a-584c-4760-bf07-0ad15c4a28f1
+# ╠═f4e9eb19-2ddf-4155-aa35-5ee94cb82554
+# ╟─3fa50afa-c2eb-4dd2-80bc-2a891d6289c1
+# ╠═09ae4991-3a11-406f-9aaf-617700cc3b12
 # ╟─7e46f0e8-edeb-11ea-1092-4b5e8acd9ee0
 # ╠═8a695b86-edeb-11ea-08cc-17263bec09df
 # ╟─e76fce0f-d3b3-4068-a456-75bc5811e80d
@@ -495,57 +570,11 @@ bigeinmaleins = [zeile * spalte for zeile in 1:12, spalte in 1:12]
 # ╟─cfb21014-eded-11ea-1261-3bc30952a88e
 # ╠═0ba17e45-bdca-40de-af10-e4167251a5f7
 # ╟─22d6c86e-fbf2-4246-aee1-afe700b49355
-# ╟─ffee7d80-eded-11ea-26b1-1331df204c67
-# ╟─daeca7d5-0100-41ea-a106-6b1a7ecdcf7a
-# ╟─cae4137e-edee-11ea-14af-59a32227de1b
-# ╟─714f4fca-edee-11ea-3410-c9ab8825d836
-# ╠═82cc2a0e-edee-11ea-11b7-fbaa5ad7b556
-# ╠═85916c18-edee-11ea-0738-5f5d78875b86
-# ╟─881b7d0c-edee-11ea-0b4a-4bd7d5be2c77
-# ╠═a298e8ae-edee-11ea-3613-0dd4bae70c26
-# ╟─98664fb6-ebaf-449a-9f20-aaa3f955f44e
-# ╠═a5ebddd6-edee-11ea-2234-55453ea59c5a
-# ╠═b6a3fe2e-7504-4d94-9672-ef564308d387
-# ╟─3c7424db-51c9-41a2-9630-2c188a80d5d5
-# ╟─68c4ead2-edef-11ea-124a-03c2d7dd6a1b
-# ╠═84129294-edef-11ea-0c77-ffa2b9592a26
-# ╟─0025dea4-99cc-4cb4-9c92-f14d04af56eb
-# ╠═de160dfe-53ef-4788-86df-157b44e5e1da
-# ╟─4341aee5-0631-4171-953c-2ba07e0ee135
-# ╠═3e362465-9e27-45b2-a062-757cbde31eca
-# ╟─cbd56fc2-1c96-45fb-99a9-2deb68a0e2b9
-# ╟─2a23488b-49bf-4743-9501-21030acc2139
-# ╠═c386d317-3fdd-4088-b5e7-cc7dadd0b518
-# ╟─b55c6ef3-c81d-4f6a-8f0f-05044d751a9d
-# ╠═b26ff5b6-6e68-40e6-9ef1-afa2105f268b
-# ╟─45bba432-2b07-4a72-87e4-688bb2ca40a9
-# ╟─d5406f4c-023b-4e96-9707-10436b96df56
-# ╠═d13638ef-1837-44a0-afb9-7bedcb7187b9
-# ╟─d364fa16-edee-11ea-2050-0f6cb70e1bcf
-# ╟─db99ae9a-edee-11ea-393e-9de420a545a1
-# ╠═04f175f2-edef-11ea-0882-712548ebb7a3
-# ╠═bc19f4aa-404f-48df-ad5f-bfceed049286
-# ╟─a3881a8c-1bbd-4e42-96af-f8b5786c9cac
-# ╠═2e12659d-c108-4cab-8b6b-19d2458b92f9
-# ╠═0a8ac112-edef-11ea-1e99-cf7c7808c4f5
-# ╟─1295f48a-edef-11ea-22a5-61e8a2e1d005
-# ╟─1d95f3ef-1163-44a5-a25e-55f9180d7395
-# ╠═7bbcbd5a-268c-481c-9974-f459140e13d9
-# ╠═b013ea63-458c-480a-8967-cd0b944df730
-# ╠═c544d9ba-25dd-4d05-8ab1-b6518b40b0f2
-# ╟─e4e8ae8d-db66-4fff-bf0c-883a7a8179e8
-# ╠═f4f3e45f-3ea2-4e42-acb1-3ababf16fe46
-# ╠═c2b3391e-c5fb-4620-a8c8-65167b389106
-# ╟─1835d2f4-ea09-479c-9eda-46249619d685
-# ╠═5b08e2a7-9aac-4ec8-958f-3eac7da5f92c
-# ╠═e592a31c-f76b-494a-af1e-c9e01e39eb66
-# ╟─8414f2d0-324f-4c1a-8ef4-1af85a984172
-# ╟─3e1fdaa8-edef-11ea-2f03-eb41b2b9ea0f
-# ╠═48f3deca-edef-11ea-2c18-e7419c9030a0
-# ╟─a8f26af8-edef-11ea-2fc7-2b776f515aea
-# ╠═b595373e-edef-11ea-03e2-6599ef14af20
-# ╟─4cb33c04-edef-11ea-2b35-1139c246c331
-# ╠═5faef391-1dbd-4187-9082-afc2051b49f5
-# ╟─f5346ca1-c6de-4817-a6ac-40f1c06107a9
-# ╟─54e47e9e-edef-11ea-2d75-b5f550902528
-# ╠═6348edce-edef-11ea-1ab4-019514eb414f
+# ╟─2fbe982c-a87c-43f9-9b1c-0cb79b1e5291
+# ╟─da828bb9-24bf-4754-bffa-62f82e986934
+# ╟─d37d17fc-681b-4b7f-9f0d-bcf449a6e81e
+# ╠═ec615b6b-c900-4add-a523-c006bdeb6e7b
+# ╠═97da2bc0-f16d-4d57-a0a5-fe8aea53b738
+# ╠═8602aa26-ee1c-43cf-b33e-50cd19b39abc
+# ╟─00000000-0000-0000-0000-000000000001
+# ╟─00000000-0000-0000-0000-000000000002
