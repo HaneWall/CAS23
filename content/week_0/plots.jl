@@ -198,7 +198,7 @@ md"
 
 # ╔═╡ 8d02a941-933f-4995-b585-6d8c2967956f
 md"
-Die Antwort im Makie-Paket ist: **Stück bei Stück** wie im echten Leben. Zunächst braucht man eine Leinwand bzw. eine Figur (engl. Figure) auf der man zeichnen möchte. Eine solche Figur können wir durch den Befehl `Figure()` erstellen. Innerhalb der runden Klammern können wir Optionen festlegen, wie z.B. die Resolution/Größe und die Hintergrundfarbe. Aus Demonstrationgründen wähle ich hier eine `moccasin`e Hintergrundfarbe für die Leinwand. 
+Die Antwort im Makie-Paket ist: **Stück für Stück** wie im echten Leben. Zunächst braucht man eine Leinwand bzw. eine Figur (engl. Figure) auf der man zeichnen möchte. Eine solche Figur können wir durch den Befehl `Figure()` erstellen. Innerhalb der runden Klammern können wir Optionen festlegen, wie z.B. die Resolution/Größe und die Hintergrundfarbe. Aus Demonstrationgründen wähle ich hier eine `moccasin`e Hintergrundfarbe für die Leinwand. 
 "
 
 # ╔═╡ 439b03b0-5c85-43b0-a6f2-beeb05be6211
@@ -222,7 +222,7 @@ end
 
 # ╔═╡ 363fac7f-d41a-43bb-9f18-1c21f5ac0eab
 md"""
-Jetzt können wir in unsere Achse (Axis) unsere Daten hineinzeichnen. Die Größe der Achse wird sich automatisch den Daten und der Leinwand anpassen. Hier plotten wir einen $f(x) = sin(x)$ und $f(x) = -sin(x)$ in ein gemeinsamnes Koordinatensystem (wir nannten es Achse) durch den `lines!(Achse, x, y)` Befehl. Das Ausrufezeichen `!` zeigt dabei, dass wir aktiv das Achsenobjekt verändern (wir zeichnen darauf). 
+Jetzt können wir in unsere Achse (Axis) unsere Daten hineinzeichnen. Die Größe der Achse wird sich automatisch den Daten und der Leinwand anpassen. Hier plotten wir zwei 1D `array`s, welche jeweils ein Sinus und einen invertierten Sinus darstellen. Wir möchten beide `Array`s in ein gemeinsames Koordinatensystem visualisieren. Dies geschieht durch den Linienplot-Befehl: `lines!(Achse, x, y)`. Das Ausrufezeichen `!` zeigt dabei, dass wir aktiv das Achsenobjekt - `Achse` verändern (wir zeichnen darauf). 
 """
 
 # ╔═╡ 979f6744-e9e2-435a-a533-35f47a44393e
@@ -237,9 +237,9 @@ end
 
 # ╔═╡ c18b382b-16a3-4997-bf88-dba8348318c6
 md"
-Man Stelle sich nun vor wir möchten rechts neben des Koordinaatensystems `Achse` ein weiteres Koordiantensystem `Achserechts`. Im echten Leben wäre das natürlich ein Problem, denn wir haben keine freie Leinwand mehr. In Makie bzw. CairoMakie ist das kein Problem, die Koordiantensysteme werden so skaliert, dass beide auf die Leinwand passen. Aber wie kreiere ich nun ein weiteres Koordinatensystem rechts?
+Man stelle sich nun vor wir möchten rechts neben dem Koordinatensystem `Achse` ein weiteres Koordinatensystem `Achserechts` platzieren. Im echten Leben wäre das natürlich ein Problem, denn wir haben keine freie Leinwand mehr. In Makie bzw. CairoMakie ist das kein Problem. Die Koordinatensysteme werden so skaliert, dass beide auf die Leinwand passen. Aber wie kreiere ich nun ein weiteres Koordinatensystem rechts?
 
-Wie bereits erwähnt verhält sich das `Figure`-objekt wie ein 2D-`Array`. Wir können also einfach mit dem Befehl
+Wie bereits erwähnt verhält sich das `Figure`-objekt wie ein 2D `Array`. Wir können also einfach mit dem Befehl
 
 `Achserechs = Axis(Leinwand[1, 2], optionen..)`
 
@@ -356,7 +356,7 @@ md"""
 md"
 Für dreidimensionale Grafiken benötigen wir einen anderen Achsentypen (im echten Leben würden wir ja auch ein anderes Koordinatensystem benötigen). Im Makie-Paket können wir durch die Funktion `Axis3(..)` einen 3D-Achsenobjekt erzeugen auf den wir anschließend wieder mit anderen Funktionen zeichnen können. Hier z.B. ein `wireframe` oder ein `surface` Plot der Funktion
 
-$z(x,y) = \cos(x)\sin(x)$
+$z(x,y) = \cos(x)\sin(y)$
 
 Dabei erzeugen wir zunächst ein äquidistantes Gitter für `x` und `y` und werten anschließend mittels **array-comprehension** die Funktionswerte $z(x, y)$ auf diesen aus.
 "
@@ -402,7 +402,7 @@ z = [cos(x_elem) * sin(y_elem) for x_elem in x, y_elem in y]
 fig = Figure(resolution=(800, 700), fontsize=24)
 ax = Axis(fig[1, 1], xlabel=L"x", ylabel=L"y")
 heat = heatmap!(ax, x, y, z, colormap=:berlin)
-contour!(ax, x, y, z, color=:white, levels=-1:0.2:1)
+contour!(ax, x, y, z, color=:white, levels=15)
 farbbar = Colorbar(fig[1,2], heat, ticks=-1:0.2:1, label=L"z")
 fig
 end

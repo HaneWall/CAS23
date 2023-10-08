@@ -7,7 +7,11 @@ layout: "md.jlmd"
 
 # Cheatsheets
 
-- [Getting Started with Julia - live](/basic_syntax/).
+Schnelleinstieg:
 - [Fastrack to Julia](https://juliadocs.github.io/Julia-Cheat-Sheet/) cheatsheet.
+
+Übersicht für Befehlsunterschiede zwischen Matlab-Python-Julia:
 - [MATLAB-Julia-Python comparative cheatsheet](https://cheatsheets.quantecon.org/) by [QuantEcon group](https://quantecon.org)
-- [Plots.jl cheatsheet](https://github.com/sswatson/cheatsheets/blob/master/plotsjl-cheatsheet.pdf)
+
+Makie Plots:
+- [Makie.jl Vorlagen](https://beautiful.makie.org/dev/)

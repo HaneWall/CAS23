@@ -2,10 +2,8 @@
 # v0.19.26
 
 #> [frontmatter]
-#> chapter = 2
-#> section = 1
 #> order = 1
-#> title = "Blatt 1"
+#> title = "Aufgabenblatt 1"
 #> layout = "layout.jlhtml"
 #> description = ""
 #> tags = ["assignments"]

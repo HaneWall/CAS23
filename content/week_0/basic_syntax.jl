@@ -224,6 +224,37 @@ Hierbei haben wir Gebrauch von den `&&` Vergleichsoperator gemacht. Dieser vergl
 Generell kann man sogar mehrere `elseif` Abfragen in einen solcher Umgebung unterbringen.
 """
 
+# ╔═╡ d1579078-6c68-4f0a-a0a3-03c732e484d4
+md"
+## Logische Verknüpfungen / Vergleichsoperatoren
+"
+
+# ╔═╡ bda5a4ff-ed02-456f-a4a4-bf4428486512
+md"
+Wie in jeder Programmiersprache existieren auch in Julia neben den logischen Und `&&` andere Vergleichsoperatoren.  Zum Beispiel, das logische oder `||` oder die Negation `!`. Hier eine Reihe an Beispielen für die logischen Verknüpfungen:
+"
+
+# ╔═╡ 8d39fe6a-7e13-43ec-ac72-78714161be61
+let 
+a = true
+b = false
+	
+println("Logisches Und:")
+println(a&&b)
+println(a&&a)
+println(b&&b)
+
+println("Logisches Oder:")
+println(a||b)
+println(a||a)
+println(b||b)
+
+println("Negation:")
+println(!a)
+println(!b)
+
+end
+
 # ╔═╡ 2fbe982c-a87c-43f9-9b1c-0cb79b1e5291
 md"
 Mihilfe von Bedingungen können wir nun auch noch eine andere Art und Weise einführen Schleifen zu konstruieren. 
@@ -236,7 +267,7 @@ md"""
 
 # ╔═╡ d37d17fc-681b-4b7f-9f0d-bcf449a6e81e
 md"
-While Schleifen laufen solange bis sie eine Abbruchbedingung erreichen. Dies macht Sie um einiges *gefährlicher* als eine `For` Schleife, da Sie eventuell nie Ihre Abbruchbedingung erzielen und somit ewig laufen
+While Schleifen laufen solange bis sie eine Abbruchbedingung erreichen. Dies macht Sie um einiges *gefährlicher* als eine `For` Schleife, da Sie eventuell nie Ihre Abbruchbedingung erzielen und somit ewig laufen.
 "
 
 # ╔═╡ ec615b6b-c900-4add-a523-c006bdeb6e7b
@@ -570,6 +601,9 @@ version = "17.4.0+0"
 # ╟─cfb21014-eded-11ea-1261-3bc30952a88e
 # ╠═0ba17e45-bdca-40de-af10-e4167251a5f7
 # ╟─22d6c86e-fbf2-4246-aee1-afe700b49355
+# ╟─d1579078-6c68-4f0a-a0a3-03c732e484d4
+# ╟─bda5a4ff-ed02-456f-a4a4-bf4428486512
+# ╠═8d39fe6a-7e13-43ec-ac72-78714161be61
 # ╟─2fbe982c-a87c-43f9-9b1c-0cb79b1e5291
 # ╟─da828bb9-24bf-4754-bffa-62f82e986934
 # ╟─d37d17fc-681b-4b7f-9f0d-bcf449a6e81e
