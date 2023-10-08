@@ -13,6 +13,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ c747dd2f-b991-47f1-8ac2-4ec14dea5379
+using LinearAlgebra
+
 # ╔═╡ db2e9c34-dc98-4069-9391-5ad091d53d4e
 using PlutoUI
 
@@ -61,7 +64,7 @@ v
 
 # ╔═╡ 4b49c1fe-0d6f-4f07-9ac1-cd655e4f69c4
 md"""
-### Nett zu wissen und noch häufiger zu gebrauchen:
+### `Array` comprehension
 """
 
 # ╔═╡ 5bd73888-f797-489d-980b-026e81bc2d79
@@ -97,7 +100,7 @@ end
 
 # ╔═╡ af383cd2-7bff-42d7-b357-6eb4a414250b
 md"""
-### `Array`-Slicing:
+### `Array`-Slicing
 """
 
 # ╔═╡ 224524b0-0ffe-4b3c-99d8-a39115c63553
@@ -185,7 +188,7 @@ vals = quadrat_minus_eins.(zahlen)
 md"Allgmein spricht man hier von der sogenannten **Broadcast** Syntax."
 
 # ╔═╡ e29bb219-ce7f-4318-bfb7-4696bbcb4823
-md"### Sinus Beispiel:
+md"### Beispiel: Sinus Array
 
 Bauen wir ein feines Gitter mit der Schrittweite 0.01, welches sich von 0 bis 2π ersteckt. Anschließend wollen wir den Sinus an jeden Gitterpunkt ausrechnen.
 "
@@ -203,6 +206,48 @@ y = sin.(args)
 md"
 Das dies wirklich der Sinus ist, müsst ihr mir bis hierhin glauben. Eine grafische Darstellung ist im Plots Kapitel zu sehen.
 "
+
+# ╔═╡ 323afd90-41d6-4476-84c7-f67b1a75de86
+md"""
+### Beispiel: Multiplikation & Addition
+"""
+
+# ╔═╡ 294337e2-d665-4733-a499-fbc0c1c2757f
+md"
+Um zwei Vektoren elemtweise miteinander zu multiplizieren oder zu addieren benötigen wir ebenfalls die **Broadcast** Syntax mit einen Punkt `.` vor der Operation/Funktion.
+"
+
+# ╔═╡ 257f88f2-bbed-45bf-99ad-c86dd9815c2e
+let 
+a = [1, 2, 3]
+b = [4, 5, 6]
+c = a .* b
+end
+
+# ╔═╡ 4d6c7326-e8de-4daa-8d2c-f21d8c80f7c2
+md"
+Hingegen das Skalarprodukt durch `dot(a, b)` berechnet wird. Hierbei nutzen wir das oben geladene `LinearAlgebra` Paket.
+"
+
+# ╔═╡ ad7761f8-fe11-4eb5-a7a4-d25e8764031a
+let
+a = [1, 2, 3]
+b = [4, 5, 6]
+
+c = dot(a, b)
+	
+end
+
+# ╔═╡ b7f30c61-4df4-4bed-b39b-4102fdc7e815
+md"Elementweise Addition:"
+
+# ╔═╡ 9a2432bd-4f29-43d0-af6e-98c675c4b451
+let 
+a = [1, 2, 3]
+b = [4, 5, 6]
+
+c = a .+ b
+end
 
 # ╔═╡ f39becf4-867c-4a96-a858-d58298f026d1
 md" 
@@ -403,6 +448,7 @@ TableOfContents()
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
@@ -415,7 +461,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.9.3"
 manifest_format = "2.0"
-project_hash = "f5c06f335ceddc089c816627725c7f55bb23b077"
+project_hash = "3e48676228c1009f50ec07ed3ee9194e7d94b55d"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -673,6 +719,7 @@ version = "17.4.0+0"
 
 # ╔═╡ Cell order:
 # ╟─f57a0b28-6554-11ee-30a2-751cabddfbd3
+# ╠═c747dd2f-b991-47f1-8ac2-4ec14dea5379
 # ╟─6a271132-d647-4acc-b3c3-64e469c91b14
 # ╟─5f813eb6-6252-4478-9466-a1471ee34b11
 # ╟─a1bbcedc-bec9-48f0-885f-f4df814b3117
@@ -689,7 +736,7 @@ version = "17.4.0+0"
 # ╟─6110beb3-d603-49d8-a340-79ffa5c8a07d
 # ╠═3a596663-5876-4085-ac63-774ac499ae0c
 # ╟─84537888-379d-4aba-8050-a2238b21cd01
-# ╟─11de2c28-5e45-4895-aaba-5b6022d2f83e
+# ╠═11de2c28-5e45-4895-aaba-5b6022d2f83e
 # ╟─af383cd2-7bff-42d7-b357-6eb4a414250b
 # ╟─224524b0-0ffe-4b3c-99d8-a39115c63553
 # ╠═b3206628-6f70-485b-9264-7c83f21aaf4a
@@ -715,6 +762,13 @@ version = "17.4.0+0"
 # ╟─4f20b521-0a4d-44dc-9b7f-8f95a3b8879c
 # ╠═5dab821d-4062-44a2-80e9-d8a5a7eff569
 # ╟─049a61cf-0573-4d4a-a700-d3fb96f6dc5f
+# ╟─323afd90-41d6-4476-84c7-f67b1a75de86
+# ╟─294337e2-d665-4733-a499-fbc0c1c2757f
+# ╠═257f88f2-bbed-45bf-99ad-c86dd9815c2e
+# ╟─4d6c7326-e8de-4daa-8d2c-f21d8c80f7c2
+# ╠═ad7761f8-fe11-4eb5-a7a4-d25e8764031a
+# ╟─b7f30c61-4df4-4bed-b39b-4102fdc7e815
+# ╠═9a2432bd-4f29-43d0-af6e-98c675c4b451
 # ╟─f39becf4-867c-4a96-a858-d58298f026d1
 # ╟─a9f02c56-5845-4793-be0e-f4f531fe9836
 # ╟─ce086732-5587-403a-bf86-1de8372b4cb3
