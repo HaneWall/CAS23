@@ -2,8 +2,7 @@
 # v0.19.26
 
 #> [frontmatter]
-#> chapter = 1
-#> section = 2
+#> chapter = 2
 #> order = 2
 #> title = "Arrays"
 #> layout = "layout.jlhtml"

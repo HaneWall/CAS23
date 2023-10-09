@@ -3,7 +3,6 @@
 
 #> [frontmatter]
 #> chapter = 1
-#> section = 1
 #> order = 1
 #> title = "Variablen, Funktionen, Schleifen, Bedingungen"
 #> layout = "layout.jlhtml"

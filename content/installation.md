@@ -18,7 +18,7 @@ begin # these special elements will automatically update to read the latest Juli
 
 # First-time setup: Installiere Julia & Pluto
 
-**Video Version:**
+**Video Version von Fons (Entwickler von Pluto):**
 
 <iframe style="width: 100%; aspect-ratio: 16/9;" src="https://www.youtube.com/embed/OOjKEgbt8AI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

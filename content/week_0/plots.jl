@@ -2,7 +2,7 @@
 # v0.19.26
 
 #> [frontmatter]
-#> chapter = 1
+#> chapter = 3
 #> section = 3
 #> order = 3
 #> title = "Plots in Julia"
