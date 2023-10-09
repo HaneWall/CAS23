@@ -3,7 +3,6 @@
 
 #> [frontmatter]
 #> chapter = 3
-#> section = 3
 #> order = 3
 #> title = "Plots in Julia"
 #> layout = "layout.jlhtml"
