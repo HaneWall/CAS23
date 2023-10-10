@@ -13,7 +13,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 07e443b4-6468-11ee-0f28-676c021ae136
-using CairoMakie, LinearAlgebra
+using CairoMakie
 
 # ╔═╡ bd63ce89-9f09-41c7-ab6b-26247354689d
 let
@@ -187,12 +187,34 @@ Hier ein Beipiel was alles mit Julia und dem Makie-Package so möglich ist:
 
 # ╔═╡ 49690a09-ab74-40ec-afc2-9a91a6d5e79c
 md"
-Eure Aufgabe ist es natürlich nicht solch komplexe Plots bzw. Grafiken am Ende des Kurses erstellen zu können. Vielmehr soll hier eine Einführung stattfinden, nach der Ihr einfache Plots erzeugen könnt, aber auch einen Einblick bekommt wie weitaus komplizitiere Grafiken kreiert werden können. Zu diesen Punkt kommen wir als Erstes. Sollte euch das überhaupt gar nicht interessieren könnt ihr direkt zu den Minimalbeispielen springen - versteht dann aber wahrscheinlich nicht, was die einzelnen Zeilen bewerkstelligen, da man etwas Hintergrundwissen benötigt.
+Eure Aufgabe ist es natürlich nicht solche komplexen Plots bzw. Grafiken am Ende des Kurses erstellen zu können. Vielmehr soll hier eine Einführung stattfinden, nach der Ihr einfache Plots erzeugen könnt, aber auch einen Einblick bekommt wie weitaus komplizitiere Grafiken kreiert werden können. Deshalb werde ich zunächst etwas Hintergrundwissen einführen.  
+
+Sollte euch das überhaupt gar nicht interessieren könnt ihr direkt zu den Minimalbeispielen springen - versteht dann aber wahrscheinlich nicht, was die einzelnen Zeilen bewerkstelligen, da man etwas Hintergrundwissen benötigt.
+"
+
+# ╔═╡ ee0a43bc-4d66-4e83-9d45-ff103506098d
+md"
+## Absolute Minimum
+"
+
+# ╔═╡ d90b3aec-39f1-4c87-9bc4-a6e83d83a610
+let 
+# Arrays
+x = collect(0.:0.1:2π)
+y = sin.(x)
+
+# Plot
+lines(x, y)
+end
+
+# ╔═╡ 6c5f2c96-0988-423f-9221-b426ad1ec313
+md"
+Das funktioniert super, versteckt jedoch so ziemlich alles was im Hintergrund passiert. Mit dem Hintergrundwissen sind wir dann in der Lage deutlich schönere Grafiken zu erstellen. 
 "
 
 # ╔═╡ e9891221-60b0-48b3-8103-4c48cb0e9543
 md"
-## Wie baut man Graphen? 
+## Wie baut man Grafiken? Objektorientiertes Denken
 "
 
 # ╔═╡ 8d02a941-933f-4995-b585-6d8c2967956f
@@ -201,7 +223,10 @@ Die Antwort im Makie-Paket ist: **Stück für Stück** wie im echten Leben. Zun�
 "
 
 # ╔═╡ 439b03b0-5c85-43b0-a6f2-beeb05be6211
+let
 Leinwand = Figure(resolution = (1200, 800), backgroundcolor=:moccasin, fontsize=23)
+Leinwand
+end
 
 # ╔═╡ 52859fae-b4ce-4871-b089-d6a4c21ce3b0
 md"
@@ -213,8 +238,13 @@ Wir nennen unser `Axis` Objekt hier Achse (man kann es nennen wie man möchte). 
 "
 
 # ╔═╡ 71e5c7c1-9e2c-4eec-8635-65fa184b19f3
-begin
-Achse = Axis(Leinwand[1, 1], title="Erste Achse")
+let
+# Ausgabetyp : Vektorgrafik
+CairoMakie.activate!(type="svg")
+	
+Leinwand = Figure(resolution = (1200, 800), backgroundcolor=:moccasin, fontsize=23)
+# Zeichnen eines leeren 2D Kooridnatensystems aud die Leinwand:
+Achse = Axis(Leinwand[1, 1], title="1. Achse")
 # Für die Anzeige der Grafik müssen wir erneut das `Figure-Objekt` hier Leinwand aufrufen
 Leinwand
 end
@@ -222,15 +252,32 @@ end
 # ╔═╡ 363fac7f-d41a-43bb-9f18-1c21f5ac0eab
 md"""
 Jetzt können wir in unsere Achse (Axis) unsere Daten hineinzeichnen. Die Größe der Achse wird sich automatisch den Daten und der Leinwand anpassen. Hier plotten wir zwei 1D `array`s, welche jeweils ein Sinus und einen invertierten Sinus darstellen. Wir möchten beide `Array`s in ein gemeinsames Koordinatensystem visualisieren. Dies geschieht durch den Linienplot-Befehl: `lines!(Achse, x, y)`. Das Ausrufezeichen `!` zeigt dabei, dass wir aktiv das Achsenobjekt - `Achse` verändern (wir zeichnen darauf). 
+
+Wir können natürlich auch mehrere `Arrays` / Funktionswerte auf einer `Axis` bzw. einem Koordinatensystem plotten. Hier werden zusätzlich die `plot` Befehle `scatter!` und `scatterlines!` genutzt.
 """
 
 # ╔═╡ 979f6744-e9e2-435a-a533-35f47a44393e
-begin 
+let
+CairoMakie.activate!(type="svg")
+	
+# Definition der Leinwand und des Koordinatensystems
+Leinwand = Figure(resolution = (1200, 800), backgroundcolor=:moccasin, fontsize=23)
+Achse = Axis(Leinwand[1, 1], title="1. Achse")
+
+# Definition der Stützstellen/Gitterpunkte und die anschließende Auswertung	
 x = collect(0:0.01:2π)
 y = sin.(x)
 
+# Erstellen eines Linienplots von sin
 lines!(Achse, x, y)
-lines!(Achse, x, -y)
+	
+# Erstellen eines Scatterplots von -sin, an den nur jede 10-te Stützstelle benutzt wird
+scatter!(Achse, x[1:10:end], -y[1:10:end], color=:red)
+	
+# Erstellen eines Scatterlinienplots von sin^2(x)
+scatterlines!(Achse, x[1:10:end], y[1:10:end].^2, color=:black)
+
+# Erneutes Aufrufen der Leinwand zum Ansehen
 Leinwand
 end
 
@@ -248,34 +295,86 @@ Außerdem sind wir diesmal etwas genauer und geben unseren Linienplot ein `label
 "
 
 # ╔═╡ 430a1f3d-858f-48fe-9a60-8e5521733fa6
-begin 
-Achserechts = Axis(Leinwand[1, 2], title="Zweite Achse")
+let
+CairoMakie.activate!(type="svg")
+	
+Leinwand = Figure(resolution = (1200, 800), backgroundcolor=:moccasin, fontsize=23)
+Achse = Axis(Leinwand[1, 1], title="1. Achse")
+	
+# Definition eines zweiten Koordinatensystems in der zweiten Spalte der Leinwand
+Achserechts = Axis(Leinwand[1, 2], title="2. Achse")
+
+# Datenpunkte
+x = collect(0:0.01:2π)
+y = sin.(x)
 g = exp.(x)
-lines!(Achserechts, x, g, label="Exponentialfunktion", color=:red)
+
+# Linkes Koordinatensystem:
+lines!(Achse, x, y)
+scatter!(Achse, x[1:10:end], -y[1:10:end], color=:red)
+scatterlines!(Achse, x[1:10:end], y[1:10:end].^2, color=:black)
+
+# Rechtes Koordinatensystem:
+lines!(Achserechts, x, g, label="Exponentialfunktion", color=:red, linewidth=3)
+
+# Erstellen einer Legende, die left top platziert wird
 axislegend(position=:lt)
 Leinwand
 end
 
 # ╔═╡ d4860309-62ee-4260-90ef-4a81d02504b5
 md"""
-Erinnerst zu dich noch an der **Array-Slicing** Syntax? Wie bereits erwähnt, verhält sich die Leinwand wie ein 2D-`array`.
+Erinnerst zu dich noch an die **Array-Slicing** bzw. **range** Syntax? Wie bereits erwähnt, verhält sich die Leinwand wie ein 2D-`array`.
 
 Lasst uns also eine 2-te Zeile innerhalb der Leinwand kreieren und ein Koordinatensystem produzieren, welches sich über beide Spalten erstreckt. Dies können wir durch den Befehl `Axis(Leinwand[2, 1:2], optionen..)` durchführen. 
-Innerhalb der Optionen legen wir außerdem xy-Achsenbeschriftung mit `xlabel="x"` bzw. `ylabel="y"` fest. Außerdem ändern wir die Skalierung der x und y-Achse des Koordiantensystems `Achseunten` zu einer logarithmischen Skala. 
+Innerhalb der Optionen legen wir außerdem xy-Achsenbeschriftung mit `xlabel="x"` bzw. `ylabel="y"` fest. Außerdem ändern wir die Skalierung der x und y-Achse des Koordiantensystems `Achseunten` zu einer logarithmischen Skala (10er Basis). 
 
 Innerhalb des `lines!`-Funktionen führen wir auch Attribute für das Aussehen ein.
 """
 
 # ╔═╡ 98478d4b-6611-4e3d-b44b-a705a30a31ea
-begin 
-Achseunten = Axis(Leinwand[2, 1:2], title="Dritte Achse - Log-Log Plot", xlabel="x", ylabel="f(x)", yscale=log10, xscale=log10)
+let 
+CairoMakie.activate!(type="svg")
+
+Leinwand = Figure(resolution = (1200, 800), backgroundcolor=:moccasin, fontsize=23)
+Achse = Axis(Leinwand[1, 1], title="1. Achse")
+Achserechts = Axis(Leinwand[1, 2], title="2. Achse")
+	
+#= 
+Dies ist ein Kommentarblock 😄
+Definition eines dritten Koordinatensystems in der zweiten Zeile, welches sich über beide Spalten der Leinwand erstreckt. Lesbarkeit fördern durch Zeilenumbruch (good practice in the industry):
+=#
+	
+Achseunten = Axis(Leinwand[2, 1:2], 
+				    title="3. Achse - Log-Log Plot", 
+					xlabel="x", 
+					ylabel="f(x)", 
+					yscale=log10, 
+					xscale=log10)
+
+# Datenpunkte
+x = collect(0:0.01:2π)
+y = sin.(x)
+g = exp.(x)
+
 lx = collect(0.01:0.1:40)
 h = lx.^(2)
 k = lx.^(3)
-lines!(Achseunten, lx, h, color=:black, linestyle=:dash, linewidth=2, label=L"x^2")
-lines!(Achseunten, lx, k, color=:green, linestyle=:dashdot, linewidth=2, label=L"x^3")
 
-axislegend(L"f(x)", position=:lt)
+# Linkes Koordinatensystem:
+lines!(Achse, x, y)
+scatter!(Achse, x[1:10:end], -y[1:10:end], color=:red)
+scatterlines!(Achse, x[1:10:end], y[1:10:end].^2, color=:black)
+
+# Rechtes Koordinatensystem:
+lines!(Achserechts, x, g, label="Exponentialfunktion", color=:red, linewidth=3)
+axislegend(Achserechts; position=:lt)
+	
+# Unteres Koordinatensystem:
+lines!(Achseunten, lx, h, color=:black, linestyle=:dash, linewidth=3, label=L"x^2")
+lines!(Achseunten, lx, k, color=:green, linewidth=3, label=L"x^3")
+axislegend(L"f(x)"; position=:lt)
+
 Leinwand
 end
 
@@ -291,6 +390,7 @@ md"""
 
 # ╔═╡ ddc0e2da-5fca-4b6b-bfee-8b623478fd06
 let
+CairoMakie.activate!(type="svg")
 #2 Arrays die gleich lang sind
 x = collect(0:0.01:5)
 y = cos.(x) .+ sin.(2x)
@@ -308,6 +408,7 @@ md"""
 
 # ╔═╡ f12b729f-dcc5-4955-ac5a-f0c1c8055360
 let
+CairoMakie.activate!(type="svg")
 #Arrays die gleich lang sind
 x = collect(0:0.01:5)
 y = cos.(x) .+ sin.(2x)
@@ -333,6 +434,7 @@ Häufig ist es schöner eine $\LaTeX$ Formatierung für die Labels zu nutzen. Di
 
 # ╔═╡ 096b8917-c4b4-4721-9844-6b8c90d3b250
 let 
+CairoMakie.activate!(type="svg")
 x= collect(0:0.05:4π)
 fig = Figure(resolution = (800, 400)) 
 ax = Axis(fig[1, 1], xlabel = L"x", ylabel = L"f (x)")
@@ -366,14 +468,18 @@ CairoMakie.activate!(type="svg")
 x = collect(0:0.02:2π)
 y = collect(0:0.02:2π)
 
+# Array comprehension:
 z = [cos(x_elem) * sin(y_elem) for x_elem in x, y_elem in y]
 
 fig = Figure(resolution=(1200, 600))
-ax3w = Axis3(fig[1, 1])
+
+# Linker 3D-plot:
+ax3w = Axis3(fig[1, 1], title="Wireframe")
 # Für den wireframe-plot nehmen wir jedes 10te Element innerhalb der Arrays, damit die Gitterlinien nicht so dicht aneinander kleben
 wireframe!(ax3w, x[1:10:end], y[1:10:end], z[1:10:end, 1:10:end], color=:black)
-	
-ax3 = Axis3(fig[1, 2])
+
+# Rechter 3D-plot:	
+ax3 = Axis3(fig[1, 2], title="Schnieke Surface")
 surface!(ax3, x, y, z, colormap=:berlin)
 fig
 
@@ -478,7 +584,6 @@ TableOfContents()
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
-LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
 MeshIO = "7269a6da-0436-5bbc-96c2-40638cbb6118"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
@@ -496,7 +601,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.9.3"
 manifest_format = "2.0"
-project_hash = "53a1f44781a002de95229b64ba22f046c6f06da3"
+project_hash = "825fb479d8b13b0ebce491cc0fe7cac805b9c4de"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -2099,6 +2204,9 @@ version = "3.5.0+0"
 # ╟─7ff33c9b-0ec8-41f1-bd4f-9811110885a5
 # ╟─bd63ce89-9f09-41c7-ab6b-26247354689d
 # ╟─49690a09-ab74-40ec-afc2-9a91a6d5e79c
+# ╟─ee0a43bc-4d66-4e83-9d45-ff103506098d
+# ╠═d90b3aec-39f1-4c87-9bc4-a6e83d83a610
+# ╟─6c5f2c96-0988-423f-9221-b426ad1ec313
 # ╟─e9891221-60b0-48b3-8103-4c48cb0e9543
 # ╟─8d02a941-933f-4995-b585-6d8c2967956f
 # ╠═439b03b0-5c85-43b0-a6f2-beeb05be6211

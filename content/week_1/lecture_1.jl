@@ -5,8 +5,8 @@
 #> order = 1
 #> title = "Vorlesung 1"
 #> layout = "layout.jlhtml"
-#> description = ""
 #> tags = ["lecs"]
+#> description = ""
 
 using Markdown
 using InteractiveUtils

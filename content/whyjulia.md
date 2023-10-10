@@ -55,6 +55,6 @@ Hier kommt nun Julia ins Spiel und überzeugt mit ähnlicher Performance zu C, n
 
 + Die große Forschungsgruppe **Modelling Climate Alliance** produziert ein State-of-the-Art Paket für die Simulation des Weltklimas in Julia.
 + Die Verbindung von *Big Data* mit rasanten Algorithmen in Julia, erlaubt es vorallem in der Pharmaindustrie (**Moderna, Pfizer, AstraZeneca**) schneller Medikamente zu entwickeln.
-+ Die renomiertesten Universitäten wie z.B. MIT, Stanford, UC Berkeley, Brown, ETH Zurich etc. bieten alle Kurse in Julia an (in Zukunft vllt. auch in Rostock?)
++ Die renomiertesten Universitäten wie z.B. MIT, Stanford, UC Berkeley, Brown, ETH Zurich etc. bieten alle Kurse in Julia an (jetzt auch in Rostock!)
 
 Übrigens diese Website wurde auch mit Julia gebaut, cheers Hannes

@@ -63,12 +63,12 @@ v
 
 # ╔═╡ 4b49c1fe-0d6f-4f07-9ac1-cd655e4f69c4
 md"""
-### `Array` comprehension
+### `Array` / `List` comprehensions
 """
 
 # ╔═╡ 5bd73888-f797-489d-980b-026e81bc2d79
 md"""
-Eine äußerst elegante Art und Weise `Array`s zu erzeugen ist das sogenannte **array comprehension** Muster. Dabei verbinden wir eine For-Schleife mit der Konstruktion eines `Array`s. 
+Eine äußerst elegante Art und Weise `Array`s zu erzeugen ist das sogenannte **array comprehension** Muster (in Python **list comprehension**). Dabei verbinden wir eine For-Schleife mit der Konstruktion eines `Array`s. 
 
 Z.B. alle Quadratzahlen von 1 bis 10 als 1D `Array`: 
 """
@@ -184,7 +184,7 @@ Genauer formuliert bekommen wir einen Fehler, da der Potenzoperator `^` nicht we
 vals = quadrat_minus_eins.(zahlen)
 
 # ╔═╡ 574fd90e-a98c-4a3f-a5d0-4d77c483fe53
-md"Allgmein spricht man hier von der sogenannten **Broadcast** Syntax."
+md"Allgemein spricht man hier von der sogenannten **Broadcast** Syntax."
 
 # ╔═╡ e29bb219-ce7f-4318-bfb7-4696bbcb4823
 md"### Beispiel: Sinus Array
@@ -312,6 +312,47 @@ Man kann aber auch vorne Elemente rausschmeissen, also `popfirst!`:
 popfirst!(q)
 
 # ╔═╡ c1d75706-355e-46de-bc04-eff7cf53bafe
+q
+
+# ╔═╡ a39c8696-2720-40ce-a315-a1373674aead
+md"
+### Mittendrin löschen/einfügen
+"
+
+# ╔═╡ aa6a021f-17d6-415c-83c7-9d48b16bec34
+md"
+Lasst uns das Element am `Index` 3 löschen. (Hier ist zufällig auch das Element gerade 3)
+"
+
+# ╔═╡ 0bf24502-ab78-4f4e-83f4-fd4c292cc95e
+deleteat!(q, 3)
+
+# ╔═╡ 74a8bf90-0b7b-4c62-a717-bfb8448bda70
+q
+
+# ╔═╡ af1b35e3-79b8-4cd5-a3d2-32e4d51c6ef9
+md"
+Wir können auch ganze Streifen löschen. Lasst uns weiterhin die Elemente von q an den `Indizes` 3 bis 5 löschen. 
+"
+
+# ╔═╡ 31386df0-0098-445c-a21c-574e8802f16b
+deleteat!(q, 3:5)
+
+# ╔═╡ 2c6d5fa6-e26e-489a-bdd8-2474cda090ae
+q
+
+# ╔═╡ 11ffedc9-73b1-4429-abfd-eabeb3177bdd
+md"
+Ganz schöne Sauerei, lasst uns q wieder ab den dritten `Index` mit den richtigen Werten auffüllen.   
+"
+
+# ╔═╡ 7ba8694e-813b-4977-ae92-ed279edb0302
+for idx in 3:6
+	# Syntax: insert!(Array, Index, Element)
+	insert!(q, idx, idx)
+end
+
+# ╔═╡ 8142e0af-896a-43e5-a2c6-47f4053895fb
 q
 
 # ╔═╡ 0e05600a-0ce5-45e3-883a-d6933eb54a6c
@@ -786,6 +827,16 @@ version = "17.4.0+0"
 # ╟─f70d4905-6db7-45b7-90dd-aafe89349654
 # ╠═3a902e95-51c2-49e2-a44c-6b67531212e0
 # ╠═c1d75706-355e-46de-bc04-eff7cf53bafe
+# ╟─a39c8696-2720-40ce-a315-a1373674aead
+# ╟─aa6a021f-17d6-415c-83c7-9d48b16bec34
+# ╠═0bf24502-ab78-4f4e-83f4-fd4c292cc95e
+# ╠═74a8bf90-0b7b-4c62-a717-bfb8448bda70
+# ╟─af1b35e3-79b8-4cd5-a3d2-32e4d51c6ef9
+# ╠═31386df0-0098-445c-a21c-574e8802f16b
+# ╠═2c6d5fa6-e26e-489a-bdd8-2474cda090ae
+# ╟─11ffedc9-73b1-4429-abfd-eabeb3177bdd
+# ╠═7ba8694e-813b-4977-ae92-ed279edb0302
+# ╠═8142e0af-896a-43e5-a2c6-47f4053895fb
 # ╟─0e05600a-0ce5-45e3-883a-d6933eb54a6c
 # ╟─14977ce1-834c-434d-a9b0-2167b81f1c2b
 # ╠═48b22c2d-85b4-41b9-9ecd-8d8972bb7df9
