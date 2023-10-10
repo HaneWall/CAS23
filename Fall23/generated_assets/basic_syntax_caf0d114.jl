@@ -16,7 +16,7 @@ using InteractiveUtils
 using PlutoUI
 
 # ╔═╡ 0d3aec92-edeb-11ea-3adb-cd0dc17cbdab
-md"# Erste Schritte in Julia
+md"# Kurzübersicht Julia
 ✋ Bevor Ihr hier anfangt, solltet Ihr vermutlich zunächst Julia installieren und das Package Pluto herunterladen. Eine genaue Anleitung findet Ihr weiter oben unter dem Reiter Software Installation :).
 
 Ready? 🎬 Dann hier eine kleine Einführung:  
@@ -81,7 +81,7 @@ typeof(y)
 
 # ╔═╡ e76fce0f-d3b3-4068-a456-75bc5811e80d
 md"""
-In diesen Fall ist `y` eine 64Bit Integer Zahl. Es werden demnach 64 Binärzahlen bereitgestellt um die ganze Zahl darzustellen. Dazu eventuell an anderer Stelle mehr...
+In diesen Fall ist `y` eine 64Bit Integer Zahl. Es werden demnach 64 Bits (Nullen und Einsen) bereitgestellt um die ganze Zahl darzustellen. Dazu eventuell an anderer Stelle mehr...
 """
 
 # ╔═╡ 8e2dd3be-edeb-11ea-0703-354fb31c12f5
@@ -230,7 +230,7 @@ md"
 
 # ╔═╡ bda5a4ff-ed02-456f-a4a4-bf4428486512
 md"
-Wie in jeder Programmiersprache existieren auch in Julia neben den logischen Und `&&` andere Vergleichsoperatoren.  Zum Beispiel, das logische oder `||` oder die Negation `!`. Hier eine Reihe an Beispielen für die logischen Verknüpfungen:
+Wie in jeder Programmiersprache existieren auch in Julia neben den logischen Und `&&` andere Logikoperationen.  Zum Beispiel, das logische oder `||` oder die Negation `!`. Hier eine Reihe an Beispielen:
 "
 
 # ╔═╡ 8d39fe6a-7e13-43ec-ac72-78714161be61
@@ -251,6 +251,14 @@ println(b||b)
 println("Negation:")
 println(!a)
 println(!b)
+
+c = 2
+d = 2
+e = 3
+
+println("Variablenvergleiche:")
+println(c == d)
+println(c == e)
 
 end
 

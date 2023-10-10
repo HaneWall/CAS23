@@ -2,492 +2,225 @@
 # v0.19.26
 
 #> [frontmatter]
-#> chapter = 3
-#> order = 3
-#> title = "Plots in Julia"
+#> order = 1
+#> title = "Aufgabenblatt 1"
 #> layout = "layout.jlhtml"
-#> tags = ["preliminaries"]
+#> tags = ["assignments"]
 #> description = ""
 
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 07e443b4-6468-11ee-0f28-676c021ae136
-using CairoMakie, LinearAlgebra
-
-# ╔═╡ bd63ce89-9f09-41c7-ab6b-26247354689d
-let
-using Makie.FileIO, MeshIO 
-
-f = Figure(backgroundcolor = RGBf(0.98, 0.98, 0.98),
-    resolution = (1000, 700))
-ga = f[1, 1] = GridLayout()
-gb = f[2, 1] = GridLayout()
-gcd = f[1:2, 2] = GridLayout()
-gc = gcd[1, 1] = GridLayout()
-gd = gcd[2, 1] = GridLayout()
-axtop = Axis(ga[1, 1])
-axmain = Axis(ga[2, 1], xlabel = "before", ylabel = "after")
-axright = Axis(ga[2, 2])
-
-linkyaxes!(axmain, axright)
-linkxaxes!(axmain, axtop)
-
-labels = ["treatment", "placebo", "control"]
-data = randn(3, 100, 2) .+ [1, 3, 5]
-
-for (label, col) in zip(labels, eachslice(data, dims = 1))
-    scatter!(axmain, col, label = label)
-    density!(axtop, col[:, 1])
-    density!(axright, col[:, 2], direction = :y)
-end
-
-ylims!(axtop, low = 0)
-xlims!(axright, low = 0)
-
-axmain.xticks = 0:3:9
-axtop.xticks = 0:3:9
-
-leg = Legend(ga[1, 2], axmain)
-
-hidedecorations!(axtop, grid = false)
-hidedecorations!(axright, grid = false)
-leg.tellheight = true
-
-colgap!(ga, 10)
-rowgap!(ga, 10)
-
-Label(ga[1, 1:2, Top()], "Stimulus ratings", valign = :bottom,
-    font = :bold,
-    padding = (0, 0, 5, 0))
-
-xs = LinRange(0.5, 6, 50)
-ys = LinRange(0.5, 6, 50)
-data1 = [sin(x^1.5) * cos(y^0.5) for x in xs, y in ys] .+ 0.1 .* randn.()
-data2 = [sin(x^0.8) * cos(y^1.5) for x in xs, y in ys] .+ 0.1 .* randn.()
-
-ax1, hm = contourf(gb[1, 1], xs, ys, data1,
-    levels = 6)
-ax1.title = "Histological analysis"
-contour!(ax1, xs, ys, data1, levels = 5, color = :black)
-hidexdecorations!(ax1)
-
-ax2, hm2 = contourf(gb[2, 1], xs, ys, data2,
-    levels = 6)
-contour!(ax2, xs, ys, data2, levels = 5, color = :black)
-
-cb = Colorbar(gb[1:2, 2], hm, label = "cell group")
-low, high = extrema(data1)
-edges = range(low, high, length = 7)
-centers = (edges[1:6] .+ edges[2:7]) .* 0.5
-cb.ticks = (centers, string.(1:6))
-
-cb.alignmode = Mixed(right = 0)
-
-colgap!(gb, 10)
-rowgap!(gb, 10)
-
-brain = load(assetpath("brain.stl"))
-
-ax3d = Axis3(gc[1, 1], title = "Brain activation")
-m = mesh!(
-    ax3d,
-    brain,
-    color = [tri[1][2] for tri in brain for i in 1:3],
-    colormap = Reverse(:magma),
-)
-Colorbar(gc[1, 2], m, label = "BOLD level")
-
-axs = [Axis(gd[row, col]) for row in 1:3, col in 1:2]
-hidedecorations!.(axs, grid = false, label = false)
-
-for row in 1:3, col in 1:2
-    xrange = col == 1 ? (0:0.1:6pi) : (0:0.1:10pi)
-
-    eeg = [sum(sin(pi * rand() + k * x) / k for k in 1:10)
-        for x in xrange] .+ 0.1 .* randn.()
-
-    lines!(axs[row, col], eeg, color = (:black, 0.5))
-end
-
-axs[3, 1].xlabel = "Day 1"
-axs[3, 2].xlabel = "Day 2"
-
-Label(gd[1, :, Top()], "EEG traces", valign = :bottom,
-    font = :bold,
-    padding = (0, 0, 5, 0))
-
-rowgap!(gd, 10)
-colgap!(gd, 10)
-
-for (i, label) in enumerate(["sleep", "awake", "test"])
-    Box(gd[i, 3], color = :gray90)
-    Label(gd[i, 3], label, rotation = pi/2, tellheight = false)
-end
-
-colgap!(gd, 2, 0)
-
-n_day_1 = length(0:0.1:6pi)
-n_day_2 = length(0:0.1:10pi)
-
-colsize!(gd, 1, Auto(n_day_1))
-colsize!(gd, 2, Auto(n_day_2))
-
-for (label, layout) in zip(["A", "B", "C", "D"], [ga, gb, gc, gd])
-    Label(layout[1, 1, TopLeft()], label,
-        fontsize = 26,
-        font = :bold,
-        padding = (0, 5, 5, 0),
-        halign = :right)
-end
-
-colsize!(f.layout, 1, Auto(0.5))
-
-rowsize!(gcd, 1, Auto(1.5))
-
-f
-end
-
-# ╔═╡ 9fb62c12-9462-4abf-ba16-72fc9d18eaf7
-using PlutoUI
-
-# ╔═╡ f092dcc7-57bb-4d3f-a7a1-ce9f3957e242
-md"
-# Plots
-"
-
-# ╔═╡ b698b4e4-d864-45af-9c17-108bfdbbbd26
-md"""
-Generell gibt es verschiedene `Packages` (auch `libraries` oder in deutsch `Pakete`) die es uns erlauben `Array`s zu visualisieren. In anderen Worten wir können mittels Paketen uns schicke Graphen von Funktionen etc. erzeugen. In diesem Kurs nutzen wir das Paket Makie.jl bzw. genauer CairoMakie.
-
-Als erstes Laden wir das Paket mittels `using CairoMakie`
-
-
-"""
-
-# ╔═╡ deeff5f6-4cc0-4429-b10f-738e61a22099
-md"""
-Als nächstes legen wir fest, was für ein Ausgabetypen die Grafiken haben sollen. Hier wählen wir `svg`, demnach erstellen wir Vektorgrafiken die stechend scharf sind. Bei großen Bildern sollte man zu `png` wechseln, da die Vektorgrafik sonst zu groß wird.
-"""
-
-# ╔═╡ 3c5ed473-0945-4fc4-9753-71abf6881ce8
-CairoMakie.activate!(type="svg")
-
-# ╔═╡ 11e23f59-bec7-48f1-a6d8-515a427b7096
-md"
-## Motivation
-"
-
-# ╔═╡ 7ff33c9b-0ec8-41f1-bd4f-9811110885a5
-md"
-Zum Auswerten von Daten, aber auch für die Intuitionsentwicklung komplexer Sachverhalte ist es äußerst angebracht Visualierungen zu erzeugen. Mit Julia und dem Makie-Package mit CairoMakie als Backend ist es sehr leicht möglich sehr komplizierte Daten auszuwerten und Grafiken für Publikationen zu erstellen. 
-
-Hier ein Beipiel was alles mit Julia und dem Makie-Package so möglich ist: 
-"
-
-# ╔═╡ 49690a09-ab74-40ec-afc2-9a91a6d5e79c
-md"
-Eure Aufgabe ist es natürlich nicht solch komplexe Plots bzw. Grafiken am Ende des Kurses erstellen zu können. Vielmehr soll hier eine Einführung stattfinden, nach der Ihr einfache Plots erzeugen könnt, aber auch einen Einblick bekommt wie weitaus komplizitiere Grafiken kreiert werden können. Zu diesen Punkt kommen wir als Erstes. Sollte euch das überhaupt gar nicht interessieren könnt ihr direkt zu den Minimalbeispielen springen - versteht dann aber wahrscheinlich nicht, was die einzelnen Zeilen bewerkstelligen, da man etwas Hintergrundwissen benötigt.
-"
-
-# ╔═╡ e9891221-60b0-48b3-8103-4c48cb0e9543
-md"
-## Wie baut man Graphen? 
-"
-
-# ╔═╡ 8d02a941-933f-4995-b585-6d8c2967956f
-md"
-Die Antwort im Makie-Paket ist: **Stück für Stück** wie im echten Leben. Zunächst braucht man eine Leinwand bzw. eine Figur (engl. Figure) auf der man zeichnen möchte. Eine solche Figur können wir durch den Befehl `Figure()` erstellen. Innerhalb der runden Klammern können wir Optionen festlegen, wie z.B. die Resolution/Größe und die Hintergrundfarbe. Aus Demonstrationgründen wähle ich hier eine `moccasin`e Hintergrundfarbe für die Leinwand. 
-"
-
-# ╔═╡ 439b03b0-5c85-43b0-a6f2-beeb05be6211
-Leinwand = Figure(resolution = (1200, 800), backgroundcolor=:moccasin, fontsize=23)
-
-# ╔═╡ 52859fae-b4ce-4871-b089-d6a4c21ce3b0
-md"
-Nun haben wir ein Objekt/Variable `Leinwand` auf der wir eine Achse (engl. Axis) bzw. Koordinatensystem zeichnen möchten. Dies können wir gewährleisten durch den `Axis(Leinwand[Zeile, Spalte], Optionen..)` Befehl. 
-
-Die Angabe einer Zeile und Spalte mag zunächst verwirren ist aber notwendig um die Position der `Axis` bzw. Koordinatensystem auf der `Figure` bzw. Leinwand festzulegen. Man kann sich die Leinwand also wie ein 2D `array` vorstellen. Positionen auf der Leinwand an der wir arbeiten wollen müssen wir also durch die Angabe von `Indizes` definieren. 
-
-Wir nennen unser `Axis` Objekt hier Achse (man kann es nennen wie man möchte). Wie wir sehen passt sich die Größe der `Axis` automatisch der Leinwand an. 
-"
-
-# ╔═╡ 71e5c7c1-9e2c-4eec-8635-65fa184b19f3
-begin
-Achse = Axis(Leinwand[1, 1], title="Erste Achse")
-# Für die Anzeige der Grafik müssen wir erneut das `Figure-Objekt` hier Leinwand aufrufen
-Leinwand
-end
-
-# ╔═╡ 363fac7f-d41a-43bb-9f18-1c21f5ac0eab
-md"""
-Jetzt können wir in unsere Achse (Axis) unsere Daten hineinzeichnen. Die Größe der Achse wird sich automatisch den Daten und der Leinwand anpassen. Hier plotten wir zwei 1D `array`s, welche jeweils ein Sinus und einen invertierten Sinus darstellen. Wir möchten beide `Array`s in ein gemeinsames Koordinatensystem visualisieren. Dies geschieht durch den Linienplot-Befehl: `lines!(Achse, x, y)`. Das Ausrufezeichen `!` zeigt dabei, dass wir aktiv das Achsenobjekt - `Achse` verändern (wir zeichnen darauf). 
-"""
-
-# ╔═╡ 979f6744-e9e2-435a-a533-35f47a44393e
+# ╔═╡ 06a045e9-c318-4832-a518-025b0e45fc1b
 begin 
-x = collect(0:0.01:2π)
-y = sin.(x)
-
-lines!(Achse, x, y)
-lines!(Achse, x, -y)
-Leinwand
+using Roots,CairoMakie
 end
 
-# ╔═╡ c18b382b-16a3-4997-bf88-dba8348318c6
+# ╔═╡ 931a0976-e654-4f6a-bad8-a2508656b745
 md"
-Man stelle sich nun vor wir möchten rechts neben dem Koordinatensystem `Achse` ein weiteres Koordinatensystem `Achserechts` platzieren. Im echten Leben wäre das natürlich ein Problem, denn wir haben keine freie Leinwand mehr. In Makie bzw. CairoMakie ist das kein Problem. Die Koordinatensysteme werden so skaliert, dass beide auf die Leinwand passen. Aber wie kreiere ich nun ein weiteres Koordinatensystem rechts?
-
-Wie bereits erwähnt verhält sich das `Figure`-objekt wie ein 2D `Array`. Wir können also einfach mit dem Befehl
-
-`Achserechs = Axis(Leinwand[1, 2], optionen..)`
-
-so tun, als hätte die Leinwand zwei Spalten. Makie bzw. CairoMakie erstellt uns dann diese zweite Spalte. Nun können wir wieder mit den `lines!` und der Angabe des richtigen Koordinatensystems auf der rechten Achse zeichnen. 
-
-Außerdem sind wir diesmal etwas genauer und geben unseren Linienplot ein `label` welches anschließend in `axislegend(position=:lt)` benutzt wird um eine Legende oben links (:lt = left top) auf der Achse zu positionieren. 
+### Pakete die wir brauchen werden:
 "
 
-# ╔═╡ 430a1f3d-858f-48fe-9a60-8e5521733fa6
-begin 
-Achserechts = Axis(Leinwand[1, 2], title="Zweite Achse")
-g = exp.(x)
-lines!(Achserechts, x, g, label="Exponentialfunktion", color=:red)
-axislegend(position=:lt)
-Leinwand
-end
-
-# ╔═╡ d4860309-62ee-4260-90ef-4a81d02504b5
-md"""
-Erinnerst zu dich noch an der **Array-Slicing** Syntax? Wie bereits erwähnt, verhält sich die Leinwand wie ein 2D-`array`.
-
-Lasst uns also eine 2-te Zeile innerhalb der Leinwand kreieren und ein Koordinatensystem produzieren, welches sich über beide Spalten erstreckt. Dies können wir durch den Befehl `Axis(Leinwand[2, 1:2], optionen..)` durchführen. 
-Innerhalb der Optionen legen wir außerdem xy-Achsenbeschriftung mit `xlabel="x"` bzw. `ylabel="y"` fest. Außerdem ändern wir die Skalierung der x und y-Achse des Koordiantensystems `Achseunten` zu einer logarithmischen Skala. 
-
-Innerhalb des `lines!`-Funktionen führen wir auch Attribute für das Aussehen ein.
-"""
-
-# ╔═╡ 98478d4b-6611-4e3d-b44b-a705a30a31ea
-begin 
-Achseunten = Axis(Leinwand[2, 1:2], title="Dritte Achse - Log-Log Plot", xlabel="x", ylabel="f(x)", yscale=log10, xscale=log10)
-lx = collect(0.01:0.1:40)
-h = lx.^(2)
-k = lx.^(3)
-lines!(Achseunten, lx, h, color=:black, linestyle=:dash, linewidth=2, label=L"x^2")
-lines!(Achseunten, lx, k, color=:green, linestyle=:dashdot, linewidth=2, label=L"x^3")
-
-axislegend(L"f(x)", position=:lt)
-Leinwand
-end
-
-# ╔═╡ 72c3e6ce-ebd1-467c-b40b-f28fa5469f1d
+# ╔═╡ c1da8bba-a908-4786-b5b2-0990eb9a5bc5
 md"
-Ok genug Details, hier so ein paar Minimalbeispiele um mal eben schnell was zu plotten.
+Nach der allerersten Installation von Julia auf deinen PC/MAC kann das Laden von folgenden Paketen einige Minuten in Anpruch nehmen. Habt Geduld! ☕
 "
 
-# ╔═╡ d374c66c-dc4b-408e-9c2f-d56b62ef3d65
+# ╔═╡ 877deb2c-702b-457b-a54b-f27c277928d4
 md"""
-## Minimalbeispiel: 4-Zeiler
+# 1. Aufgabenblatt
 """
 
-# ╔═╡ ddc0e2da-5fca-4b6b-bfee-8b623478fd06
-let
-#2 Arrays die gleich lang sind
-x = collect(0:0.01:5)
-y = cos.(x) .+ sin.(2x)
-	
-fig = Figure(resolution=(800, 400))
-ax = Axis(fig[1, 1])
-lines!(ax, x, y)
-fig
-end
-
-# ╔═╡ f3df781c-7580-410a-91b7-11ec78524e47
+# ╔═╡ 6a051cfc-3d26-4c20-83b3-2497410e35da
 md"""
-## Minimalbeispiel mit Achsenbeschriftung, Legende, multiple Graphen
+Abgabe: 26.10.2023 - 1800 Uhr auf StudIP im "Aufgaben"-Menü der Vorlesung.
 """
 
-# ╔═╡ f12b729f-dcc5-4955-ac5a-f0c1c8055360
-let
-#Arrays die gleich lang sind
-x = collect(0:0.01:5)
-y = cos.(x) .+ sin.(2x)
-z = sin.(x)
-	
-fig = Figure(resolution=(800, 400))
-ax = Axis(fig[1, 1], xlabel="x", ylabel="f(x)")
-lines!(ax, x, y, label="Eine tolle Funktion")
-lines!(ax, x, z, label="Eine andere Funktion")
-axislegend()
-fig
-end
-
-# ╔═╡ d42d4ffd-48e2-48eb-8ba3-b096087bc7e1
+# ╔═╡ b63e33fb-2ae4-4e3e-b0f2-e49c6b3df478
 md"""
-## Minimalbeispiel mit $\LaTeX$
+## Aufgabe 1
 """
 
-# ╔═╡ 212707a8-aeb6-4316-aa32-745137a626b6
-md"""
-Häufig ist es schöner eine $\LaTeX$ Formatierung für die Labels zu nutzen. Dies kann einfach durch ein `L` vor dem String-Typen ausgedrückt werden. Z.B. `L"f(x)"`. Natürlich sind auch andere $\LaTeX$ Befehle abrufbar. Falls ihr noch nie etwas über $\LaTeX$ gehört habt, keine Sorge Ihr werdet es im Laufe des Studiums garantiert noch beigebracht bekommen und lieben lernen (Microsoft Word is eine Pest für die Wissenschaft).
-"""
-
-# ╔═╡ 096b8917-c4b4-4721-9844-6b8c90d3b250
-let 
-x= collect(0:0.05:4π)
-fig = Figure(resolution = (800, 400)) 
-ax = Axis(fig[1, 1], xlabel = L"x", ylabel = L"f (x)")
-
-# Man kann als zweites Array auch eine Funktion mittels "x->f(x)" übergeben aus der sich das zweite Array aus dem ersten (hier x) ergibt:
-	
-lines!(ax, x, x -> sin(3x) / (cos(x) + 2) / x, label = L"\frac{\sin(3x)}{x(\cos(x) + 2)}")
-lines!(ax, x, x -> cos(x) / x, label = L"\cos(x)/x")
-lines!(ax, x, x -> exp(-x), label = L"e^{-x}")
-axislegend(L"f(x)"; position = :rt)
-fig
-end
-
-# ╔═╡ c1d2f943-92dd-47d9-9a6f-afebc959e674
-md"""
-## 3D Plots
-"""
-
-# ╔═╡ 792b84a3-aa8f-4d92-b858-24ce5c8edbfd
+# ╔═╡ e246759e-655a-4bf3-b22f-d6fa484a40d2
 md"
-Für dreidimensionale Grafiken benötigen wir einen anderen Achsentypen (im echten Leben würden wir ja auch ein anderes Koordinatensystem benötigen). Im Makie-Paket können wir durch die Funktion `Axis3(..)` einen 3D-Achsenobjekt erzeugen auf den wir anschließend wieder mit anderen Funktionen zeichnen können. Hier z.B. ein `wireframe` oder ein `surface` Plot der Funktion
-
-$z(x,y) = \cos(x)\sin(y)$
-
-Dabei erzeugen wir zunächst ein äquidistantes Gitter für `x` und `y` und werten anschließend mittels **array-comprehension** die Funktionswerte $z(x, y)$ auf diesen aus.
+Surfe ein wenig durch die Website und Installiere Julia und Pluto mithilfe des Videos-/Praktika-/Textmaterials. 
 "
 
-# ╔═╡ c2502723-81d3-4539-b1db-6f35f28164bb
-let 
-CairoMakie.activate!(type="svg")
-x = collect(0:0.02:2π)
-y = collect(0:0.02:2π)
-
-z = [cos(x_elem) * sin(y_elem) for x_elem in x, y_elem in y]
-
-fig = Figure(resolution=(1200, 600))
-ax3w = Axis3(fig[1, 1])
-# Für den wireframe-plot nehmen wir jedes 10te Element innerhalb der Arrays, damit die Gitterlinien nicht so dicht aneinander kleben
-wireframe!(ax3w, x[1:10:end], y[1:10:end], z[1:10:end, 1:10:end], color=:black)
-	
-ax3 = Axis3(fig[1, 2])
-surface!(ax3, x, y, z, colormap=:berlin)
-fig
-
-end
-
-# ╔═╡ 6a2de4bb-8af6-4041-b019-a18e846add29
+# ╔═╡ 24855b7f-3290-40a7-856b-9c9ef330c685
 md"
-## Heatmaps & Contours
+## Aufgabe 2
 "
 
-# ╔═╡ f1d7e0ba-9eba-4b16-a8d3-30a893ff9c13
-md"
-3D Plots sehen zwar sehr eindrucksvoll aus und können sehr gut das qualitative Verhalten von Daten darstellen, jedoch kann man Datenpunkte nicht wirklich ablesen. Aus diesen Grund betrachtet man häufig `heatmap`s oder Höhenlinien (Konturen engl. 
-`contour`) von 3D Plots, die dann wieder in zwei Dimensionen dargestellt werden können. 
-"
-
-# ╔═╡ 1e1315a9-eb59-40f1-87ca-6c9e1ec5dfa4
-let 
-CairoMakie.activate!(type="png")
-x = collect(0:0.02:2π)
-y = collect(0:0.02:2π)
-
-z = [cos(x_elem) * sin(y_elem) for x_elem in x, y_elem in y]
-
-fig = Figure(resolution=(800, 700), fontsize=24)
-ax = Axis(fig[1, 1], xlabel=L"x", ylabel=L"y")
-heat = heatmap!(ax, x, y, z, colormap=:berlin)
-contour!(ax, x, y, z, color=:white, levels=15)
-farbbar = Colorbar(fig[1,2], heat, ticks=-1:0.2:1, label=L"z")
-fig
-end
-
-# ╔═╡ fe3260af-0a77-4d68-9a56-2b298366c1ac
-md"
-## More Advanced
-"
-
-# ╔═╡ 5c584c87-d7f4-4a58-b3b7-dc4b98baa51b
-md"""
-Der Fantasie sind generell keine Grenzen gesetzt. Hier seht ihr z.B. ein Programm welches elektrische Feldlinien für einen Dipol und ein Quadrupol plottet. Die Farben der Linien deuten die Stärke (Norm der Länge) des elektrischen Feldes an (rot stark zu schwarz schwach). Rote Punkte sind positive Ladungen, blaue negative Ladungen. 
+# ╔═╡ db77e739-ca41-4459-bdcc-2a6dbaa103b8
+md""" 
+Testen Sie in den Übungsgruppen unter der Verwendung der Pluto Programmierungsumgebung die folgenden Eingaben: 
+- `1//4 + 1//3` 
+- `1/4 + 1/3` 
+- `sqrt(36)` 
+- `36^(1/2)` 
+- `27^(1/3)`
+- `# Dies ist ein Kommentar`.
 """
 
-# ╔═╡ 938ee308-5ef7-422c-98aa-613102c8e52e
-let
-CairoMakie.activate!(type = "png")
-	
-function E(q, rx, ry, x, y)
-    d = sqrt((x-rx)^2 + (y-ry)^2)^3
-    return (q * (x - rx) / d, q * (y - ry) / d)
-end
+# ╔═╡ 4ff09c4b-fb0a-4cf3-ba7b-59ca5a5e1d1a
 
-function charges(; nq = 2)
-    qs = []
-    for i in 1:nq
-        q = i % 2 * 2 - 1
-        push!(qs, (q, cos(2π * i / nq), sin(2π * i / nq)))
-    end
-    qs
-end
-	
-function fieldE(x,y)
-    Ex, Ey = 0, 0
-    for q in qs
-        ex, ey = E(q..., x, y)
-        Ex += ex
-        Ey += ey
-    end
-    Point(Ex, Ey)
-end
 
-# Erstellen einer Figur und der Achsen (Axis) auf denen wir zeichnen möchten. 
-fig = Figure(resolution = (1200,800), fontsize= 25)
-ax1 = Axis(fig[1,1]; aspect = DataAspect(), title="Feldlinien - Dipol", xgridvisible=false, ygridvisible=false)
-ax2 = Axis(fig[1,2]; aspect = DataAspect(), title="Feldlinien - Quadrupol",
-xgridvisible=false, ygridvisible=false)
+# ╔═╡ 0e709f00-dbac-4395-b8c4-a44fe2d0a890
+md"""
+## Aufgabe 3 - Schleifen 
+"""
 
-#Dipol Axis
-qs = charges()
-streamplot!(ax1, fieldE, -2..2, -2..2; arrow_size = 12, linewidth = 2.5,
-    colorrange = (-3,3), colormap = :berlin)
-# Array comprehension um Ladungen zu plotten: :-) 
-[scatter!(ax1, Point(qs[i][2:3]), color = qs[i][1] > 0 ? :red : :dodgerblue,
-    markersize = 20) for i in eachindex(qs)]
-limits!(ax1, -2,2, -2,2)
+# ╔═╡ a7688546-0b6c-46a6-aa40-069164cf983c
+md"""
+ a) Schreiben Sie eine for-Schleife zur Berechnung der Summe der ersten n Quadratzahlen.
+"""
 
-#Quadrupol Axis
-qs = charges(; nq = 4)
-streamplot!(ax2, fieldE, -2..2, -2..2; arrow_size = 12, linewidth = 2.5,
-    colorrange = (-3,3), colormap = :berlin)
-[scatter!(ax2, Point(qs[i][2:3]), color = qs[i][1] > 0 ? :red : :dodgerblue,
-    markersize = 20) for i in eachindex(qs)]
-limits!(ax2, -2,2,-2,2)
-hidedecorations!(ax1; grid = false)
-hidedecorations!(ax2; grid = false)
-fig
-end
+# ╔═╡ 73c86e7c-86d6-4ee9-b844-8dc86ac9e7c6
 
-# ╔═╡ e9ee1323-afd1-4fe6-bc3f-1396f54b22b3
-TableOfContents()
+
+# ╔═╡ 5d1d796f-496f-435c-a6fb-dba79dd91d86
+md"""
+ b) Berechnen Sie unter Verwendung einer for-Schleife das Produkt aller Elemente des 1D Arrays `J`, wobei `J=[3,5,1,8]` 
+
+"""
+
+# ╔═╡ 85b97e87-61cb-424e-972f-3b6341ec441e
+
+
+# ╔═╡ c1077b7d-5993-43d1-b81c-1bbdc3912123
+md"""
+c) Sei $x = 100$. Erstellen Sie eine Schleife, welche $x$ solange durch 2 dividiert, bis $x$ kleiner als $20$ ist. Bestimmen Sie mit dem Programm, wie viele Divisionsschritte erforderlich sind. Testen Sie auch andere Werte für $x$.
+"""
+
+# ╔═╡ 1e47e6d9-1146-48d7-abb3-d91e681ed409
+
+
+# ╔═╡ 389e7dfe-439d-4137-8fc7-7b7972738d3b
+md"""
+## Aufgabe 4 - Definition von Funktionen und Bestimmung derer Nullstellen
+"""
+
+# ╔═╡ 3a02bd3c-fc3c-4d7c-8303-b09aacb04f11
+md"""
+a) Der Befehl `a=4` definiert die Variable `a` und `b=3` definiert die Variable `b`. Definieren Sie anschließend die Variable `c` aus der Summe von `a` und `b`
+"""
+
+# ╔═╡ 475d1820-0d42-4a37-90bb-d4d6bec7178e
+
+
+# ╔═╡ 40a2d0d7-c230-4de5-8604-491fd5095e86
+md"""
+b) Definieren Sie mit `f=x->xˆ2 - 3` die Funktion $f$ und werten Sie die Funktion an den Stellen $x = 0$, $x = 1$ und $x = 2$ aus.
+"""
+
+# ╔═╡ d4a527ad-509b-4da1-8508-dbd9a5b4435e
+
+
+# ╔═╡ dd666174-149e-4a21-a5e9-f35f03f44134
+md"""
+c) Berechnen Sie mit dem Package ‘Roots.jl‘ und dem Befehl `find_zeros` die Nullstellen der in b) definierten Funktion $f$.
+
+"""
+
+# ╔═╡ 05298b21-1327-4646-9b0a-c9d90e7f123a
+
+
+# ╔═╡ 7ecb6f53-ef16-4435-a65b-3460977ea582
+md"""
+## Aufgabe 5 - Plotten von Funktionen
+"""
+
+# ╔═╡ 27b1f311-dda3-4cca-ab51-510b160987b8
+md"""
+a) Plotten Sie die Funktion $f(x) = \tan x$ mit Hilfe eines geeigneten Befehls des Makie-Packages. Experimentieren Sie dabei mit Beschränkungen des $x$- und $y$-Bereichs, um eine aussagekräftige Darstellung zu erhalten, die u.a. die Periodizität sowie das Verhalten der Funktion in der Nähe einer Nullstelle und einer Definitionslücke zeigt.
+"""
+
+# ╔═╡ e9df7a10-65dd-434d-b93a-b4ab3646120c
+
+
+# ╔═╡ 8837d523-7a30-44e6-b1ed-c6fd880a3594
+md"""
+
+b) Fertigen Sie ein aussagekräftiges Schaubild der Funktionen $f(x) = \exp(x)$, $f(x) = \exp(-x)$, $f(x) = \ln x$, $f(x) = \sin x$, $f(x) = \cos x$, $f(x) = \tan x$ und $f(x) = \cot x$ an. Verwenden Sie dabei Ihre in a) erworbenen Kenntnisse.
+"""
+
+# ╔═╡ c6fef9b0-89ba-4da9-9596-4f6ad0897da8
+md"""
+## Aufgabe 6 - MINIPROJEKT -Heron-Verfahren
+"""
+
+# ╔═╡ 05b6bf6d-9ccd-45c6-b418-8f9588818a61
+md"""
+a) Schreiben Sie ein Programm zur Berechnung der Wurzel $\sqrt{c}$ mit $c \geq 0$, (möglichst) ohne auf die Vorlage aus der Vorlesung zu schauen
+"""
+
+# ╔═╡ 23a61fb0-3848-4b9a-b4e9-872d45a2a8c9
+
+
+# ╔═╡ 10da8fd5-d1a5-402e-8649-ebbe23b29e0a
+md"""
+b) Entwickeln Sie nach dem Prinzip des Heron-Verfahrens eine numerische Methode, um die dritte Wurzel $\sqrt[3]{c}$ einer vorgegebenen nichtnegativen rellen Zahl $c$ iterativ zu bestimmen. Konstruieren Sie hierzu einen Quader mit dem Volumen $c$, der iterativ in einen Würfel gleichen Volumens umgewandelt wird. Testen Sie das Verfahren numerisch und prüfen Sie das Ergebnis durch eine Probe
+"""
+
+# ╔═╡ b59acb64-d9d6-4100-b4af-8c19f250e800
+
+
+# ╔═╡ 490ea4f2-6a46-4e12-adf3-61c0b70584c1
+md"""
+c*) Erweitern Sie diesen Ansatz um die $n$-te Wurzel von $c$ numerisch zu berechnen. Testen Sie das Verfahren wieder numerisch und prüfen Sie das Ergebnis durch eine Probe.
+
+"""
+
+# ╔═╡ ac26b8af-f7a4-4675-8ec5-4ce64f8ee101
+
+
+# ╔═╡ 781881d6-bf7e-4b92-a3a0-06e3a7120f0c
+md"""
+# (Haus)aufgabe 7 - Vertiefung des Übungsinhalts
+"""
+
+# ╔═╡ 89e60545-1837-4f8b-aa2f-5b0783a471f1
+md"""
+Testen Sie die Eingabe folgende Befehle:
+
+a)
+- `?abs`
+- `abs(2)`
+- `abs(-2)`
+"""
+
+# ╔═╡ 04562810-f8a2-4660-b611-7d7f955dad73
+
+
+# ╔═╡ 07d6ebc4-61e1-48d7-9d19-86f5f4cbe669
+md"""
+b)
+- `floor(2.3)`
+- `floor(1.7)`
+- `floor(-5.8)`
+- `floor(-2.2)`
+"""
+
+# ╔═╡ 27a5809b-3db6-4c73-afaf-e256bbeb1203
+
+
+# ╔═╡ fc9545cc-f685-4a51-8e2f-7339c697963f
+md"""
+c) Definieren Sie die Funktion $f(x) = 1/ln(x)$ und lösen Sie $f(x) = 2$ mittels Umformulierung des Problems in ein Nullstellenproblem und der anschließenden Nutzung von `find_zero` des ‘Roots.jl‘ Pakets.
+"""
+
+# ╔═╡ c6f272b2-9df6-404f-801a-1f4c45524ea0
+
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
-LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
-MeshIO = "7269a6da-0436-5bbc-96c2-40638cbb6118"
-PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
 
 [compat]
 CairoMakie = "~0.10.11"
-Makie = "~0.19.11"
-MeshIO = "~0.4.10"
-PlutoUI = "~0.7.52"
+Roots = "~2.0.20"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -496,7 +229,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.9.3"
 manifest_format = "2.0"
-project_hash = "53a1f44781a002de95229b64ba22f046c6f06da3"
+project_hash = "7b43ee26725912de2e7bb87792d5cd538ba84c81"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -513,12 +246,6 @@ weakdeps = ["ChainRulesCore", "Test"]
 git-tree-sha1 = "f35684b7349da49fcc8a9e520e30e45dbb077166"
 uuid = "398f06c4-4d28-53ec-89ca-5b2656b7603d"
 version = "0.2.1"
-
-[[deps.AbstractPlutoDingetjes]]
-deps = ["Pkg"]
-git-tree-sha1 = "91bd53c39b9cbfb5ef4b015e8b582d344532bd0a"
-uuid = "6e696c72-6542-2067-7265-42206c756150"
-version = "1.2.0"
 
 [[deps.AbstractTrees]]
 git-tree-sha1 = "faa260e4cb5aba097a73fab382dd4b5819d8ec8c"
@@ -681,6 +408,11 @@ version = "0.12.10"
 git-tree-sha1 = "08c8b6831dc00bfea825826be0bc8336fc369860"
 uuid = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
 version = "1.0.2"
+
+[[deps.CommonSolve]]
+git-tree-sha1 = "0eee5eb66b1cf62cd6ad1b460238e60e4b09400c"
+uuid = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"
+version = "0.2.4"
 
 [[deps.CommonSubexpressions]]
 deps = ["MacroTools", "Test"]
@@ -1006,24 +738,6 @@ git-tree-sha1 = "f218fe3736ddf977e0e772bc9a586b2383da2685"
 uuid = "34004b35-14d8-5ef3-9330-4cdb6864b03a"
 version = "0.3.23"
 
-[[deps.Hyperscript]]
-deps = ["Test"]
-git-tree-sha1 = "8d511d5b81240fc8e6802386302675bdf47737b9"
-uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
-version = "0.0.4"
-
-[[deps.HypertextLiteral]]
-deps = ["Tricks"]
-git-tree-sha1 = "c47c5fa4c5308f27ccaac35504858d8914e102f9"
-uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
-version = "0.9.4"
-
-[[deps.IOCapture]]
-deps = ["Logging", "Random"]
-git-tree-sha1 = "d75853a0bdbfb1ac815478bacd89cd27b550ace6"
-uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
-version = "0.2.3"
-
 [[deps.ImageAxes]]
 deps = ["AxisArrays", "ImageBase", "ImageCore", "Reexport", "SimpleTraits"]
 git-tree-sha1 = "2e4520d67b0cef90865b3ef727594d2a58e0e1f8"
@@ -1066,9 +780,9 @@ uuid = "9b13fd28-a010-5f03-acff-a1bbcff69959"
 version = "1.0.0"
 
 [[deps.Inflate]]
-git-tree-sha1 = "5cd07aab533df5170988219191dfad0519391428"
+git-tree-sha1 = "ea8031dea4aff6bd41f1df8f2fdfb25b33626381"
 uuid = "d25df0c9-e2be-5dd7-82c8-3ad0b3e990b9"
-version = "0.1.3"
+version = "0.1.4"
 
 [[deps.IntegerMathUtils]]
 git-tree-sha1 = "b8ffb903da9f7b8cf695a8bead8e01814aa24b30"
@@ -1289,11 +1003,6 @@ version = "0.3.26"
 [[deps.Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 
-[[deps.MIMEs]]
-git-tree-sha1 = "65f28ad4b594aebe22157d6fac869786a255b7eb"
-uuid = "6c6e2e6c-3030-632d-7369-2d6c69616d65"
-version = "0.1.4"
-
 [[deps.MKL_jll]]
 deps = ["Artifacts", "IntelOpenMP_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "Pkg"]
 git-tree-sha1 = "eb006abbd7041c28e0d16260e50a24f8f9104913"
@@ -1342,12 +1051,6 @@ version = "0.5.6"
 deps = ["Artifacts", "Libdl"]
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
 version = "2.28.2+0"
-
-[[deps.MeshIO]]
-deps = ["ColorTypes", "FileIO", "GeometryBasics", "Printf"]
-git-tree-sha1 = "8be09d84a2d597c7c0c34d7d604c039c9763e48c"
-uuid = "7269a6da-0436-5bbc-96c2-40638cbb6118"
-version = "0.4.10"
 
 [[deps.Missings]]
 deps = ["DataAPI"]
@@ -1453,9 +1156,9 @@ version = "0.5.5+0"
 
 [[deps.Optim]]
 deps = ["Compat", "FillArrays", "ForwardDiff", "LineSearches", "LinearAlgebra", "NLSolversBase", "NaNMath", "Parameters", "PositiveFactorizations", "Printf", "SparseArrays", "StatsBase"]
-git-tree-sha1 = "963b004d15216f8129f6c0f7d187efa136570be0"
+git-tree-sha1 = "01f85d9269b13fedc61e63cc72ee2213565f7a72"
 uuid = "429524aa-4258-5aef-a3af-852621145aeb"
-version = "1.7.7"
+version = "1.7.8"
 
 [[deps.Opus_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -1543,12 +1246,6 @@ deps = ["ColorSchemes", "Colors", "Dates", "PrecompileTools", "Printf", "Random"
 git-tree-sha1 = "f92e1315dadf8c46561fb9396e525f7200cdc227"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
 version = "1.3.5"
-
-[[deps.PlutoUI]]
-deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
-git-tree-sha1 = "e47cd150dbe0443c3a3651bc5b9cbd5576ab75b7"
-uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.52"
 
 [[deps.PolygonOps]]
 git-tree-sha1 = "77b3d3605fc1cd0b42d95eba87dfcd2bf67d5ff6"
@@ -1655,9 +1352,9 @@ version = "1.2.2"
 
 [[deps.RelocatableFolders]]
 deps = ["SHA", "Scratch"]
-git-tree-sha1 = "90bc7a7c96410424509e4263e277e43250c05691"
+git-tree-sha1 = "ffdaf70d81cf6ff22c2b6e733c900c3321cab864"
 uuid = "05181044-ff0b-4ac5-8273-598c1e38db00"
-version = "1.0.0"
+version = "1.0.1"
 
 [[deps.Requires]]
 deps = ["UUIDs"]
@@ -1682,6 +1379,24 @@ deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "6ed52fdd3382cf21947b15e8870ac0ddbff736da"
 uuid = "f50d1b31-88e8-58de-be2c-1cc44531875f"
 version = "0.4.0+0"
+
+[[deps.Roots]]
+deps = ["ChainRulesCore", "CommonSolve", "Printf", "Setfield"]
+git-tree-sha1 = "06b5ac80ff1b88bd82df92c1c1875eea3954cd6e"
+uuid = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
+version = "2.0.20"
+
+    [deps.Roots.extensions]
+    RootsForwardDiffExt = "ForwardDiff"
+    RootsIntervalRootFindingExt = "IntervalRootFinding"
+    RootsSymPyExt = "SymPy"
+    RootsSymPyPythonCallExt = "SymPyPythonCall"
+
+    [deps.Roots.weakdeps]
+    ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
+    IntervalRootFinding = "d2bf35a9-74e0-55ec-b149-d360ff49b807"
+    SymPy = "24249f21-da20-56a4-8eb1-6a02cf4ae2e6"
+    SymPyPythonCall = "bc8888f7-b21e-4b7c-a06a-5d9c9496438c"
 
 [[deps.RoundingEmulator]]
 git-tree-sha1 = "40b9edad2e5287e05bd413a38f61a8ff55b9557b"
@@ -1910,11 +1625,6 @@ git-tree-sha1 = "9a6ae7ed916312b41236fcef7e0af564ef934769"
 uuid = "3bb67fe8-82b1-5028-8e26-92a6c54297fa"
 version = "0.9.13"
 
-[[deps.Tricks]]
-git-tree-sha1 = "aadb748be58b492045b4f56166b5188aa63ce549"
-uuid = "410a4b4d-49e4-4fbc-ab6d-cb71b17b3775"
-version = "0.1.7"
-
 [[deps.TriplotBase]]
 git-tree-sha1 = "4d4ed7f294cda19382ff7de4c137d24d16adc89b"
 uuid = "981d1d27-644d-49a2-9326-4793e63143c3"
@@ -1924,11 +1634,6 @@ version = "0.1.0"
 git-tree-sha1 = "155515ed4c4236db30049ac1495e2969cc06be9d"
 uuid = "9d95972d-f1c8-5527-a6e0-b4b365fa01f6"
 version = "1.4.3"
-
-[[deps.URIs]]
-git-tree-sha1 = "b7a5e99f24892b6824a954199a45e9ffcc1c70f0"
-uuid = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"
-version = "1.5.0"
 
 [[deps.UUIDs]]
 deps = ["Random", "SHA"]
@@ -2090,44 +1795,47 @@ version = "3.5.0+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─f092dcc7-57bb-4d3f-a7a1-ce9f3957e242
-# ╟─b698b4e4-d864-45af-9c17-108bfdbbbd26
-# ╠═07e443b4-6468-11ee-0f28-676c021ae136
-# ╟─deeff5f6-4cc0-4429-b10f-738e61a22099
-# ╠═3c5ed473-0945-4fc4-9753-71abf6881ce8
-# ╟─11e23f59-bec7-48f1-a6d8-515a427b7096
-# ╟─7ff33c9b-0ec8-41f1-bd4f-9811110885a5
-# ╟─bd63ce89-9f09-41c7-ab6b-26247354689d
-# ╟─49690a09-ab74-40ec-afc2-9a91a6d5e79c
-# ╟─e9891221-60b0-48b3-8103-4c48cb0e9543
-# ╟─8d02a941-933f-4995-b585-6d8c2967956f
-# ╠═439b03b0-5c85-43b0-a6f2-beeb05be6211
-# ╟─52859fae-b4ce-4871-b089-d6a4c21ce3b0
-# ╠═71e5c7c1-9e2c-4eec-8635-65fa184b19f3
-# ╟─363fac7f-d41a-43bb-9f18-1c21f5ac0eab
-# ╠═979f6744-e9e2-435a-a533-35f47a44393e
-# ╟─c18b382b-16a3-4997-bf88-dba8348318c6
-# ╠═430a1f3d-858f-48fe-9a60-8e5521733fa6
-# ╟─d4860309-62ee-4260-90ef-4a81d02504b5
-# ╠═98478d4b-6611-4e3d-b44b-a705a30a31ea
-# ╟─72c3e6ce-ebd1-467c-b40b-f28fa5469f1d
-# ╟─d374c66c-dc4b-408e-9c2f-d56b62ef3d65
-# ╠═ddc0e2da-5fca-4b6b-bfee-8b623478fd06
-# ╟─f3df781c-7580-410a-91b7-11ec78524e47
-# ╠═f12b729f-dcc5-4955-ac5a-f0c1c8055360
-# ╟─d42d4ffd-48e2-48eb-8ba3-b096087bc7e1
-# ╟─212707a8-aeb6-4316-aa32-745137a626b6
-# ╠═096b8917-c4b4-4721-9844-6b8c90d3b250
-# ╟─c1d2f943-92dd-47d9-9a6f-afebc959e674
-# ╟─792b84a3-aa8f-4d92-b858-24ce5c8edbfd
-# ╠═c2502723-81d3-4539-b1db-6f35f28164bb
-# ╟─6a2de4bb-8af6-4041-b019-a18e846add29
-# ╟─f1d7e0ba-9eba-4b16-a8d3-30a893ff9c13
-# ╠═1e1315a9-eb59-40f1-87ca-6c9e1ec5dfa4
-# ╟─fe3260af-0a77-4d68-9a56-2b298366c1ac
-# ╟─5c584c87-d7f4-4a58-b3b7-dc4b98baa51b
-# ╠═938ee308-5ef7-422c-98aa-613102c8e52e
-# ╠═9fb62c12-9462-4abf-ba16-72fc9d18eaf7
-# ╠═e9ee1323-afd1-4fe6-bc3f-1396f54b22b3
+# ╟─931a0976-e654-4f6a-bad8-a2508656b745
+# ╟─c1da8bba-a908-4786-b5b2-0990eb9a5bc5
+# ╠═06a045e9-c318-4832-a518-025b0e45fc1b
+# ╟─877deb2c-702b-457b-a54b-f27c277928d4
+# ╟─6a051cfc-3d26-4c20-83b3-2497410e35da
+# ╟─b63e33fb-2ae4-4e3e-b0f2-e49c6b3df478
+# ╟─e246759e-655a-4bf3-b22f-d6fa484a40d2
+# ╟─24855b7f-3290-40a7-856b-9c9ef330c685
+# ╟─db77e739-ca41-4459-bdcc-2a6dbaa103b8
+# ╠═4ff09c4b-fb0a-4cf3-ba7b-59ca5a5e1d1a
+# ╟─0e709f00-dbac-4395-b8c4-a44fe2d0a890
+# ╟─a7688546-0b6c-46a6-aa40-069164cf983c
+# ╠═73c86e7c-86d6-4ee9-b844-8dc86ac9e7c6
+# ╟─5d1d796f-496f-435c-a6fb-dba79dd91d86
+# ╠═85b97e87-61cb-424e-972f-3b6341ec441e
+# ╟─c1077b7d-5993-43d1-b81c-1bbdc3912123
+# ╠═1e47e6d9-1146-48d7-abb3-d91e681ed409
+# ╟─389e7dfe-439d-4137-8fc7-7b7972738d3b
+# ╟─3a02bd3c-fc3c-4d7c-8303-b09aacb04f11
+# ╠═475d1820-0d42-4a37-90bb-d4d6bec7178e
+# ╟─40a2d0d7-c230-4de5-8604-491fd5095e86
+# ╠═d4a527ad-509b-4da1-8508-dbd9a5b4435e
+# ╟─dd666174-149e-4a21-a5e9-f35f03f44134
+# ╠═05298b21-1327-4646-9b0a-c9d90e7f123a
+# ╟─7ecb6f53-ef16-4435-a65b-3460977ea582
+# ╟─27b1f311-dda3-4cca-ab51-510b160987b8
+# ╠═e9df7a10-65dd-434d-b93a-b4ab3646120c
+# ╟─8837d523-7a30-44e6-b1ed-c6fd880a3594
+# ╟─c6fef9b0-89ba-4da9-9596-4f6ad0897da8
+# ╟─05b6bf6d-9ccd-45c6-b418-8f9588818a61
+# ╠═23a61fb0-3848-4b9a-b4e9-872d45a2a8c9
+# ╟─10da8fd5-d1a5-402e-8649-ebbe23b29e0a
+# ╠═b59acb64-d9d6-4100-b4af-8c19f250e800
+# ╟─490ea4f2-6a46-4e12-adf3-61c0b70584c1
+# ╠═ac26b8af-f7a4-4675-8ec5-4ce64f8ee101
+# ╟─781881d6-bf7e-4b92-a3a0-06e3a7120f0c
+# ╟─89e60545-1837-4f8b-aa2f-5b0783a471f1
+# ╠═04562810-f8a2-4660-b611-7d7f955dad73
+# ╟─07d6ebc4-61e1-48d7-9d19-86f5f4cbe669
+# ╠═27a5809b-3db6-4c73-afaf-e256bbeb1203
+# ╟─fc9545cc-f685-4a51-8e2f-7339c697963f
+# ╠═c6f272b2-9df6-404f-801a-1f4c45524ea0
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
