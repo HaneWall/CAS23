@@ -3,7 +3,7 @@
 
 #> [frontmatter]
 #> order = 1
-#> title = "Aufgabenblatt 1"
+#> title = "1. Aufgabenblatt"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments"]
 #> description = ""
