@@ -22,12 +22,12 @@ Hier die eventuell amüsante, aber dennoch ernstzunehmende Beantwortung der Entw
 
 > (Did we mention it should be as fast as C?)
 
-Das klingt alles sehr hochtrabend - elf Jahre später (quasi noch ein Baby) muss man jedoch sagen, dass es Ihnen im Großen und Ganzen gelungen ist, eine kompetetive Programmiersprache zu entwickeln, die den Tod von zumindest Matlab besiegeln könnte. 
+Das klingt alles sehr hochtrabend - elf Jahre später (quasi noch ein Baby in der Informatik) muss man jedoch sagen, dass es Ihnen im Großen und Ganzen gelungen ist, eine kompetetive Programmiersprache zu entwickeln, die den Tod von zumindest Matlab besiegeln könnte. 
 
 
 ## Warum Julia in diesen Kurs?
 
-Im Laufe eures Studiums werdet ihr vorallem in Matlab oder Julia bzw. allgemein mit dem *numerischen* Programmieren in Berührung kommen. Folglich ist es sinnvoll bereits hier mit Julia (bzw. Matlab - nahezu gleiche Syntax) anzufangen. Computeralgebrasysteme wie Maple verfolgen hingegen eine andere Philosophie und versuchen mit symbolischen Umformungen und analytischen Ergebnissen zu glänzen. Definitiv besitzen beide Herangehensweisen ihre Daseinsberechtigung, jedoch haben *numerische* Verfahren deutlich größere Anwendungsbereiche (siehe unten Industrie & Bildung).
+Im Laufe eures Studiums werdet ihr vorallem mit Matlab, Python oder Julia bzw. allgemein mit dem *numerischen* Programmieren in Berührung kommen. Folglich ist es sinnvoll bereits hier mit Julia (bzw. Matlab - nahezu gleiche Syntax) anzufangen. Computeralgebrasysteme wie Maple verfolgen hingegen eine andere Philosophie und versuchen mit symbolischen Umformungen und analytischen Ergebnissen zu glänzen. Definitiv besitzen beide Herangehensweisen ihre Daseinsberechtigung, jedoch haben *numerische* Verfahren deutlich größere Anwendungsbereiche (siehe unten Industrie & Bildung).
 
 ## Ist die Wahl der Programmiersprache endgültig?
 
@@ -38,9 +38,9 @@ Nein, keineswegs! Der typische Weg ist in etwa so: Man lernt eine Sprache sehr g
 
 Innerhalb der Industrie und Forschung gibt es seit vielen Jahrzehnten ein Problem. Häufig möchte man ein Sachverhalt verstehen und simulieren und greift somit zu einer Skriptsprache wie Python, um schnell einen Prototypen zu entwickeln. Funktioniert dieser, wird der gesamte Prototyp in eine performantere, kompilierte Sprache wie C oder Rust umgeschrieben. Dieser Entwicklungsprozess kann sehr lange dauern. 
 
-Im Laufe der letzten 10 Jahre kam es dann zur einer Popularitätsexplosion von Python, da man eine vermeidliche Lösung für dieses Problem fand. Python war schon immer durch seine kinderleichte Syntax bekannt, ist jedoch selbst äußerst langsam. Aus diesem Grund *schummelt* man in Python etwas und importiert direkt C-Pakete (z.B. NumPy oder Pandas) um seine Berechnungen durchzuführen. Demnach wird Python quasi als leichte Benutzeroberfläche von C genutzt. Man kann sich vorstellen, dass dies erstmal einen ordentlichen Performanceboost mit sich bringt, aber man auch schnell auf Grenzen stößt und nie ganz an die Performance von C herankommt bzw. man einfach nicht die gleiche Flexibilität besitzt, wie bei einen reinen C Projekt.Eine wirklich elegante Lösung ist das also nicht. 
+Im Laufe der letzten 10 Jahre kam es dann zur einer Popularitätsexplosion von Python, da man eine vermeidliche Lösung für dieses Problem fand. Python war schon immer durch seine kinderleichte Syntax bekannt, ist jedoch selbst äußerst langsam. Aus diesem Grund *schummelt* man in Python etwas und importiert direkt C-Pakete (z.B. NumPy, TensorFlow oder Pandas) um seine Berechnungen durchzuführen. Demnach wird Python quasi als leichte Benutzeroberfläche von C genutzt. Man kann sich vorstellen, dass dies erstmal einen ordentlichen Performanceboost mit sich bringt, aber man auch schnell auf Grenzen stößt und nie ganz an die Performance von C herankommt bzw. man einfach nicht die gleiche Flexibilität besitzt, wie bei einen reinen C Projekt. Eine wirklich elegante Lösung ist das also nicht. 
 
-Hier kommt nun Julia ins Spiel und überzeugt mit ähnlicher Performance zu C, nativen Paketen und einer Syntax die im *Sweetspot* zwischen C, Matlab und Python einzuordnen ist. Julia ist in Julia selbst und C geschrieben und vollständig Open-Source (also auch kostenlos). Dies führt dazu, dass jeder aktiv die Sprache mitgestalten und weiter optimieren kann. Durch die leichte Syntax von Julia können wir also schnell Prototypen erstellen, die dann mittels Optimierung des Codes in der selben Sprache zu einen echten Produkt heranreifen können. 
+Hier kommt nun Julia ins Spiel und überzeugt mit ähnlicher Performance zu C, nativen Paketen und einer Syntax die im *Sweetspot* zwischen C, Matlab und Python einzuordnen ist. Julia ist in Julia selbst und C geschrieben und vollständig Open-Source (also auch kostenlos). Diese Politik führt dazu, dass jeder aktiv die Sprache mitgestalten und weiter optimieren kann. Durch die leichte Syntax von Julia können wir also schnell Prototypen erstellen, die dann mittels Optimierung des Codes noch in der selben Sprache zu einen echten Produkt heranreifen können. 
 
 ## Industrie
 
