@@ -11,10 +11,14 @@ layout: "md.jlmd"
 Willkommen in der Julia-Praktikumsgruppe der CAS-Vorlesung im Wintersemester 2023/2024. Auf dieser Homepage werdet ihr eine Übersicht
 zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitung der Aufgaben bereitgestellt. Außerdem versuche ich mit einem Delay die Vorlesung auf Julia zu übersetzen und ebenfalls im "Vorlesungen"-Reiter dieser Homepage hochzuladen.
 
-⚠️ Bitte unbedingt die Vorlesung besuchen, dort werden größere Konzepte besprochen.
+~~~
+Unbedingt die Vorlesung besuchen, dort werden größere Konzepte besprochen.
+~~~
+
+## Randbedingungen
 
 ### Hardware
-- Haus 1, Raum 227 besitzt Windows-PCs 
+- Unser Praktikumsraum Haus 1, Raum 227 besitzt Windows-PCs. 
 
 - Praktika findet wöchentlich donnerstags um 0700 Uhr ☕️ statt.
 
@@ -27,15 +31,15 @@ zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitun
 
 - Es soll nicht nur die Hausaufgabe, sondern das gesamte Aufgabenblatt abgegeben werden.
 
-- Nach der Abgabe werden, im Laufe von einer Woche, Hinweise im selbigen "Aufgaben"-Menü auftauchen. Dort wird prinzipiell stehen ob die Abgabe "reicht" oder nicht. Falls letzteres eintritt, stehen dort Verbesserungsvorschläge / Tipps die bei der späteren Abgabe des Portfolios zu berücksichtigen sind.
+- Nach der Abgabe werden, im Laufe von einer Woche, Hinweise im selbigen "Aufgaben"-Menü auftauchen. Dort wird prinzipiell stehen ob die Abgabe den Anforderungen genügt oder nicht. Falls letzteres eintritt, stehen dort Verbesserungsvorschläge / Tipps die bei der späteren Abgabe des Portfolios zu berücksichtigen sind.
 
-### Praktikumsbericht/Portfolio
+### Praktikumsbericht / Portfolio
 
 - Am Ende der Veranstaltung alle (vollständigen) Aufgabenblätter als pdf zusammenführen und abermals in den "Aufgaben"-Menü hochladen.
 
 - Es gibt keine schriftliche Klausur.
 ### Anwesenheit
-- Jeder muss mindestens 10 von 12 Seminaren / Praktika besuchen.
+- Jeder muss mindestens 12 von 14 Seminaren / Praktika besuchen.
 
 - Bei Krankheit bitte Zettel Frau S. Neumann übermitteln.
 

@@ -9,7 +9,7 @@ layout: "md.jlmd"
 
 Hier die eventuell amüsante, aber dennoch ernstzunehmende Beantwortung der Entwickler vom MIT, welche die Sprache 2012 veröffentlichten:
 
-> #### Julia Manifest 2012 zum Release der Sprache:
+> #### Julia Manifest 2012:
 > In short, because we are greedy.
 
 > We are power Matlab users. Some of us are Lisp hackers. Some are Pythonistas, others Rubyists, still others Perl hackers. There are those of us who used Mathematica before we could grow facial hair. There are those who still can't grow facial hair. We've generated more R plots than any sane person should. C is our desert island programming language.
@@ -22,7 +22,7 @@ Hier die eventuell amüsante, aber dennoch ernstzunehmende Beantwortung der Entw
 
 > (Did we mention it should be as fast as C?)
 
-Das klingt alles sehr hochtrabend - elf Jahre später (quasi noch ein Baby in der Informatik) muss man jedoch sagen, dass es Ihnen im Großen und Ganzen gelungen ist, eine kompetetive Programmiersprache zu entwickeln, die den Tod von zumindest Matlab besiegeln könnte. 
+Das klingt alles sehr hochtrabend - elf Jahre später und fünf Jahre nach Julia 1.0 (quasi noch ein Baby in der Informatik) muss man jedoch sagen, dass es Ihnen im Großen und Ganzen gelungen ist, eine kompetetive Programmiersprache zu entwickeln, die den Tod von zumindest Matlab besiegeln könnte. 
 
 
 ## Warum Julia in diesen Kurs?
@@ -34,19 +34,19 @@ Im Laufe eures Studiums werdet ihr vorallem mit Matlab, Python oder Julia bzw. a
 Nein, keineswegs! Der typische Weg ist in etwa so: Man lernt eine Sprache sehr gut kennen und lernt grundlegende Prinzipien, Muster bzw. Konzepte. In dieser Sprache fängt man dann an Probleme zu lösen und Projekte fürs Studium zu bearbeiten. Über die Zeit werdet Ihr dann durch das Internet, andere Kurse oder Kommilitonen auf andere Programmiersprachen treffen, in der das spezifische Problem noch viel leichter zu lösen ist. Also war dann alles umsonst? Nein! Die Muster und die Syntax sind in allen Sprachen ziemlich nah aneinander. Wenn Ihr den Namen des Musters/Konzepts bzw. der Syntax beherrscht könnt ihr mit einfachen **googlen** eine neue Programmiersprache lernen! Jede weitere Programmiersprache ist dann nur noch Formsache. 
 
 
-## Das Zwei-Sprachenproblem
+## The Two-Language Problem
 
-Innerhalb der Industrie und Forschung gibt es seit vielen Jahrzehnten ein Problem. Häufig möchte man ein Sachverhalt verstehen und simulieren und greift somit zu einer Skriptsprache wie Python, um schnell einen Prototypen zu entwickeln. Funktioniert dieser, wird der gesamte Prototyp in eine performantere, kompilierte Sprache wie C oder Rust umgeschrieben. Dieser Entwicklungsprozess kann sehr lange dauern. 
+Innerhalb der Industrie und Forschung gibt es seit vielen Jahrzehnten ein Problem. Häufig möchte man ein Sachverhalt verstehen und simulieren und greift somit zu einer Skriptsprache wie Python/Matlab/R, um schnell einen Prototypen zu entwickeln. Funktioniert dieser, wird der gesamte Prototyp in eine performantere, kompilierte Sprache wie C oder Rust umgeschrieben. Dieser Entwicklungsprozess kann sehr lange dauern. 
 
-Im Laufe der letzten 10 Jahre kam es dann zur einer Popularitätsexplosion von Python, da man eine vermeidliche Lösung für dieses Problem fand. Python war schon immer durch seine kinderleichte Syntax bekannt, ist jedoch selbst äußerst langsam. Aus diesem Grund *schummelt* man in Python etwas und importiert direkt C-Pakete (z.B. NumPy, TensorFlow oder Pandas) um seine Berechnungen durchzuführen. Demnach wird Python quasi als leichte Benutzeroberfläche von C genutzt. Man kann sich vorstellen, dass dies erstmal einen ordentlichen Performanceboost mit sich bringt, aber man auch schnell auf Grenzen stößt und nie ganz an die Performance von C herankommt bzw. man einfach nicht die gleiche Flexibilität besitzt, wie bei einen reinen C Projekt. Eine wirklich elegante Lösung ist das also nicht. 
+Im Laufe der letzten 10 Jahre kam es dann zur einer Popularitätsexplosion von Python, da man eine vermeidliche Lösung für dieses Problem fand. Python war schon immer durch seine kinderleichte Syntax bekannt, ist jedoch selbst äußerst langsam. Aus diesem Grund *schummelt* man nun in Python etwas und importiert direkt C-Pakete (z.B. NumPy, TensorFlow oder PyTorch) um seine Berechnungen durchzuführen. Demnach wird Python quasi als leichte Benutzeroberfläche von C genutzt. Man kann sich vorstellen, dass dies erstmal einen ordentlichen Performanceboost mit sich bringt, aber man auch schnell auf Grenzen stößt und nie ganz an die Performance von kompilierten C herankommt bzw. man einfach nicht die gleiche Flexibilität besitzt, wie bei einen reinen C Projekt. Eine wirklich elegante Lösung ist das also nicht. 
 
-Hier kommt nun Julia ins Spiel und überzeugt mit ähnlicher Performance zu C, nativen Paketen und einer Syntax die im *Sweetspot* zwischen C, Matlab und Python einzuordnen ist. Julia ist in Julia selbst und C geschrieben und vollständig Open-Source (also auch kostenlos). Diese Politik führt dazu, dass jeder aktiv die Sprache mitgestalten und weiter optimieren kann. Durch die leichte Syntax von Julia können wir also schnell Prototypen erstellen, die dann mittels Optimierung des Codes noch in der selben Sprache zu einen echten Produkt heranreifen können. 
+Hier kommt nun Julia ins Spiel und überzeugt mit ähnlicher Performance zu C, nativen Paketen und einer Syntax die im *Sweetspot* zwischen C, Matlab und Python einzuordnen ist. Darüberhinaus kann Julia nativ Grafikkarten (CUDA) für Berechnungen nutzen und ist damit bestens für Supercomputer/ High-Performance-Computing geeignet. Julia ist in Julia selbst und C geschrieben und vollständig Open-Source (also auch kostenlos). Diese Politik führt dazu, dass jeder aktiv die Sprache mitgestalten und weiter optimieren kann. Durch die leichte Syntax Julia`s können wir also schnell Prototypen erstellen, die dann mittels Optimierung des Codes noch in der selben Sprache zu einen echten Produkt heranreifen können. 
 
 ## Industrie
 
 + Der größte Vermögensverwalter der Welt **BlackRock** setzt bei seinen Datenanalysesystem **Aladdin** auf Julia.
 + **ASML**, bekannt durch seine Lithografieverfahren (die es ermöglichen Computerchips herzustellen - Thema der Weltpolitik), wechseln seit zwei Jahren von Matlab und Python zu Julia. Inzwischen hat **ASML** über 130 private Julia Verzeichnisse auf GitHub, natürlich alle streng geheim.
-+ **Amazon** nutzt Julia für Quantum Computing. Dies ist vermutlich die Zukunft der ganzen, noch sehr jungen Branche, da die hier entwickelten Pakete nur in Julia existieren.
++ **Amazon** nutzt Julia für Quantum Computing. Dies ist vermutlich die Zukunft der ganzen, noch sehr jungen, Branche da die hier entwickelten Pakete nur in Julia existieren.
 + Seit 2022 wertet **CERN** Daten vom Large-Hydron-Collider mit Julia aus.
 + **Intel, IBM, Apple, NASA** .. sind alle aktive Sponsor der Sprache und adoptieren in bestimmten Bereichen zu Julia. 
 
