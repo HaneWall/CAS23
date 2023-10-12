@@ -13,7 +13,8 @@ using InteractiveUtils
 
 # ╔═╡ 06a045e9-c318-4832-a518-025b0e45fc1b
 begin 
-using Roots,CairoMakie
+	using Roots # zur Nullstellenberechnung
+	using CairoMakie # zum Plotten
 end
 
 # ╔═╡ 931a0976-e654-4f6a-bad8-a2508656b745
@@ -23,17 +24,51 @@ md"
 
 # ╔═╡ c1da8bba-a908-4786-b5b2-0990eb9a5bc5
 md"
-Nach der allerersten Installation von Julia auf deinen PC/MAC kann das Laden von folgenden Paketen einige Minuten in Anpruch nehmen. Habt Geduld! ☕
+Nach der allerersten Installation von Julia auf deinen PC/MAC kann das Laden von folgenden Paketen einige Minuten in Anspruch nehmen. Haben Sie Geduld! ☕
 "
 
 # ╔═╡ 877deb2c-702b-457b-a54b-f27c277928d4
+html"""
+	<h1 style="text-align:center">
+		Computerorientierte Mathematik, Algorithmen & Strukturen
+	</h1>
+	<div style="text-align:center">
+		<p style="font-weight:bold; font-size: 35px; font-variant: small-caps; margin: 0px">
+			1. Aufgabenblatt für Julia
+		</p>
+		<p style="font-size: 20px;">
+			Universität Rostock, Institut für Mathematik, Winter 2023/24<br>
+		</p>
+	</div>
+"""
+
+# ╔═╡ 2107e6b5-f512-4614-a9e8-69229f856b25
 md"""
-# 1. Aufgabenblatt
+*Vorlesung*: Prof. J. Starke
+
+*Praktika*: M. Barthel, G.A. Pontow, C. Rönnfeld, M.Sc. N. Kruse & M.Sc. H. Wallner
 """
 
 # ╔═╡ 6a051cfc-3d26-4c20-83b3-2497410e35da
 md"""
-Abgabe: 26.10.2023 - 1800 Uhr auf StudIP im "Aufgaben"-Menü der Vorlesung.
+**Abgabe bis**: 26.10.2023 - 1800 Uhr auf StudIP im "Aufgaben"-Menü der Vorlesung.
+"""
+
+# ╔═╡ adacf8d7-c741-4c98-a962-c51f14b23e40
+md"""
+!!! correct "Persona"
+	Ändern Sie in der unteren Zelle `Max Mustermann` zu Ihren Namen (ebenfalls Matrikelnummer `1234` sowie `Studiumsfach` ändern) und drücken Sie anschließend `shift` + `enter` zum Ausführen der Zelle. Nun sollte sich oben alles angepasst haben.
+"""
+
+# ╔═╡ 59c9797b-6db9-4c82-a5ef-dea8f4e5813f
+student = Dict(
+	"name" => "Max Mustermann", 
+	"fach" => "Studiumsfach",
+	"matrikelnr" => "1234")
+
+# ╔═╡ 676c9733-e30c-45b0-be13-22a3ea83dc8c
+md"""
+**Autor der Abgabe**: $(student["name"]), **MNR**: $(student["matrikelnr"]), **Fach**: $(student["fach"])
 """
 
 # ╔═╡ b63e33fb-2ae4-4e3e-b0f2-e49c6b3df478
@@ -42,9 +77,10 @@ md"""
 """
 
 # ╔═╡ e246759e-655a-4bf3-b22f-d6fa484a40d2
-md"
-Surfe ein wenig durch die Website und Installiere Julia und Pluto mithilfe des Videos-/Praktika-/Textmaterials. 
-"
+md"""
+!!! warning "Software"
+	Erkunden Sie ein wenig die Website und installieren Sie `Julia` und `Pluto` mithilfe des Videos-/Praktika-/Textmaterials. 
+"""
 
 # ╔═╡ 24855b7f-3290-40a7-856b-9c9ef330c685
 md"
@@ -53,13 +89,14 @@ md"
 
 # ╔═╡ db77e739-ca41-4459-bdcc-2a6dbaa103b8
 md""" 
-Testen Sie in den Übungsgruppen unter der Verwendung der Pluto Programmierungsumgebung die folgenden Eingaben: 
-- `1//4 + 1//3` 
-- `1/4 + 1/3` 
-- `sqrt(36)` 
-- `36^(1/2)` 
-- `27^(1/3)`
-- `# Dies ist ein Kommentar`.
+!!! warning "2 a)"
+	Testen Sie in den Übungsgruppen unter der Verwendung der Pluto Programmierungsumgebung die folgenden Eingaben: 
+	- `1//4 + 1//3` 
+	- `1/4 + 1/3` 
+	- `sqrt(36)` 
+	- `36^(1/2)` 
+	- `27^(1/3)`
+	- `# Dies ist ein Kommentar`.
 """
 
 # ╔═╡ 4ff09c4b-fb0a-4cf3-ba7b-59ca5a5e1d1a
@@ -71,8 +108,9 @@ md"""
 """
 
 # ╔═╡ a7688546-0b6c-46a6-aa40-069164cf983c
-md"""
- a) Schreiben Sie eine for-Schleife zur Berechnung der Summe der ersten n Quadratzahlen.
+md""" 
+!!! warning "3 a)"
+	Schreiben Sie eine `for`-Schleife zur Berechnung der Summe der ersten n Quadratzahlen.
 """
 
 # ╔═╡ 73c86e7c-86d6-4ee9-b844-8dc86ac9e7c6
@@ -80,7 +118,8 @@ md"""
 
 # ╔═╡ 5d1d796f-496f-435c-a6fb-dba79dd91d86
 md"""
- b) Berechnen Sie unter Verwendung einer for-Schleife das Produkt aller Elemente des 1D Arrays `J`, wobei `J=[3,5,1,8]` 
+!!! warning "3 b)"
+	Berechnen Sie unter Verwendung einer `for`-Schleife das Produkt aller Elemente des 1D `array`s `J`, wobei `J=[3,5,1,8]` 
 
 """
 
@@ -89,7 +128,8 @@ md"""
 
 # ╔═╡ c1077b7d-5993-43d1-b81c-1bbdc3912123
 md"""
-c) Sei $x = 100$. Erstellen Sie eine Schleife, welche $x$ solange durch 2 dividiert, bis $x$ kleiner als $20$ ist. Bestimmen Sie mit dem Programm, wie viele Divisionsschritte erforderlich sind. Testen Sie auch andere Werte für $x$.
+!!! warning "3 c)"
+	Sei $x = 100$. Erstellen Sie eine Schleife, welche $x$ solange durch 2 dividiert, bis $x$ kleiner als $20$ ist. Bestimmen Sie mit dem Programm, wie viele Divisionsschritte erforderlich sind. Testen Sie auch andere Werte für $x$.
 """
 
 # ╔═╡ 1e47e6d9-1146-48d7-abb3-d91e681ed409
@@ -102,7 +142,8 @@ md"""
 
 # ╔═╡ 3a02bd3c-fc3c-4d7c-8303-b09aacb04f11
 md"""
-a) Der Befehl `a=4` definiert die Variable `a` und `b=3` definiert die Variable `b`. Definieren Sie anschließend die Variable `c` aus der Summe von `a` und `b`
+!!! warning "4 a)"
+	Der Befehl `a=4` definiert die Variable `a` und `b=3` definiert die Variable `b`. Definieren Sie anschließend die Variable `c` aus der Summe von `a` und `b`
 """
 
 # ╔═╡ 475d1820-0d42-4a37-90bb-d4d6bec7178e
@@ -110,7 +151,8 @@ a) Der Befehl `a=4` definiert die Variable `a` und `b=3` definiert die Variable 
 
 # ╔═╡ 40a2d0d7-c230-4de5-8604-491fd5095e86
 md"""
-b) Definieren Sie mit `f=x->xˆ2 - 3` die Funktion $f$ und werten Sie die Funktion an den Stellen $x = 0$, $x = 1$ und $x = 2$ aus.
+!!! warning "4 b)"
+	Definieren Sie mit `f=x->xˆ2 - 3` die Funktion $f$ und werten Sie die Funktion an den Stellen $x = 0$, $x = 1$ und $x = 2$ aus.
 """
 
 # ╔═╡ d4a527ad-509b-4da1-8508-dbd9a5b4435e
@@ -118,7 +160,8 @@ b) Definieren Sie mit `f=x->xˆ2 - 3` die Funktion $f$ und werten Sie die Funkti
 
 # ╔═╡ dd666174-149e-4a21-a5e9-f35f03f44134
 md"""
-c) Berechnen Sie mit dem Package ‘Roots.jl‘ und dem Befehl `find_zeros` die Nullstellen der in b) definierten Funktion $f$.
+!!! warning "4 c)"
+	Berechnen Sie mit dem Package ‘Roots.jl‘ und dem Befehl `find_zeros` die Nullstellen der in b) definierten Funktion $f$.
 
 """
 
@@ -132,7 +175,8 @@ md"""
 
 # ╔═╡ 27b1f311-dda3-4cca-ab51-510b160987b8
 md"""
-a) Plotten Sie die Funktion $f(x) = \tan x$ mit Hilfe eines geeigneten Befehls des Makie-Packages. Experimentieren Sie dabei mit Beschränkungen des $x$- und $y$-Bereichs, um eine aussagekräftige Darstellung zu erhalten, die u.a. die Periodizität sowie das Verhalten der Funktion in der Nähe einer Nullstelle und einer Definitionslücke zeigt.
+!!! warning "5 a)"
+	Plotten Sie die Funktion $f(x) = \tan x$ mit Hilfe eines geeigneten Befehls des 'CairoMakie'-Packages. Experimentieren Sie dabei mit Beschränkungen des $x$- und $y$-Bereichs, um eine aussagekräftige Darstellung zu erhalten, die u.a. die Periodizität sowie das Verhalten der Funktion in der Nähe einer Nullstelle und einer Definitionslücke zeigt.
 """
 
 # ╔═╡ e9df7a10-65dd-434d-b93a-b4ab3646120c
@@ -140,9 +184,12 @@ a) Plotten Sie die Funktion $f(x) = \tan x$ mit Hilfe eines geeigneten Befehls d
 
 # ╔═╡ 8837d523-7a30-44e6-b1ed-c6fd880a3594
 md"""
-
-b) Fertigen Sie ein aussagekräftiges Schaubild der Funktionen $f(x) = \exp(x)$, $f(x) = \exp(-x)$, $f(x) = \ln x$, $f(x) = \sin x$, $f(x) = \cos x$, $f(x) = \tan x$ und $f(x) = \cot x$ an. Verwenden Sie dabei Ihre in a) erworbenen Kenntnisse.
+!!! warning "5 b)"
+	Fertigen Sie ein aussagekräftiges Schaubild der Funktionen $f(x) = \exp(x)$, $f(x) = \exp(-x)$, $f(x) = \ln x$, $f(x) = \sin x$, $f(x) = \cos x$, $f(x) = \tan x$ und $f(x) = \cot x$ an. Verwenden Sie dabei Ihre in a) erworbenen Kenntnisse.
 """
+
+# ╔═╡ 50f105ad-1ce9-4b32-8a63-f4b3c7620b47
+
 
 # ╔═╡ c6fef9b0-89ba-4da9-9596-4f6ad0897da8
 md"""
@@ -150,16 +197,24 @@ md"""
 """
 
 # ╔═╡ 05b6bf6d-9ccd-45c6-b418-8f9588818a61
+md""" 
+!!! warning "6 a)"
+	Schreiben Sie ein Programm zur Berechnung der Wurzel $\sqrt{c}$ mit $c \geq 0$, (möglichst) ohne auf die Vorlage aus der Vorlesung zu schauen
+"""
+
+# ╔═╡ 77cc719d-7552-42df-854a-9182b772fed0
 md"""
-a) Schreiben Sie ein Programm zur Berechnung der Wurzel $\sqrt{c}$ mit $c \geq 0$, (möglichst) ohne auf die Vorlage aus der Vorlesung zu schauen
+!!! hint "Visualisierung"
+	Eine wunderhübsche Animation zum Heron-Verfahren ist hier zufinden: [Animation](https://de.wikipedia.org/wiki/Heron-Verfahren#/media/Datei:Heron_wurzelziehen_animated2.gif)
 """
 
 # ╔═╡ 23a61fb0-3848-4b9a-b4e9-872d45a2a8c9
 
 
 # ╔═╡ 10da8fd5-d1a5-402e-8649-ebbe23b29e0a
-md"""
-b) Entwickeln Sie nach dem Prinzip des Heron-Verfahrens eine numerische Methode, um die dritte Wurzel $\sqrt[3]{c}$ einer vorgegebenen nichtnegativen rellen Zahl $c$ iterativ zu bestimmen. Konstruieren Sie hierzu einen Quader mit dem Volumen $c$, der iterativ in einen Würfel gleichen Volumens umgewandelt wird. Testen Sie das Verfahren numerisch und prüfen Sie das Ergebnis durch eine Probe
+md""" 
+!!! warning "6 b)"
+	Entwickeln Sie nach dem Prinzip des Heron-Verfahrens eine numerische Methode, um die dritte Wurzel $\sqrt[3]{c}$ einer vorgegebenen nichtnegativen reellen Zahl $c$ iterativ zu bestimmen. Konstruieren Sie hierzu einen Quader mit dem Volumen $c$, der iterativ in einen Würfel gleichen Volumens umgewandelt wird. Testen Sie das Verfahren numerisch und prüfen Sie das Ergebnis durch eine Probe
 """
 
 # ╔═╡ b59acb64-d9d6-4100-b4af-8c19f250e800
@@ -167,7 +222,8 @@ b) Entwickeln Sie nach dem Prinzip des Heron-Verfahrens eine numerische Methode,
 
 # ╔═╡ 490ea4f2-6a46-4e12-adf3-61c0b70584c1
 md"""
-c*) Erweitern Sie diesen Ansatz um die $n$-te Wurzel von $c$ numerisch zu berechnen. Testen Sie das Verfahren wieder numerisch und prüfen Sie das Ergebnis durch eine Probe.
+!!! danger "6 c*)" 
+	Erweitern Sie diesen Ansatz um die $n$-te Wurzel von $c$ numerisch zu berechnen. Testen Sie das Verfahren wieder numerisch und prüfen Sie das Ergebnis durch eine Probe.
 
 """
 
@@ -181,12 +237,11 @@ md"""
 
 # ╔═╡ 89e60545-1837-4f8b-aa2f-5b0783a471f1
 md"""
-Testen Sie die Eingabe folgende Befehle:
-
-a)
-- `?abs`
-- `abs(2)`
-- `abs(-2)`
+!!! warning "7 a)"
+	Testen Sie die folgenden Befehle
+	- `?abs`
+	- `abs(2)`
+	- `abs(-2)`
 """
 
 # ╔═╡ 04562810-f8a2-4660-b611-7d7f955dad73
@@ -194,11 +249,12 @@ a)
 
 # ╔═╡ 07d6ebc4-61e1-48d7-9d19-86f5f4cbe669
 md"""
-b)
-- `floor(2.3)`
-- `floor(1.7)`
-- `floor(-5.8)`
-- `floor(-2.2)`
+!!! warning "7 b)"
+	Ebenso:
+	- `floor(2.3)`
+	- `floor(1.7)`
+	- `floor(-5.8)`
+	- `floor(-2.2)`
 """
 
 # ╔═╡ 27a5809b-3db6-4c73-afaf-e256bbeb1203
@@ -206,11 +262,27 @@ b)
 
 # ╔═╡ fc9545cc-f685-4a51-8e2f-7339c697963f
 md"""
-c) Definieren Sie die Funktion $f(x) = 1/ln(x)$ und lösen Sie $f(x) = 2$ mittels Umformulierung des Problems in ein Nullstellenproblem und der anschließenden Nutzung von `find_zero` des ‘Roots.jl‘ Pakets.
+!!! warning "7 c)" 
+	c) Definieren Sie die Funktion $f(x) = 1/ln(x)$ und lösen Sie $f(x) = 2$ mittels Umformulierung des Problems in ein Nullstellenproblem und der anschließenden Nutzung von `find_zero` des ‘Roots.jl‘ Pakets. Nutzen Sie die Documentation unten rechts in Pluto, falls nötig (kein Verbrechen).
 """
 
 # ╔═╡ c6f272b2-9df6-404f-801a-1f4c45524ea0
 
+
+# ╔═╡ 869922a7-bc2f-4669-b4ed-013a83e243c2
+md"""
+!!! correct "Feedback (optional)"
+	Verbessern Sie diese Veranstaltung/Homepage oder das Aufgabenblatt!
+	- Wie gefällt Ihnen diese Homepage, das Konzept der Pluto-Notebooks?
+	- Was sollten wir im Praktikum berücksichtigen?
+	- Ist das Aufgabenblatt angemessen?
+	- Gibt es Verbesserungsvorschläge zur Vorlesung?
+"""
+
+# ╔═╡ d3fe5bc0-49a1-4952-a88a-5d722b54c5d3
+#= 
+Ihr Feedback 
+=#
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1799,7 +1871,11 @@ version = "3.5.0+0"
 # ╟─c1da8bba-a908-4786-b5b2-0990eb9a5bc5
 # ╠═06a045e9-c318-4832-a518-025b0e45fc1b
 # ╟─877deb2c-702b-457b-a54b-f27c277928d4
+# ╟─2107e6b5-f512-4614-a9e8-69229f856b25
 # ╟─6a051cfc-3d26-4c20-83b3-2497410e35da
+# ╟─676c9733-e30c-45b0-be13-22a3ea83dc8c
+# ╟─adacf8d7-c741-4c98-a962-c51f14b23e40
+# ╠═59c9797b-6db9-4c82-a5ef-dea8f4e5813f
 # ╟─b63e33fb-2ae4-4e3e-b0f2-e49c6b3df478
 # ╟─e246759e-655a-4bf3-b22f-d6fa484a40d2
 # ╟─24855b7f-3290-40a7-856b-9c9ef330c685
@@ -1823,8 +1899,10 @@ version = "3.5.0+0"
 # ╟─27b1f311-dda3-4cca-ab51-510b160987b8
 # ╠═e9df7a10-65dd-434d-b93a-b4ab3646120c
 # ╟─8837d523-7a30-44e6-b1ed-c6fd880a3594
+# ╠═50f105ad-1ce9-4b32-8a63-f4b3c7620b47
 # ╟─c6fef9b0-89ba-4da9-9596-4f6ad0897da8
 # ╟─05b6bf6d-9ccd-45c6-b418-8f9588818a61
+# ╟─77cc719d-7552-42df-854a-9182b772fed0
 # ╠═23a61fb0-3848-4b9a-b4e9-872d45a2a8c9
 # ╟─10da8fd5-d1a5-402e-8649-ebbe23b29e0a
 # ╠═b59acb64-d9d6-4100-b4af-8c19f250e800
@@ -1837,5 +1915,7 @@ version = "3.5.0+0"
 # ╠═27a5809b-3db6-4c73-afaf-e256bbeb1203
 # ╟─fc9545cc-f685-4a51-8e2f-7339c697963f
 # ╠═c6f272b2-9df6-404f-801a-1f4c45524ea0
+# ╟─869922a7-bc2f-4669-b4ed-013a83e243c2
+# ╠═d3fe5bc0-49a1-4952-a88a-5d722b54c5d3
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
