@@ -16,12 +16,29 @@ using InteractiveUtils
 using PlutoUI
 
 # ╔═╡ 0d3aec92-edeb-11ea-3adb-cd0dc17cbdab
-md"# Kurzübersicht Julia
-✋ Bevor Ihr hier anfangt, solltet Ihr vermutlich zunächst Julia installieren und das Package Pluto herunterladen. Eine genaue Anleitung findet Ihr weiter oben unter dem Reiter Software Installation :).
+md"""# Kurzübersicht Julia
 
-Ready? 🎬 Dann hier eine kleine Einführung:  
+!!! correct "A brave new world"
+	✋ Bevor Ihr hier anfangt, solltet Ihr vermutlich zunächst `Julia` installieren und das Package `Pluto` herunterladen. Eine genaue Anleitung findet Ihr weiter oben unter dem Reiter Software Installation.
+
+	🚧 Man sollte diese Grundlagen nicht als Vorlesungsersatz missbrauchen, in der Vorlesung werden größere Konzepte aufgezeigt.
+
+	🎬 Ready? Dann hier eine kleine Einführung:  
+"""
+
+
+# ╔═╡ 5c9a51ea-99f7-40ef-91a4-c88ca15b9c66
+md"""
+Aus archaischen Gründen:
+"""
+
+# ╔═╡ d14522f2-3ad7-4300-96e5-9b023d5e30b9
+println("Hello World!")
+
+# ╔═╡ e608a0b6-ac32-4d9b-80eb-f901156d5eaf
+md"
+Wie wir sehen emuliert die Pluto-Notebookumgebung die entsprechnde `Terminal` / `REPL` -Ausgabe.
 "
-
 
 # ╔═╡ ba3659ad-f5fb-42fe-9141-9a4582c6d057
 md"""
@@ -37,8 +54,10 @@ x = 3
 y = 2x
 
 # ╔═╡ 5e062a24-edeb-11ea-256a-d938f77d7815
-md"Standardmäßig zeigt Pluto/Julia die Ausgabe über der ausgeführten Zelle an. Dies kann man beispielsweise durch ein Semikolon am Ende einer Zeile unterdrücken. 
-"
+md"""
+!!! warning "Hinweis"
+	Das Ausführen einer Zelle erfolgt mit `shift` + `enter`. Standardmäßig zeigt Pluto die Ausgabe über der ausgeführten Zelle an. Dies kann man beispielsweise durch ein Semikolon am Ende einer Zeile unterdrücken. 
+"""
 
 # ╔═╡ bdc1f6f8-4f0f-459f-941a-b29b0fae0b87
 md"""
@@ -112,11 +131,15 @@ md"Um eine Funktion aufzurufen und an einer Stelle auszuwerten müssen wir runde
 f₁(10)
 
 # ╔═╡ ce9667c2-edeb-11ea-2665-d789032abd11
-md"Für längere Funktionen sollte man die Syntax mit den `function` und `end` keyword nutzen. Außerdem kann man natürlich multivariable Funktionen definieren."
+md"""
+!!! warning "Hinweis"
+	Für längere Funktionen sollte man die Syntax mit den `function` und `end` keyword nutzen. Außerdem kann man natürlich multivariable Funktionen definieren.
+
+"""
 
 # ╔═╡ d73d3400-edeb-11ea-2dea-95e8c4a6563b
 function g(x, y)
-	z = x + y
+	z = x + 2y
 	return z^2
 end
 
@@ -138,7 +161,7 @@ let
 s = 0
 # Summation aller Zahlen von 1 bis 10:
 for i in 1:10
-	s += i    # Äquivalent zu s = s + i
+	s = s + i    
 end	
 s
 end
@@ -159,7 +182,7 @@ function mysum(n)
 	s = 0
 	
 	for i in 1:n
-		s += i    
+		s += i  # Äquivalent zu s = s + i
 	end
 	
 	return s
@@ -212,7 +235,7 @@ if a < 2
 	"small"
 elseif a >= 2 && a <= 4 
     "intermediate"
-else a>4
+else
 	"big"
 end
 
@@ -233,33 +256,43 @@ md"
 Wie in jeder Programmiersprache existieren auch in Julia neben den logischen Und `&&` andere Logikoperationen.  Zum Beispiel, das logische oder `||` oder die Negation `!`. Hier eine Reihe an Beispielen:
 "
 
+# ╔═╡ ad94f389-1b63-469c-9115-8569947f3322
+md"""
+!!! warning "Hinweis"
+	Das `macro` `@info` ist in Pluto eine schönere Ausgabemethode als die Alternative `println()`. Du kannst über die `info` - Ausgabe hovern, um die enstprechende Zeile Code zu markieren, die diese Info bereitstellte.
+"""
+
 # ╔═╡ 8d39fe6a-7e13-43ec-ac72-78714161be61
+let 	
+@info "Logisches Und:"
+@info true&&false
+@info true&&true
+@info false&&false
+end
+
+# ╔═╡ b85790d5-280a-4fb1-9d01-9a4c235df00a
+let
+@info "Logisches Oder:"
+@info true||false
+@info true||true
+@info false||false
+end
+
+# ╔═╡ bce8764b-b4cc-483e-8b36-d7f420604ddc
 let 
-a = true
-b = false
-	
-println("Logisches Und:")
-println(a&&b)
-println(a&&a)
-println(b&&b)
+@info "Negation:"
+@info !true
+@info !false
+end
 
-println("Logisches Oder:")
-println(a||b)
-println(a||a)
-println(b||b)
-
-println("Negation:")
-println(!a)
-println(!b)
-
-c = 2
-d = 2
-e = 3
-
-println("Variablenvergleiche:")
-println(c == d)
-println(c == e)
-
+# ╔═╡ 9ee52e02-e2a4-4e27-8b5e-6181c1417176
+let
+@info "Variablenvergleiche:"
+@info 2 == 2
+@info 3 == 2
+@info 2 <= 2
+@info 2 < 2
+@info 2 >= 2
 end
 
 # ╔═╡ 2fbe982c-a87c-43f9-9b1c-0cb79b1e5291
@@ -283,7 +316,7 @@ let
 i = 0
 while i < 5
 	# Ausgabe einer Zeile. Das $ Zeichen wertet die Variable in den runden Klammern aus und führt es in ein `String` über:
-	println("i ist $(i) und damit kleiner als 5")
+	@info "i ist $(i) und damit kleiner als 5"
 	i = i + 1
 end
 
@@ -565,6 +598,9 @@ version = "17.4.0+0"
 
 # ╔═╡ Cell order:
 # ╟─0d3aec92-edeb-11ea-3adb-cd0dc17cbdab
+# ╟─5c9a51ea-99f7-40ef-91a4-c88ca15b9c66
+# ╠═d14522f2-3ad7-4300-96e5-9b023d5e30b9
+# ╟─e608a0b6-ac32-4d9b-80eb-f901156d5eaf
 # ╟─ba3659ad-f5fb-42fe-9141-9a4582c6d057
 # ╠═3e8e0ea0-edeb-11ea-22e0-c58f7c2168ce
 # ╠═59b66862-edeb-11ea-2d62-71dcc79dbfab
@@ -610,7 +646,11 @@ version = "17.4.0+0"
 # ╟─22d6c86e-fbf2-4246-aee1-afe700b49355
 # ╟─d1579078-6c68-4f0a-a0a3-03c732e484d4
 # ╟─bda5a4ff-ed02-456f-a4a4-bf4428486512
+# ╟─ad94f389-1b63-469c-9115-8569947f3322
 # ╠═8d39fe6a-7e13-43ec-ac72-78714161be61
+# ╠═b85790d5-280a-4fb1-9d01-9a4c235df00a
+# ╠═bce8764b-b4cc-483e-8b36-d7f420604ddc
+# ╠═9ee52e02-e2a4-4e27-8b5e-6181c1417176
 # ╟─2fbe982c-a87c-43f9-9b1c-0cb79b1e5291
 # ╟─da828bb9-24bf-4754-bffa-62f82e986934
 # ╟─d37d17fc-681b-4b7f-9f0d-bcf449a6e81e

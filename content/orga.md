@@ -6,7 +6,18 @@ layout: "md.jlmd"
 ---
 
 
-# Julia-Praktika: Computerorientierte Mathematik, Algorithmen und Strukturen
+<h1 style="text-align:center">
+		Computerorientierte Mathematik, Algorithmen & Strukturen
+</h1>
+<div style="text-align:center">
+    <p style="font-weight:bold; font-size: 35px; font-variant: small-caps; margin: 0px">
+        Praktika in  Julia
+    </p>
+    <p style="font-size: 20px;">
+        Universität Rostock, Institut für Mathematik, Winter 2023/24<br>
+    </p>
+</div>
+
 
 Willkommen in der Julia-Praktikumsgruppe der CAS-Vorlesung im Wintersemester 2023/2024. Auf dieser Homepage werdet ihr eine Übersicht
 zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitung der Aufgaben bereitgestellt. Außerdem versuche ich mit einem Delay die Vorlesung auf Julia zu übersetzen und ebenfalls im "Vorlesungen"-Reiter dieser Homepage hochzuladen.
@@ -22,7 +33,7 @@ Unbedingt die Vorlesung besuchen, dort werden größere Konzepte besprochen.
 
 - Praktika findet wöchentlich donnerstags um 0700 Uhr ☕️ statt.
 
-- Liebend gern könnt ihr eure eigenen Rechner mitbringen (MacOS, Linux oder Windows) - wir benötigen keine Software-Lizenzen und outperformen dennoch die anderen Sprachen 😎.
+- Liebend gern könnt ihr eure eigenen Rechner mitbringen (MacOS, Linux oder Windows) - wir benötigen keine Software-Lizenzen
 
 ### Abgaben 
 - Genereller Ablaufplan sieht vor, dass wir die meisten Aufgaben des Aufgabenblattes in diesem Praktika gemeinsam bearbeiten und diskutieren. Die unterstrichene Aufgabe auf dem Blatt ist eine Hausaufgabe, die Ihr entweder, falls ihr euch langweilt, hier alleine lösen könnt oder zuhause. 
