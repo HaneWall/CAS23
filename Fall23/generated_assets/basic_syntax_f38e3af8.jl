@@ -18,12 +18,10 @@ using PlutoUI
 # ╔═╡ 0d3aec92-edeb-11ea-3adb-cd0dc17cbdab
 md"""# Kurzübersicht Julia
 
-!!! correct "A brave new world"
-	✋ Bevor Ihr hier anfangt, solltet Ihr vermutlich zunächst `Julia` installieren und das Package `Pluto` herunterladen. Eine genaue Anleitung findet Ihr weiter oben unter dem Reiter Software Installation.
+!!! correct "Tipp"
+	🚧 Man sollte diese Grundlagen nicht als Vorlesungsersatz missbrauchen, in der Vorlesung werden mathematische Konzepte aufgezeigt. 
 
-	🚧 Man sollte diese Grundlagen nicht als Vorlesungsersatz missbrauchen, in der Vorlesung werden größere Konzepte aufgezeigt.
-
-	🎬 Ready? Dann hier eine kleine Einführung:  
+	🎬 Ready? Dann hier eine kleine Einführung:
 """
 
 
@@ -56,7 +54,7 @@ y = 2x
 # ╔═╡ 5e062a24-edeb-11ea-256a-d938f77d7815
 md"""
 !!! warning "Hinweis"
-	Das Ausführen einer Zelle erfolgt mit `shift` + `enter`. Standardmäßig zeigt Pluto die Ausgabe über der ausgeführten Zelle an. Dies kann man beispielsweise durch ein Semikolon am Ende einer Zeile unterdrücken. 
+	Das Ausführen einer Zelle erfolgt mit `Shift + Enter`. Standardmäßig zeigt Pluto die Ausgabe über der ausgeführten Zelle an. Dies kann man beispielsweise durch ein Semikolon am Ende einer Zeile unterdrücken. 
 """
 
 # ╔═╡ bdc1f6f8-4f0f-459f-941a-b29b0fae0b87
@@ -167,7 +165,7 @@ s
 end
 
 # ╔═╡ 394b0ec8-eded-11ea-31fb-27392068ef8f
-md"Hier ist `1:10` eine **range** welche die Zahlen von 1 bis 10 repräsentiert."
+md"Hier ist `1:10` eine **range** welche die Zahlen von 1 bis 10 repräsentiert. Der `default` Abstand zwischen den Zahlen ist 1."
 
 # ╔═╡ 4dc00908-eded-11ea-25c5-0f7b2b7e18f9
 typeof(1:10)
@@ -259,7 +257,7 @@ Wie in jeder Programmiersprache existieren auch in Julia neben den logischen Und
 # ╔═╡ ad94f389-1b63-469c-9115-8569947f3322
 md"""
 !!! warning "Hinweis"
-	Das `macro` `@info` ist in Pluto eine schönere Ausgabemethode als die Alternative `println()`. Du kannst über die `info` - Ausgabe hovern, um die enstprechende Zeile Code zu markieren, die diese Info bereitstellte.
+	Das `Macro` `@info` ist in Pluto eine schönere Ausgabemethode als die Alternative `println()`. Du kannst über die `info` - Ausgabe hovern, um die enstprechende Zeile Code zu markieren, die diese Info bereitstellte.
 """
 
 # ╔═╡ 8d39fe6a-7e13-43ec-ac72-78714161be61
@@ -316,6 +314,49 @@ let
 i = 0
 while i < 5
 	# Ausgabe einer Zeile. Das $ Zeichen wertet die Variable in den runden Klammern aus und führt es in ein `String` über:
+	@info "i ist $(i) und damit kleiner als 5"
+	i = i + 1
+end
+
+end
+
+# ╔═╡ 857c3e4b-f615-4eea-bde4-a27cdcec2be5
+md"""
+!!! correct "Tipp"
+	Innerhalb von Schleifen können wir auch vorzeitig den Ablauf mit dem keyword `break` unterbrechen um vollkommen aus der Schleife "auszubrechen".
+"""
+
+# ╔═╡ 56996bd1-efbd-4c46-bbf2-f681480aee37
+let 
+	
+i = 0
+while i < 5
+	# Ausgabe einer Zeile. Das $ Zeichen wertet die Variable in den runden Klammern aus und führt es in ein `String` über:
+	if i == 3
+		break
+	end
+	@info "i ist $(i) und damit kleiner als 5"
+	i = i + 1
+end
+
+end
+
+# ╔═╡ 994ffad1-6aeb-4711-a266-0b6d5bf73a5c
+md"""
+!!! correct "Tipp"
+	Man kann auch in der Schleife bleiben, aber die derzeitige Iteration überspringen mit dem keyword `continue`.
+"""
+
+# ╔═╡ 07aee61c-950a-4b10-b4fa-9f643f67361d
+let 
+	
+i = 0
+while i < 5
+	# Ausgabe einer Zeile. Das $ Zeichen wertet die Variable in den runden Klammern aus und führt es in ein `String` über:
+	if i == 3
+		i = i + 1
+		continue
+	end
 	@info "i ist $(i) und damit kleiner als 5"
 	i = i + 1
 end
@@ -655,6 +696,10 @@ version = "17.4.0+0"
 # ╟─da828bb9-24bf-4754-bffa-62f82e986934
 # ╟─d37d17fc-681b-4b7f-9f0d-bcf449a6e81e
 # ╠═ec615b6b-c900-4add-a523-c006bdeb6e7b
+# ╟─857c3e4b-f615-4eea-bde4-a27cdcec2be5
+# ╠═56996bd1-efbd-4c46-bbf2-f681480aee37
+# ╟─994ffad1-6aeb-4711-a266-0b6d5bf73a5c
+# ╠═07aee61c-950a-4b10-b4fa-9f643f67361d
 # ╠═97da2bc0-f16d-4d57-a0a5-fe8aea53b738
 # ╠═8602aa26-ee1c-43cf-b33e-50cd19b39abc
 # ╟─00000000-0000-0000-0000-000000000001
