@@ -4,7 +4,7 @@
 #> [frontmatter]
 #> chapter = 3
 #> order = 3
-#> title = "Plots in Julia"
+#> title = "Plots mit Makie"
 #> layout = "layout.jlhtml"
 #> tags = ["preliminaries"]
 #> description = ""
@@ -159,11 +159,51 @@ md"
 # ╔═╡ b698b4e4-d864-45af-9c17-108bfdbbbd26
 md"""
 Generell gibt es verschiedene `Packages` (auch `libraries` oder in deutsch `Pakete`) die es uns erlauben `Array`s zu visualisieren. In anderen Worten wir können mittels Paketen uns schicke Graphen von Funktionen etc. erzeugen. In diesem Kurs nutzen wir das Paket Makie.jl bzw. genauer CairoMakie.
+"""
 
-Als erstes Laden wir das Paket mittels `using CairoMakie`
+# ╔═╡ 8807fe06-8807-467e-92b8-de67c4794592
+md"""
+#### Makie.jl-Backends:
+- GLMakie - interaktive Figuren über die GPU
+- CairoMakie - statische hochauflösende Figuren (Publikationen/Reports) über CPU
+- WGLMakie (Work in Progress) - interaktive Figuren im Browser mittels WebGL
+- RPRMakie - Extrem detailierte 3D Ansichten mit Schattierungen mittels RadeonProRender
+"""
 
+# ╔═╡ a5d0f3d5-5b77-48c3-8a9e-b84577272eeb
+md"""
+#### Andere Plotting-Libraries:
 
 """
+
+# ╔═╡ ae05a308-5c5b-443f-9dfd-9bcdaf31dce4
+md"""
+!!! correct "Tipp"
+	Du magst Makie und dessen Befehle nicht? Anders als in Matlab oder Maple kannst du dir einfach ein anderes Paket laden - Willkommen in der Freiheit.
+
+"""
+
+# ╔═╡ 6cd3e61f-8434-4f94-b226-8dac9bdd22a0
+md"""
+Plots.jl, Gadfly.jl, PyPlot.jl, UnicodePlots.jl, PGFPlots.jl, Gnuplot.jl, PlotlyJS.jl
+"""
+
+# ╔═╡ d8076018-8a15-4323-935e-5ec13cf7e165
+md"""
+#### CairoMakie
+"""
+
+# ╔═╡ cad5f9d8-d2a4-40b6-9024-2e8d729649ec
+md"""
+!!! hint "Sidefacts"
+	Das `Makie` framework wird tatächlich vom deutchen "Federal Ministry of Research und Education" gefördert und wird unter anderem vom Wetterdienst benutzt. Das Wort Maki-e kommt aus den Japanischen und heißt "besprenkeltes Bild".
+"""
+
+# ╔═╡ f7cb4a1d-632d-4375-8c88-afbe33bb4da2
+md""" 
+Als erstes Laden wir das Paket mittels `using CairoMakie`
+"""
+
 
 # ╔═╡ deeff5f6-4cc0-4429-b10f-738e61a22099
 md"""
@@ -182,7 +222,7 @@ md"
 md"
 Zum Auswerten von Daten, aber auch für die Intuitionsentwicklung komplexer Sachverhalte ist es äußerst angebracht Visualierungen zu erzeugen. Mit Julia und dem Makie-Package mit CairoMakie als Backend ist es sehr leicht möglich sehr komplizierte Daten auszuwerten und Grafiken für Publikationen zu erstellen. 
 
-Hier ein Beipiel was alles mit Julia und dem Makie-Package so möglich ist: 
+Hier ein Beipiel was alles mit Julia und dem Makie-Framework so möglich ist: 
 "
 
 # ╔═╡ 49690a09-ab74-40ec-afc2-9a91a6d5e79c
@@ -194,7 +234,7 @@ Sollte euch das überhaupt gar nicht interessieren könnt ihr direkt zu den Mini
 
 # ╔═╡ ee0a43bc-4d66-4e83-9d45-ff103506098d
 md"
-## Absolute Minimum
+## Absolutes Minimum
 "
 
 # ╔═╡ d90b3aec-39f1-4c87-9bc4-a6e83d83a610
@@ -214,7 +254,7 @@ Das funktioniert super, versteckt jedoch so ziemlich alles was im Hintergrund pa
 
 # ╔═╡ e9891221-60b0-48b3-8103-4c48cb0e9543
 md"
-## Wie baut man Grafiken? Objektorientiertes Denken
+## Wie baut man Grafiken?
 "
 
 # ╔═╡ 8d02a941-933f-4995-b585-6d8c2967956f
@@ -230,7 +270,7 @@ end
 
 # ╔═╡ 52859fae-b4ce-4871-b089-d6a4c21ce3b0
 md"
-Nun haben wir ein Objekt/Variable `Leinwand` auf der wir eine Achse (engl. Axis) bzw. Koordinatensystem zeichnen möchten. Dies können wir gewährleisten durch den `Axis(Leinwand[Zeile, Spalte], Optionen..)` Befehl. 
+Nun haben wir eine Variable `Leinwand` vom Typ `Figure` auf der wir eine Achse (engl. Axis) bzw. Koordinatensystem zeichnen möchten. Dies können wir gewährleisten durch den `Axis(Leinwand[Zeile, Spalte], Optionen..)` Befehl. 
 
 Die Angabe einer Zeile und Spalte mag zunächst verwirren ist aber notwendig um die Position der `Axis` bzw. Koordinatensystem auf der `Figure` bzw. Leinwand festzulegen. Man kann sich die Leinwand also wie ein 2D `array` vorstellen. Positionen auf der Leinwand an der wir arbeiten wollen müssen wir also durch die Angabe von `Indizes` definieren. 
 
@@ -251,9 +291,9 @@ end
 
 # ╔═╡ 363fac7f-d41a-43bb-9f18-1c21f5ac0eab
 md"""
-Jetzt können wir in unsere Achse (Axis) unsere Daten hineinzeichnen. Die Größe der Achse wird sich automatisch den Daten und der Leinwand anpassen. Hier plotten wir zwei 1D `array`s, welche jeweils ein Sinus und einen invertierten Sinus darstellen. Wir möchten beide `Array`s in ein gemeinsames Koordinatensystem visualisieren. Dies geschieht durch den Linienplot-Befehl: `lines!(Achse, x, y)`. Das Ausrufezeichen `!` zeigt dabei, dass wir aktiv das Achsenobjekt - `Achse` verändern (wir zeichnen darauf). 
+Jetzt können wir in unsere Achse (Axis) unsere Daten hineinzeichnen. Die Größe der Achse wird sich automatisch den Daten und der Leinwand anpassen. Hier plotten wir zwei 1D `array`s, welche jeweils ein $\sin$, $\sin^2$ und $-\sin$ darstellen. Wir möchten alle `Array`s in ein gemeinsames Koordinatensystem visualisieren. Dies geschieht durch den Linienplot-Befehl: `lines!(Achse, x, y)`. Das Ausrufezeichen `!` zeigt dabei, dass wir aktiv die - `Achse` verändern (wir zeichnen darauf). 
 
-Wir können natürlich auch mehrere `Arrays` / Funktionswerte auf einer `Axis` bzw. einem Koordinatensystem plotten. Hier werden zusätzlich die `plot` Befehle `scatter!` und `scatterlines!` genutzt.
+Hier werden zusätzlich die `plot` Befehle `scatter!` und `scatterlines!` genutzt um die verschiedenen Funktionen voneinander zu unterscheiden.
 """
 
 # ╔═╡ 979f6744-e9e2-435a-a533-35f47a44393e
@@ -285,13 +325,13 @@ end
 md"
 Man stelle sich nun vor wir möchten rechts neben dem Koordinatensystem `Achse` ein weiteres Koordinatensystem `Achserechts` platzieren. Im echten Leben wäre das natürlich ein Problem, denn wir haben keine freie Leinwand mehr. In Makie bzw. CairoMakie ist das kein Problem. Die Koordinatensysteme werden so skaliert, dass beide auf die Leinwand passen. Aber wie kreiere ich nun ein weiteres Koordinatensystem rechts?
 
-Wie bereits erwähnt verhält sich das `Figure`-objekt wie ein 2D `Array`. Wir können also einfach mit dem Befehl
+Wie bereits erwähnt verhält sich die `Figure` wie ein 2D `Array`. Wir können also einfach mit dem Befehl
 
 `Achserechs = Axis(Leinwand[1, 2], optionen..)`
 
 so tun, als hätte die Leinwand zwei Spalten. Makie bzw. CairoMakie erstellt uns dann diese zweite Spalte. Nun können wir wieder mit den `lines!` und der Angabe des richtigen Koordinatensystems auf der rechten Achse zeichnen. 
 
-Außerdem sind wir diesmal etwas genauer und geben unseren Linienplot ein `label` welches anschließend in `axislegend(position=:lt)` benutzt wird um eine Legende oben links (:lt = left top) auf der Achse zu positionieren. 
+Außerdem sind wir diesmal etwas genauer und geben unseren Linienplot ein `label` welches anschließend in `axislegend(position=:lt)` benutzt wird, um eine Legende links oben (:lt = left top) auf der Achse zu positionieren. 
 "
 
 # ╔═╡ 430a1f3d-858f-48fe-9a60-8e5521733fa6
@@ -519,7 +559,7 @@ md"
 
 # ╔═╡ 5c584c87-d7f4-4a58-b3b7-dc4b98baa51b
 md"""
-Der Fantasie sind generell keine Grenzen gesetzt. Hier seht ihr z.B. ein Programm welches elektrische Feldlinien für einen Dipol und ein Quadrupol plottet. Die Farben der Linien deuten die Stärke (Norm der Länge) des elektrischen Feldes an (rot stark zu schwarz schwach). Rote Punkte sind positive Ladungen, blaue negative Ladungen. 
+Der Fantasie sind generell keine Grenzen gesetzt. Hier seht ihr z.B. ein Programm welches elektrische Feldlinien für einen Dipol und ein Quadrupol plottet. Die Farben der Linien deuten die Stärke (Norm des E-Vektors) des elektrischen Feldes an (rot stark zu schwarz schwach). Rote Punkte sind positive Ladungen, blaue negative Ladungen. 
 """
 
 # ╔═╡ 938ee308-5ef7-422c-98aa-613102c8e52e
@@ -2197,6 +2237,13 @@ version = "3.5.0+0"
 # ╔═╡ Cell order:
 # ╟─f092dcc7-57bb-4d3f-a7a1-ce9f3957e242
 # ╟─b698b4e4-d864-45af-9c17-108bfdbbbd26
+# ╟─8807fe06-8807-467e-92b8-de67c4794592
+# ╟─a5d0f3d5-5b77-48c3-8a9e-b84577272eeb
+# ╟─ae05a308-5c5b-443f-9dfd-9bcdaf31dce4
+# ╟─6cd3e61f-8434-4f94-b226-8dac9bdd22a0
+# ╟─d8076018-8a15-4323-935e-5ec13cf7e165
+# ╟─cad5f9d8-d2a4-40b6-9024-2e8d729649ec
+# ╟─f7cb4a1d-632d-4375-8c88-afbe33bb4da2
 # ╠═07e443b4-6468-11ee-0f28-676c021ae136
 # ╟─deeff5f6-4cc0-4429-b10f-738e61a22099
 # ╠═3c5ed473-0945-4fc4-9753-71abf6881ce8

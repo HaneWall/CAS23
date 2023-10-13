@@ -12,7 +12,7 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ c747dd2f-b991-47f1-8ac2-4ec14dea5379
+# ╔═╡ 84843f26-6634-44de-a76b-e7641beca769
 using LinearAlgebra
 
 # ╔═╡ db2e9c34-dc98-4069-9391-5ad091d53d4e
@@ -24,6 +24,12 @@ md"# `Array`s"
 # ╔═╡ 6a271132-d647-4acc-b3c3-64e469c91b14
 md"""
 `Array`s sind gewissermaßen das Fundament der computerorientierten Mathematik. Sie erlauben es uns mehrere Werte zu speichern und auszulesen.
+"""
+
+# ╔═╡ e3ada07a-dc79-439e-882a-4a531ed8b890
+md"""
+!!! warning "Hinweis"
+	In Julia gibt es auch die Struktur `tuple`. Diese können ebenfalls Daten speichern sind aber nach der Initialisierung nicht mehr veränderbar. In diesen Kurs benötigen wir vorerst nur `Array`s.
 """
 
 # ╔═╡ 5f813eb6-6252-4478-9466-a1471ee34b11
@@ -49,6 +55,12 @@ Fundamental bei Arrays: Wir können deren Elemente einsehen und ändern. Zum Bei
 
 # ╔═╡ 69df9378-cb78-42e3-b19c-f5eba238acd1
 v[2]
+
+# ╔═╡ da8c2cda-229b-4b74-8c53-cb74444ef02e
+md"""
+!!! warning "Hinweis"
+	Anders als in Python oder C, fangen in Julia/Matlab die `Indizes` bei 1 und nicht bei 0 an. Das macht es für Naturwissenschaftler schöner und für Informatiker wohlmöglich hässlicher.
+"""
 
 # ╔═╡ b5a4a4fa-3e6f-4cb5-a6d9-b99569c20134
 md"""
@@ -118,8 +130,29 @@ Ab und an kommt es vor, dass man eventuell nur jedes `n`-te Element des ursprün
 `array[Start:Step:Stop]` . Z.B. nur jedes `2`-te Element des Quadratzahlenarrays:
 """
 
+# ╔═╡ 8a86381b-95c8-4a42-8d0c-e32b68f115eb
+v3
+
 # ╔═╡ e3a26e2e-2a9c-4bd7-82b8-df73b1a2d0cc
 v5 = v3[1:2:10]
+
+# ╔═╡ 6130ffe1-f0ad-4261-a17c-7947cca53d19
+md"""
+!!! correct "Tipp"
+	Niemand hält uns ab rückwärts zu zählen.
+"""
+
+# ╔═╡ 0a571bc3-b7c5-4e53-9fab-fd179fd0fab3
+v3
+
+# ╔═╡ ab32541e-65e8-4caa-abbd-f17ed72747d4
+v6 = v3[10:-2:1]
+
+# ╔═╡ 40dc84a3-455b-4647-bb1f-3893014df272
+md"""
+!!! hint "Verständnisfrage: Warum ist v6 nicht v5, bloß umgekehrt?"
+	Das liegt daran, dass wir immer bei `Start` anfangen zu zählen. Bei `v5` starten wir bei `Index` 1 und und rechnen immer `+2` bis `10` erreicht wird. Bloß wird 10 nie erreicht, sondern nur der `Index` 9, also Element 81. Einen `Index` 11 gibt im 10-Element `Array` nicht, folglich stoppt das **slicing**. Bei `v6` hingegen starten wir bei `Index` 10, also Element 100, erreichen aber aus selbigen Grund nur `Index` 2 und nicht `Index` 1.
+"""
 
 # ╔═╡ 020dd6b6-012f-42ac-8f72-a0fd68e997ac
 md"""
@@ -399,7 +432,7 @@ M
 M[1, 1]
 
 # ╔═╡ 0dd54487-a962-438b-b573-462c3745aaf2
-M[2, 2]
+M[1, 2]
 
 # ╔═╡ 364848a9-9ae0-46b5-900e-7e53e857b0d3
 md"""
@@ -473,6 +506,11 @@ md"Eine sehr nette und elegante Alternative ist abermals das **array comprehensi
 # ╔═╡ 4d04cb8a-10c4-46ac-8552-cc287ecf44e6
 bigeinmaleins = [zeile * spalte for zeile in 1:12, spalte in 1:12]
 
+# ╔═╡ 2d63025e-0e5d-4592-8d19-45d84ae4d71b
+md"""
+## Broadcasting bei 2D-Arrays
+"""
+
 # ╔═╡ 7a7e7ac7-d86f-4899-a8d4-04f781652b92
 md"Natürlich gibt es noch viele andere vorgefertigte Arrays. Hier z.B. ein 2D `array` voller einsen, welches wir anschließend mittels **Broadcasting** der Multiplikation zu einen 2D `array` voller Sechsen verwandeln."
 
@@ -481,6 +519,34 @@ einsen = ones(Int64, 6, 6)
 
 # ╔═╡ 41fb4be8-95f2-4c97-bcc1-046a0cd26a6e
 six = 6 .* einsen
+
+# ╔═╡ 0d1b310e-4b2d-4d2a-bccb-77b8fe8c0fad
+md"""
+!!! danger "Dot Operationen / Broadcasting sind äußerst wichtig"
+	Ein fehlender Punkt vor der jeweiligen Operation / Funktion kann zu sehr unangenehmen Fehlern führen. 
+"""
+
+# ╔═╡ cccf3d25-a3e7-45cb-ad47-7b786e086e9a
+md"""
+Es ist wichtig zu betonen, dass man sich genau überlegen muss welche Operation man gerade benötigt. Hier z.B. eine Matrixmultiplikation von 2 Matrizen `A` und `B`
+"""
+
+# ╔═╡ 7ca374f8-7937-4407-900f-bd57330028d0
+A = [1 2; 5 9]
+
+# ╔═╡ 6e6f351d-d927-4d99-ace8-2c061628b2ae
+B = [4 3; 2 7]
+
+# ╔═╡ 0d95f47a-1b42-461b-9b45-63ee3ebe2e3a
+C_mm = A * B
+
+# ╔═╡ 02d38973-0824-44b6-8f5c-97832acd62bb
+md"""
+Hingegen die elementweise Multiplikation durch ein `.` durchgeführt wird:
+"""
+
+# ╔═╡ ce291cf1-ddf9-40da-9ad2-c7a063982c65
+C_em = A .* B 
 
 # ╔═╡ 1536e061-c028-4d0f-adfc-15502a830abb
 TableOfContents()
@@ -759,14 +825,15 @@ version = "17.4.0+0"
 
 # ╔═╡ Cell order:
 # ╟─f57a0b28-6554-11ee-30a2-751cabddfbd3
-# ╠═c747dd2f-b991-47f1-8ac2-4ec14dea5379
 # ╟─6a271132-d647-4acc-b3c3-64e469c91b14
+# ╟─e3ada07a-dc79-439e-882a-4a531ed8b890
 # ╟─5f813eb6-6252-4478-9466-a1471ee34b11
 # ╟─a1bbcedc-bec9-48f0-885f-f4df814b3117
 # ╠═25464aa3-8b54-4468-b713-2c89f90be5b1
 # ╠═2464f120-5164-4def-92ec-df376ba2816b
 # ╟─a93ad3c4-87b4-4bfb-8f98-20e36aa6e2da
 # ╠═69df9378-cb78-42e3-b19c-f5eba238acd1
+# ╟─da8c2cda-229b-4b74-8c53-cb74444ef02e
 # ╟─b5a4a4fa-3e6f-4cb5-a6d9-b99569c20134
 # ╠═5947e9df-fe13-4383-9a80-fcc3ef9d2fa8
 # ╠═ade71621-4cc6-4109-be6f-ff7bf1e68282
@@ -781,7 +848,12 @@ version = "17.4.0+0"
 # ╟─224524b0-0ffe-4b3c-99d8-a39115c63553
 # ╠═b3206628-6f70-485b-9264-7c83f21aaf4a
 # ╟─d1fdd488-eab9-42d4-ba10-827b2002f5a5
+# ╠═8a86381b-95c8-4a42-8d0c-e32b68f115eb
 # ╠═e3a26e2e-2a9c-4bd7-82b8-df73b1a2d0cc
+# ╟─6130ffe1-f0ad-4261-a17c-7947cca53d19
+# ╠═0a571bc3-b7c5-4e53-9fab-fd179fd0fab3
+# ╠═ab32541e-65e8-4caa-abbd-f17ed72747d4
+# ╟─40dc84a3-455b-4647-bb1f-3893014df272
 # ╟─020dd6b6-012f-42ac-8f72-a0fd68e997ac
 # ╟─77f6ad56-a9e5-4f07-8839-2c8ae7be3bbb
 # ╠═95a648ba-7102-47b8-a937-010899245800
@@ -805,6 +877,7 @@ version = "17.4.0+0"
 # ╟─323afd90-41d6-4476-84c7-f67b1a75de86
 # ╟─294337e2-d665-4733-a499-fbc0c1c2757f
 # ╠═257f88f2-bbed-45bf-99ad-c86dd9815c2e
+# ╠═84843f26-6634-44de-a76b-e7641beca769
 # ╟─4d6c7326-e8de-4daa-8d2c-f21d8c80f7c2
 # ╠═ad7761f8-fe11-4eb5-a7a4-d25e8764031a
 # ╟─b7f30c61-4df4-4bed-b39b-4102fdc7e815
@@ -865,9 +938,17 @@ version = "17.4.0+0"
 # ╟─e54c326e-a3cc-4889-8b75-eed90a32f9db
 # ╟─d71fc465-3175-4ac8-a2b0-ac92991dee56
 # ╠═4d04cb8a-10c4-46ac-8552-cc287ecf44e6
+# ╟─2d63025e-0e5d-4592-8d19-45d84ae4d71b
 # ╟─7a7e7ac7-d86f-4899-a8d4-04f781652b92
 # ╠═8928ebf8-5f1e-4a78-9f6a-6c2e877ece3e
 # ╠═41fb4be8-95f2-4c97-bcc1-046a0cd26a6e
+# ╟─0d1b310e-4b2d-4d2a-bccb-77b8fe8c0fad
+# ╟─cccf3d25-a3e7-45cb-ad47-7b786e086e9a
+# ╠═7ca374f8-7937-4407-900f-bd57330028d0
+# ╠═6e6f351d-d927-4d99-ace8-2c061628b2ae
+# ╠═0d95f47a-1b42-461b-9b45-63ee3ebe2e3a
+# ╟─02d38973-0824-44b6-8f5c-97832acd62bb
+# ╠═ce291cf1-ddf9-40da-9ad2-c7a063982c65
 # ╠═db2e9c34-dc98-4069-9391-5ad091d53d4e
 # ╠═1536e061-c028-4d0f-adfc-15502a830abb
 # ╟─00000000-0000-0000-0000-000000000001

@@ -31,7 +31,7 @@ Unbedingt die Vorlesung besuchen, dort werden größere Konzepte besprochen.
 ### Hardware
 - Unser Praktikumsraum Haus 1, Raum 227 besitzt Windows-PCs. 
 
-- Praktika findet wöchentlich donnerstags um 0700 Uhr ☕️ statt.
+- Praktika findet wöchentlich donnerstags um 0715 Uhr ☕️ statt.
 
 - Liebend gern könnt ihr eure eigenen Rechner mitbringen (MacOS, Linux oder Windows) - wir benötigen keine Software-Lizenzen
 
@@ -52,7 +52,7 @@ Unbedingt die Vorlesung besuchen, dort werden größere Konzepte besprochen.
 ### Anwesenheit
 - Jeder muss mindestens 12 von 14 Seminaren / Praktika besuchen.
 
-- Bei Krankheit bitte Zettel Frau S. Neumann übermitteln.
+- Bei Krankheit bitte mir Bescheid geben und dann Zettel Frau S. Neumann übermitteln.
 
 ### Hilfe / Fragen 
 - Falls ihr Fragen zu Julia / dieser Website habt, meldet euch bei mir per Mail: [hannes.wallner@uni-rostock.de](mailto:hannes.wallner@uni-rostock.de) oder versucht mich im Büro: Haus 3, Raum 325 anzutreffen.
