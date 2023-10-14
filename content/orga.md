@@ -22,9 +22,9 @@ layout: "md.jlmd"
 Willkommen in der Julia-Praktikumsgruppe der CAS-Vorlesung im Wintersemester 2023/2024. Auf dieser Homepage werdet ihr eine Übersicht
 zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitung der Aufgaben bereitgestellt. Außerdem versuche ich mit einem Delay die Vorlesung auf Julia zu übersetzen und ebenfalls im "Vorlesungen"-Reiter dieser Homepage hochzuladen.
 
-~~~
-Unbedingt die Vorlesung besuchen, dort werden größere Konzepte besprochen.
-~~~
+<div style="border: 2px solid #000; border-radius: 10px; padding: 20px;">
+    Man sollte dennoch die Vorlesung besuchen, denn dort werden vorallem mathematische Konzepte aufgezeigt.  
+</div>
 
 ## Randbedingungen
 
@@ -56,6 +56,12 @@ Unbedingt die Vorlesung besuchen, dort werden größere Konzepte besprochen.
 
 ### Hilfe / Fragen 
 - Falls ihr Fragen zu Julia / dieser Website habt, meldet euch bei mir per Mail: [hannes.wallner@uni-rostock.de](mailto:hannes.wallner@uni-rostock.de) oder versucht mich im Büro: Haus 3, Raum 325 anzutreffen.
+
+
+## Ich habe ein Typo / Fehler gefunden!
+- Für den Experten: Erstellt ein Issue auf GitHub oder noch besser für git-Experten: Erstellt ein Merge Request mit potentiellen fix. Das GitHub Repository ist hier zu finden: https://github.com/HaneWall/CAS23
+
+- ansonsten einfach mir eine Mail schreiben oder im Praktika ansprechen
 
 Ich wünsche euch viel Spaß und Erfolg,
 cheers Hannes

@@ -9,18 +9,23 @@ layout: "md.jlmd"
 
 Hier die eventuell amüsante, aber dennoch ernstzunehmende Beantwortung der Entwickler vom MIT, welche die Sprache 2012 veröffentlichten:
 
-> #### Julia Manifest 2012:
-> In short, because we are greedy.
+<div style="border: 2px solid #000; border-radius: 10px; padding: 20px;">
+    <h3 style="text-align:center">
+           Auszug Julia Manifest 2012
+    </h3>
 
-> We are power Matlab users. Some of us are Lisp hackers. Some are Pythonistas, others Rubyists, still others Perl hackers. There are those of us who used Mathematica before we could grow facial hair. There are those who still can't grow facial hair. We've generated more R plots than any sane person should. C is our desert island programming language.
-
-> We love all of these languages; they are wonderful and powerful. For the work we do — scientific computing, machine learning, data mining, large-scale linear algebra, distributed and parallel computing — each one is perfect for some aspects of the work and terrible for others. Each one is a trade-off.
-
-> We are greedy: we want more.
-
-> We want a language that's open source, with a liberal license. We want the speed of C with the dynamism of Ruby. We want a language that's homoiconic, with true macros like Lisp, but with obvious, familiar mathematical notation like Matlab. We want something as usable for general programming as Python, as easy for statistics as R, as natural for string processing as Perl, as powerful for linear algebra as Matlab, as good at gluing programs together as the shell. Something that is dirt simple to learn, yet keeps the most serious hackers happy. We want it interactive and we want it compiled.
-
-> (Did we mention it should be as fast as C?)
+In short, because we are greedy. <br>
+<br> 
+We are power Matlab users. Some of us are Lisp hackers. Some are Pythonistas, others Rubyists, still others Perl hackers. There are those of us who used Mathematica before we could grow facial hair. There are those who still can't grow facial hair. We've generated more R plots than any sane person should. C is our desert island programming language.<br> 
+<br> 
+We love all of these languages; they are wonderful and powerful. For the work we do — scientific computing, machine learning, data mining, large-scale linear algebra, distributed and parallel computing — each one is perfect for some aspects of the work and terrible for others. Each one is a trade-off.<br> 
+<br> 
+We are greedy: we want more.<br> 
+<br> 
+We want a language that's open source, with a liberal license. We want the speed of C with the dynamism of Ruby. We want a language that's homoiconic, with true macros like Lisp, but with obvious, familiar mathematical notation like Matlab. We want something as usable for general programming as Python, as easy for statistics as R, as natural for string processing as Perl, as powerful for linear algebra as Matlab, as good at gluing programs together as the shell. Something that is dirt simple to learn, yet keeps the most serious hackers happy. We want it interactive and we want it compiled.<br> 
+<br> 
+(Did we mention it should be as fast as C?)
+</div>
 
 Das klingt alles sehr hochtrabend - elf Jahre später und fünf Jahre nach Julia 1.0 (quasi noch ein Baby in der Informatik) muss man jedoch sagen, dass es Ihnen im Großen und Ganzen gelungen ist, eine kompetetive Programmiersprache zu entwickeln, die den Tod von zumindest Matlab besiegeln könnte. 
 
