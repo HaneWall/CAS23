@@ -192,6 +192,21 @@ md"""
 Heron-Verfahren zur näherungsweisen Berechnung der Quadratwurzel von c.
 """
 
+# ╔═╡ 9835d749-7185-4c1f-80c3-acab370b0639
+md"""
+Iterative Umwandlung eines Rechtecks mit den Seiten $x$ und $y=c/x$ und Flächeninhalt $c$ in ein flächengleiches Quadrat mit der Seitenlänge $\sqrt{c}$.
+
+Startwert der einen Rechteckseite: $x_1 = 1$. Somit ist die andere Rechteckseite $y_{1} = c/x_{1} =c/1$
+
+Iterative Berechnung der neuen Rechteckseite: 
+
+$$x_{k+1} = 0.5 * (x_{k} + c/x_{k})$$
+
+Somit ist die andere Rechteckseite:
+
+$$y_{k+1} = c/x_{k+1} = \frac{2c}{x_{k} + c/x_{k}}$$
+"""
+
 # ╔═╡ 91607517-ab2d-4821-9151-1eeef699dd8b
 begin 
 c = 2
@@ -1803,6 +1818,7 @@ version = "3.5.0+0"
 # ╠═fab1b2fc-957b-43a5-8fd3-455ef9099ddd
 # ╟─4b497252-3694-4e12-8f21-d2635732bfe3
 # ╟─be762c88-a4be-4b18-955b-1431c9bd654e
+# ╟─9835d749-7185-4c1f-80c3-acab370b0639
 # ╠═91607517-ab2d-4821-9151-1eeef699dd8b
 # ╟─5eae10b1-174f-403d-9aaf-e1a30f45715b
 # ╠═a4b02ed2-27f0-42d9-83ac-b16b328336ee
