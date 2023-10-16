@@ -2,11 +2,12 @@
 # v0.19.26
 
 #> [frontmatter]
-#> order = 5
-#> title = "Technisches"
+#> order = 2
+#> title = "Software Installation"
 #> layout = "layout.jlhtml"
 #> tags = ["welcome"]
 #> description = ""
+
 
 using Markdown
 using InteractiveUtils
@@ -17,8 +18,12 @@ using PlutoUI
 # ╔═╡ 0735cbb0-6c09-11ee-1bc7-3381fd03dfa2
 md"""
 # Installation von Julia und Pluto
+
+!!! correct "Lizenzen"
+	Julia ist vollständig Open Source, also kostenlos. Anders als bei Matlab/Maple müsst ihr nichts kaufen / oder eine VPN-Verbindung nutzen.
+
 ## Installieren von Julia
-Wir werden [juliaup](https://github.com/JuliaLang/juliaup) zum installieren von Julia verwenden. Dazu geh in das Terminal deines Rechners und gebe je nach Betriebssystem einen der folgenden commands ein.
+Wir werden [juliaup](https://github.com/JuliaLang/juliaup) zum installieren von Julia verwenden. Dazu geh in das Terminal deines Rechners und gebe je nach Betriebssystem einen der folgenden commands ein (copy pasten ist einfacher).
 
 **Linux oder macOS**
 ```bash
@@ -37,7 +42,7 @@ in dein Terminal.
 # ╔═╡ b7288a47-acb7-44c7-b3d2-46355dc04c8d
 md"""
 !!! correct "Tipp"
-	Falls du mit dem Terminal überfordert bist kannst du auch auf den klassischen, grafischen Weg Julia [installieren](https://julialang.org/downloads/). 
+	Falls du mit dem Terminal überfordert bist kannst du auch auf den klassischen, grafischen Weg Julia [installieren](https://julialang.org/downloads/). Falls gar nichts mehr geht, schaut euch dieses Video von [Fons](https://www.youtube.com/embed/OOjKEgbt8AI) an (ersten 4 Minuten). 😃
 """
 
 # ╔═╡ 3733adcc-8592-4ae8-a601-2f34487c475c
@@ -56,9 +61,7 @@ Julia starten. Alternativ könnt ihr auf die Desktopverknüpfung klicken. Testet
 """
 
 # ╔═╡ 5acf5217-81b5-4f31-bb1e-d2d359e9008c
-md"""
-![IMG](https://imgur.com/IlD8CWL)
-"""
+PlutoUI.Resource("https://i.imgur.com/IlD8CWL.png")
 
 # ╔═╡ 0f741317-71d6-427f-91c4-7a252d591184
 md"""
@@ -73,10 +76,11 @@ julia> ]
 @(v.1.9)pkg> 
 ```
 
-Dort angelangt installieren wir Pluto mit dem Befehl:
+Dort angelangt installieren wir Pluto mit dem Befehl (nur `add Pluto`):
 
 ```julia
 @(v.1.9)pkg> add Pluto
+
 ```
 Dies kann durchaus einige Minuten in Anspruch nehmen. Habt Geduld ☕️.
 Anschließend gehen wir zurück in den normalen Julia Modus durch Löschen des `pkg`-Symbols.
@@ -89,13 +93,11 @@ Nun tippe
 julia> using Pluto
 julia> Pluto.run()
 ```
-um Pluto zu laden und anschließend zu öffnen. Zusammenfassung:
+um Pluto zu laden und anschließend zu öffnen. Zusammenfassung (bei mir ist Pluto bereits installiert weshalb dort *no changes* steht)
 """
 
 # ╔═╡ 0662486c-e2a4-41b4-9b4e-8a61ecd29338
-md"""
-![REPL](https://imgur.com/fe9kGv0)
-"""
+PlutoUI.Resource("https://i.imgur.com/fe9kGv0.png")
 
 # ╔═╡ 97fd0d57-edb1-4452-a8f2-9e725063a8e8
 md"""
@@ -149,9 +151,7 @@ Zunächst suche dir dein Aufgabenblatt bzw. die Vorlesung aus, an der du gerne t
 """
 
 # ╔═╡ 8d3bc58a-196c-4a92-9693-25bd22d54f1a
-md"""
-![imgopen](https://imgur.com/cVyD98C)
-"""
+PlutoUI.Resource("https://i.imgur.com/cVyD98C.png")
 
 # ╔═╡ 4a0e72d2-ab5d-44e7-ad52-9e11e363a816
 md"""
@@ -159,9 +159,8 @@ Nun können wir in der gestarteten Plutoumgebung in der Fläche *Open a notebook
 """
 
 # ╔═╡ ed478136-466e-468a-b1fe-deca63e3498a
-md"""
-![imgope](https://imgur.com/h3bykSO)
-"""
+
+PlutoUI.Resource("https://i.imgur.com/h3bykSO.png")
 
 # ╔═╡ dd1613ae-3b11-48aa-ad3f-bc68fd1f0394
 md"""
@@ -174,9 +173,7 @@ Als nächstes wäre es angebracht das Notebook auf deinen Rechner zu speichern. 
 """
 
 # ╔═╡ 6e058cc4-0c76-4151-8d81-3465a11b2b73
-md"""
-![imgsave](https://imgur.com/zsLQGzr)
-"""
+PlutoUI.Resource("https://i.imgur.com/zsLQGzr.png")
 
 # ╔═╡ c41fdae4-2814-4b4f-bb5e-33a2d5128a46
 md"""
@@ -184,17 +181,55 @@ Nun kannst du das Notebook ändern wie du möchtest. Änderungen werden prinzipi
 """
 
 # ╔═╡ 6187468c-0f21-4261-8585-3d8446eaa9d8
-md"""
-![imgexport](https://imgur.com/1gsmRQD)
-"""
+PlutoUI.Resource("https://i.imgur.com/1gsmRQD.png")
 
 # ╔═╡ 37ca67ea-e91a-441f-b386-e47dd280849b
 md"""
 # Wie funktionieren Pluto-Notebooks?
 """
 
-# ╔═╡ edd649b3-0344-461c-a82a-a7db198a12f9
-md"test"
+# ╔═╡ 304caae9-05cb-4246-b2b0-d3f4e0156208
+md"""
+In Pluto haben wir Zellen in denen wir unser Julia Code mittels `Shift + Enter` ausführen können. Z.B.
+"""
+
+# ╔═╡ 8d0da2e8-da15-411b-9f57-32fe74fa67f4
+x = 2 
+
+# ╔═╡ 38d3b522-3dfb-4734-8e97-1092f875cb67
+md"""
+Um eine neue Zelle zu erzeugen können wir über der alten hovern und die "+" Symbole links oben/unten nutzen um darüber/darunter eine neue Zelle zu erzeugen.
+"""
+
+# ╔═╡ d3f8c8bd-1be2-4110-87dd-904976a0437f
+md"""
+Grundsätzlich kennt eine Zelle den Inhalt der anderen Zellen. Wenn wir in der nächsten Zelle also $y = 5x$ schreiben, so erscheint als Output 10. Zellen sind also **reaktiv**.
+"""
+
+# ╔═╡ 8a82b306-2c7e-4acb-9dd4-71215450c7a2
+y = 5x
+
+# ╔═╡ 9d859e86-491b-4cc5-877c-9141dcd76a3b
+md"""
+Falls ihr mehrere Zeilen Code in eine Zelle stecken wollt, benötigt ihr eine `begin .. end` Umgebung. Dies hat weniger was mit Julia und mehr mit Pluto zutun. Zum Beispiel:
+"""
+
+# ╔═╡ 7b921526-d239-450c-90d6-29a4f002f8c2
+begin
+🍎 = 3
+🍐 = 10
+🍎 < 🍐
+end
+
+# ╔═╡ 0149b454-2d44-4267-ba34-3c1cefbb2983
+md"""
+Womit wir endgültig Äpfel mit Birnen vergleichen können. Hier erscheint als Ausgabe `true` da 3 tatsächlich kleiner als 10 ist. In Julia können wir auch Smileys einen Variablenwert zuweisen, ebenso $\LaTeX$ Symbolen. Soviel zur Installation, in den Grundlagen findet ihr mehr Julia 😄.
+"""
+
+# ╔═╡ 2506043a-cf6c-4bc0-9092-e77d553e3a07
+md"""
+### Misc
+"""
 
 # ╔═╡ b81cf328-b209-4726-9720-4acd1cb0c290
 TableOfContents()
@@ -498,7 +533,15 @@ version = "17.4.0+0"
 # ╟─c41fdae4-2814-4b4f-bb5e-33a2d5128a46
 # ╟─6187468c-0f21-4261-8585-3d8446eaa9d8
 # ╟─37ca67ea-e91a-441f-b386-e47dd280849b
-# ╠═edd649b3-0344-461c-a82a-a7db198a12f9
+# ╟─304caae9-05cb-4246-b2b0-d3f4e0156208
+# ╠═8d0da2e8-da15-411b-9f57-32fe74fa67f4
+# ╟─38d3b522-3dfb-4734-8e97-1092f875cb67
+# ╟─d3f8c8bd-1be2-4110-87dd-904976a0437f
+# ╠═8a82b306-2c7e-4acb-9dd4-71215450c7a2
+# ╟─9d859e86-491b-4cc5-877c-9141dcd76a3b
+# ╠═7b921526-d239-450c-90d6-29a4f002f8c2
+# ╟─0149b454-2d44-4267-ba34-3c1cefbb2983
+# ╟─2506043a-cf6c-4bc0-9092-e77d553e3a07
 # ╠═606055ab-d751-43c7-a30e-a355d9676f97
 # ╠═b81cf328-b209-4726-9720-4acd1cb0c290
 # ╟─00000000-0000-0000-0000-000000000001
