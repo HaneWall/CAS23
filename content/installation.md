@@ -76,6 +76,10 @@ Firefox und Chrome sind für diesen Kurs bzw. Pluto Notebooks am besten geeignet
 
 Wiederhole die folgenden Schritte, wenn du an einen Projekt oder deinen Aufgabenblatt arbeiten möchtest.
 
+![image](assets/julia_open.png)
+
+![image](assets/pluto_open.png)
+
 ## Schritt 1: Starte Pluto
 
 Starte die Julia REPL, wie du es auch schon bei dem first-time setup getan hast. Im REPL tippe:
