@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Software Installation"
 tags: ["welcome"]
 order: 2
 layout: "md.jlmd"
----
+--- -->
 
 $(
 begin # these special elements will automatically update to read the latest Julia version. See the JavaScript snippet at the bottom of this page to see how it works!

@@ -12,7 +12,7 @@ Dict(
             (name = "Prof. Jens Starke", url = "http://www.jstarke.eu"),
             (name = "Hannes Wallner", url = "https://github.com/HaneWall")
         ],
-        :title => "CAS Julia",
+        :title => "CMAS Julia",
         :subtitle => "Eine interaktive Einführung",
         :term => "Winter 2023/2024",
         :institution => "Universität Rostock",

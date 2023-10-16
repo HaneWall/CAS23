@@ -38,7 +38,7 @@ zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitun
 ### Abgaben 
 - Genereller Ablaufplan sieht vor, dass wir die meisten Aufgaben des Aufgabenblattes in diesem Praktika gemeinsam bearbeiten und diskutieren. Die unterstrichene Aufgabe auf dem Blatt ist eine Hausaufgabe, die Ihr entweder, falls ihr euch langweilt, hier alleine lösen könnt oder zuhause. 
 
-- Ihr habt immer eine Woche Zeit das Aufgabenblatt zu bearbeiten und vollständig als PDF und jl File im "Aufgaben"-Menü der Vorlesungsveranstaltung auf StudIP hochzuladen. Wie funktioniert das? Schaut euch das Video unter "Software Installation" bzw. den Text darunter an. 😉
+- Ihr habt immer eine Woche Zeit das Aufgabenblatt zu bearbeiten und vollständig als PDF und jl File im "Aufgaben"-Menü der Vorlesungsveranstaltung auf StudIP hochzuladen. *Wie funktioniert das?* Schaut euch den Reiter "Software Installation" und den dortigen Text an. 😉 Werde ich euch auch in Ruhe erklären.
 
 - Es soll nicht nur die Hausaufgabe, sondern das gesamte Aufgabenblatt abgegeben werden.
 
