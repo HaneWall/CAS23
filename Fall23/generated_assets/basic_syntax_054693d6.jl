@@ -331,7 +331,6 @@ let
 	
 i = 0
 while i < 5
-	# Ausgabe einer Zeile. Das $ Zeichen wertet die Variable in den runden Klammern aus und führt es in ein `String` über:
 	if i == 3
 		break
 	end
@@ -352,7 +351,6 @@ let
 	
 i = 0
 while i < 5
-	# Ausgabe einer Zeile. Das $ Zeichen wertet die Variable in den runden Klammern aus und führt es in ein `String` über:
 	if i == 3
 		i = i + 1
 		continue
