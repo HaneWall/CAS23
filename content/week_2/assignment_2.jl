@@ -83,7 +83,9 @@ md"""
 """
 
 # ╔═╡ f520703b-2a00-4cb4-85fb-28b84feeb5dc
-
+let
+# missing code
+end
 
 # ╔═╡ 18ac4e95-5146-4186-84b2-8e5f11908d55
 md"""
@@ -92,7 +94,9 @@ md"""
 """
 
 # ╔═╡ fa6748ce-5670-4dd8-b49f-0031ca527074
-
+let 
+# missing code
+end
 
 # ╔═╡ 7cd13177-e031-4c42-9745-ab52ec1d0737
 md"""
@@ -106,7 +110,9 @@ md"""
 """
 
 # ╔═╡ b0d649bd-b657-4b8c-9f71-0b9d4267fb4e
-
+let 
+# missing code
+end
 
 # ╔═╡ 76a56a00-292e-479d-a2a3-08266c7ce27a
 md"""
@@ -115,7 +121,9 @@ md"""
 """
 
 # ╔═╡ 4ddfbcb6-6e5b-4bc7-9968-9a0411f46c71
-
+let 
+# missing code
+end
 
 # ╔═╡ dfb95c08-44a3-4b95-bcca-1b0d2c759b40
 md"""
@@ -127,7 +135,9 @@ md"""
 """
 
 # ╔═╡ 74cd2d96-60e1-49b5-abb2-f6918ab312af
-
+let 
+# missing code
+end
 
 # ╔═╡ 8e06f3c3-7013-4311-bfb2-946464dfd01f
 md"""
@@ -146,7 +156,9 @@ md"""
 """
 
 # ╔═╡ 3f32cc36-fdbe-4ae1-b1c1-6c17a30b01f8
-
+begin 
+# missing code
+end 
 
 # ╔═╡ 1bd0463e-16aa-49d2-b934-62c9ca7b06d9
 md"""
@@ -155,7 +167,9 @@ md"""
 """
 
 # ╔═╡ f7a3f594-6849-4f44-a0af-e6c170a172b0
-
+begin
+# missing code
+end
 
 # ╔═╡ d9e15509-7dd5-429c-9f61-ed392ba3387f
 md"""
@@ -164,7 +178,9 @@ md"""
 """
 
 # ╔═╡ e7e329c2-1535-4aad-8941-a2899bb61556
-
+begin 
+# missing code
+end
 
 # ╔═╡ 2fbeea3b-e823-4d3f-a929-6675858446b3
 md"""
@@ -173,7 +189,9 @@ md"""
 """
 
 # ╔═╡ 07d2cf24-c651-4c77-ad37-6d6a622fa21d
-
+begin
+# missing code
+end
 
 # ╔═╡ 0fd1df9e-930b-4576-bfc2-b4a724064d78
 md"""
@@ -182,7 +200,9 @@ md"""
 """
 
 # ╔═╡ e17b23e0-aaa4-48d9-afaf-03ff97eadd8b
-
+let 
+# missing code
+end
 
 # ╔═╡ 99433bd1-6ad5-40cb-9278-721a425a17ad
 md"""
@@ -197,12 +217,12 @@ Alles was jetzt noch kommt ist exklusiver Zusatz und nur in unserer Gruppe. Ihr 
 # ╔═╡ 21cde5d0-12ee-4c90-8c08-33aef0c28dd4
 md"""
 !!! danger "Scheint alles sehr Abstrakt, wozu?"
-	Diese ganzen Beschreibungen von Arrays scheinen alle sehr weit hergeholt und kaum anwendbar in der Realität. Hier vllt. ein einfaches Beispiel, welches zeigt das wir ständig mit Ihnen arbeiten ohne es zu merken. 
+	Diese Beschreibungen von Arrays scheinen alle sehr weit hergeholt und kaum anwendbar in der Realität. Dem ist aber ganz und gar nicht so. Hier vielleicht ein einfaches Beispiel, welches zeigt das wir ständig mit Ihnen arbeiten ohne es zu merken. 
 """
 
 # ╔═╡ a9499839-f5f1-4c96-a34b-cf7ca6175553
 md"""
-Ein alltägliches Beispiel von 2D-Arrays sind Bilder. Hier z.B. ein Bild von Tycho Brahe, der vllt. international bekannteste Absolvent der Universität Rostock.
+Ein alltägliches Beispiel von 2D-Arrays sind Bilder. Hier ein Bild von Tycho Brahe, der vllt. international bekannteste Student der Universität Rostock.
 """
 
 # ╔═╡ 602d443e-c83a-42af-a02e-34e577decc30
@@ -221,19 +241,28 @@ size(brahe_pic)
 
 # ╔═╡ 3f2ee661-70d1-496c-9666-ffe3a028f026
 md"""
-Wir haben also 450 Zeilen und 303 Spalten. Lasst uns den Pixel in der 420ten Zeile und 80sten Spalte ansehen. (Man fängt oben links an zuzählen - wie bei Matrizen)
+Wir haben also 450 Zeilen und 303 Spalten. Lasst uns den Pixel in der 420sten Zeile und 80sten Spalte ansehen. (Man fängt oben links an zuzählen - wie bei Matrizen)
 """
 
 # ╔═╡ aa44fce7-86d7-4fea-a276-222a252c8490
-brahe_pic[400, 80]
+brahe_pic[420, 80]
 
 # ╔═╡ 74612f6f-8db9-4eed-ae92-d6bb36820947
 md"""
-Ganz schön langweilig, lasst uns den Pixel Rot färben und anschließend erneut das Gesamtbild ansehen. Wir können ein Farbpixel duch den Befehl `RGB(r, g, b)` erzeugen wobei die Variablen `r,g,b` für red, green, blue stehen und Werte zwischen 0 und 1 annehmen können. 0 für nicht vorhanden in der Mischung, und 1 für vollkommen enthalten. Ein Roter Pixel ist also `RGB(1, 0, 0)`
+Ganz schön langweilig, lasst uns den Pixel Rot färben und anschließend erneut das Gesamtbild ansehen. Wir können ein Farbpixel duch den Befehl `RGB(r, g, b)` erzeugen wobei die Variablen `r,g,b` für red, green, blue stehen und Werte zwischen 0 und 1 annehmen können. 0 für nicht vorhanden in der Mischung, und 1 für vollkommen enthalten. Ein roter Pixel ist also `RGB(1, 0, 0)`
 """
 
 # ╔═╡ 4d6c6c95-f7c3-4b49-a6c8-28ce740be075
 RGB(1, 0, 0)
+
+# ╔═╡ 82512825-a03d-4e6e-be9e-916c43a59358
+RGB(0, 1, 0)
+
+# ╔═╡ 28f97067-339a-49ac-9a02-eb6ccb8eaf47
+RGB(0, 0, 1)
+
+# ╔═╡ 9b92fb91-264e-44bf-a8f1-8fa8a26466b6
+RGB(0.8, 0.5, 0.3)
 
 # ╔═╡ b587f560-7798-4eb0-8da8-966d42f35923
 let 
@@ -244,20 +273,27 @@ end
 
 # ╔═╡ 7f42db53-fd82-40a4-85d1-e39a45115464
 md"""
-Seht Ihr den Roten Punkt über den "T" von "Tycho Brahe"? Ganz schön klein. Lasst uns durch Nutzung der **slicing** Syntax, stattdessen die ganze 80te Spalte rot färben. Wir müssen also für jede Zeile das 80te Element Rot färben.
+Seht Ihr den roten Pixel über den "T" von "Tycho Brahe"? Ganz schön klein. Lasst uns durch Nutzung der **slicing** Syntax, stattdessen die ganze 80te Spalte rot färben. Wir müssen also für jede Zeile das 80te Element Rot färben.
 """
 
 # ╔═╡ 64f46f7e-9b04-4124-a2dd-c6b8b5a05937
 let 
 brahe_pic = load(brahe_url)
-# Wir brauchen Broadcast Syntax ".=" da wir jedes Element der 80. Spalte rot färben wollen. 1:end heißt hier, dass wir jede existierende Zeile mitnehmen. 
+#= 
+Wir brauchen die Broadcast Syntax ".=", da wir ein ganzes 
+Array rot färben wollen. 1:end heißt hier, dass wir jede 
+existierende Zeile mitnehmen. Man könnte auch 1:450 schreiben, 
+bloß ist man prinzipiell zu faul um sich den ENDindex, 
+also letzten Index des Arrays zumerken. Julia erlaubt uns 
+deshalb einfach `end` zuschreiben.  
+=#
 brahe_pic[1:end, 80] .= RGB(1.0, 0.0, 0.0) 
 brahe_pic
 end 
 
 # ╔═╡ 2e8f4bf9-1b8b-4e0f-850f-4026adec453e
 md"""
-Eventuell ist der Strich noch etwas zu dünn. Lasst uns also den roten Strich 10 Pixel breit machen. Er erstreckt sich demnach von Spalte 70 bis 80.
+Eventuell ist der Strich noch etwas zu dünn. Lasst uns also den Streifen auf 11 Pixel verbreitern. Zum Beispiel könnten wir ihn von Spalte 70 bis 80 erstrecken lassen.
 """
 
 # ╔═╡ c67be632-0e8c-4542-9c8d-9b16d41826f0
@@ -269,8 +305,8 @@ end
 
 # ╔═╡ d8aac9c5-22f3-4e34-94a4-102b33c0e245
 md"""
-!!! danger "** Schau Tycho Brahe in die Augen"
-	Lass dir durch die Slicing-Syntax des 2D-Arrays `brahe_pic` nur seine Augenpartie anzeigen. Nutze die **Slicing** Syntax.
+!!! danger "** Ihr seid dran: Schaut Tycho Brahe in die Augen"
+	Lass dir durch die Slicing-Syntax des 2D-Arrays `brahe_pic` nur Tycho Brahe`s Augenpartie anzeigen. 
 """
 
 # ╔═╡ a8abc81e-fd5b-48ab-a2e6-d32ee5546674
@@ -281,8 +317,8 @@ end
 
 # ╔═╡ c19d181d-8ceb-4158-b5f8-c23112611ed2
 md"""
-!!! danger "** Goldene Nase/Prothese"
-	Färbe durch ein Rechteck innerhalb des Bildes die Nase von Tycho-Brahe gelb. Nutze die **Slicing** Syntax.
+!!! danger "** Ihr seid dran: Goldene Nase/Prothese"
+	Bedecke Tycho Brahes Nase mit einen gelben Rechteck. Makaberer Fakt: Tycho Brahe verlor seine Nase bei einen Duell. 
 """
 
 # ╔═╡ 5d7b9e2b-9de3-43ff-a85a-f1d61d2ce6c3
@@ -293,14 +329,14 @@ end
 
 # ╔═╡ eef3195f-c65d-4910-950b-6737a3b712d2
 md"""
-!!! danger "** Stauche Tycho Brahe"
-	Verkleiner Tycho Brahe in der Höhe, indem du dir nur jede 3te Zeile anzeigen lässt.
+!!! danger "** Ihr seid dran: Staucht Tycho Brahe"
+	Verkleinert Tycho Brahe in der Höhe, indem Ihr euch nur jede n-te Zeile anzeigen lasst.
 """
 
 # ╔═╡ 9cb1efc0-b6a0-4fe6-bc94-9d1ee7553bcb
 let
 brahe_pic = load(brahe_url)
-#missing code
+# missing code
 end
 
 # ╔═╡ f4eb54dd-b579-4ca9-9fb7-9a895f68a5e1
@@ -1941,6 +1977,9 @@ version = "3.5.0+0"
 # ╠═aa44fce7-86d7-4fea-a276-222a252c8490
 # ╟─74612f6f-8db9-4eed-ae92-d6bb36820947
 # ╠═4d6c6c95-f7c3-4b49-a6c8-28ce740be075
+# ╠═82512825-a03d-4e6e-be9e-916c43a59358
+# ╠═28f97067-339a-49ac-9a02-eb6ccb8eaf47
+# ╠═9b92fb91-264e-44bf-a8f1-8fa8a26466b6
 # ╠═b587f560-7798-4eb0-8da8-966d42f35923
 # ╟─7f42db53-fd82-40a4-85d1-e39a45115464
 # ╠═64f46f7e-9b04-4124-a2dd-c6b8b5a05937
