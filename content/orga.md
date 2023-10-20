@@ -31,7 +31,7 @@ zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitun
 ### Hardware
 - Unser Praktikumsraum Haus 1, Raum 227 besitzt Windows-PCs. 
 
-- Praktika findet wöchentlich donnerstags um 0715 Uhr ☕️ statt.
+- Praktika findet wöchentlich donnerstags um 0730 Uhr ☕️ statt.
 
 - Liebend gern könnt ihr eure eigenen Rechner mitbringen (MacOS, Linux oder Windows) - wir benötigen keine Software-Lizenzen
 
