@@ -2,7 +2,7 @@
 # v0.19.26
 
 #> [frontmatter]
-#> order = "2"
+#> order = 2
 #> title = "2. Vorlesung"
 #> tags = ["lecs"]
 #> layout = "layout.jlhtml"
