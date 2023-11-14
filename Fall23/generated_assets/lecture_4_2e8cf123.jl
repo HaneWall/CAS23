@@ -39,6 +39,13 @@ html"""
 	</div>
 """
 
+# ╔═╡ 7ac9326b-2923-4953-90db-4607f192be57
+md"""
+*Vorlesung:* Prof. J. Starke
+
+*Übersetzung des Codes:* M.Sc. H. Wallner
+"""
+
 # ╔═╡ 2ffd8e0f-398f-4121-9096-4025cffd27c9
 md"""
 # Mathematische Funktionen definieren und Ableitungen symbolisch berechnen
@@ -2793,6 +2800,7 @@ version = "3.5.0+0"
 # ╟─422e4276-7387-47b5-8818-59e71babc55b
 # ╠═25fcb7ee-4828-4b14-bf20-f615843a2443
 # ╟─11dcda58-7ee0-11ee-0247-972ce19fd54a
+# ╟─7ac9326b-2923-4953-90db-4607f192be57
 # ╟─2ffd8e0f-398f-4121-9096-4025cffd27c9
 # ╠═5028aef6-c4c1-48a7-9c65-8e48d4a753e2
 # ╟─973165d3-5a69-4e84-ba12-25051d2e4d16

@@ -14,7 +14,7 @@ using InteractiveUtils
 # ╔═╡ b75f508e-82ec-11ee-1806-371307e69a0d
 begin 
 	using CairoMakie # zum Plotten
-	using Symbolics, ForwardDiff #  
+	using Symbolics, ForwardDiff #symbolisches diff
 end
 
 # ╔═╡ 373c5078-194b-4a84-a471-a00727f062ae
