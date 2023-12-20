@@ -2,8 +2,8 @@
 # v0.19.26
 
 #> [frontmatter]
-#> order = 8
-#> title = "8. Aufgabenblatt"
+#> order = 9
+#> title = "9. Aufgabenblatt"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments"]
 #> description = ""
@@ -11,21 +11,24 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 2b062f58-206b-4587-a563-0c87b89e23bd
-begin 
+# ╔═╡ 6bf6e398-6f90-4ffc-8ae8-54ef1f8a80d3
+begin
 	using CairoMakie
-	using LinearAlgebra
-	using RowEchelon
 end
 
-# ╔═╡ d736a172-98e1-11ee-0243-f916c013b372
+# ╔═╡ 69982520-9f38-11ee-0bb1-5544ef121a53
+md"""
+## Pakete die wir benötigen
+"""
+
+# ╔═╡ 9f7af807-944b-4b6f-9e4c-9664c1dd8812
 html"""
 	<h1 style="text-align:center">
 		Computerorientierte Mathematik, Algorithmen & Strukturen
 	</h1>
 	<div style="text-align:center">
 		<p style="font-weight:bold; font-size: 35px; font-variant: small-caps; margin: 0px">
-			8. Aufgabenblatt für Julia
+			9. Aufgabenblatt für Julia
 		</p>
 		<p style="font-size: 20px;">
 			Universität Rostock, Institut für Mathematik, Winter 2023/24<br>
@@ -33,333 +36,222 @@ html"""
 	</div>
 """
 
-# ╔═╡ 1a505c99-242c-4115-b471-ea3fbde6aaf9
+# ╔═╡ f7e6d57c-654c-4e90-bc5b-ff81811c0740
 md"""
 *Vorlesung*: Prof. J. Starke
 
 *Praktika*: M. Barthel, G.A. Pontow, C. Rönnfeld, M.Sc. N. Kruse & M.Sc. H. Wallner
 """
 
-# ╔═╡ 45415390-7cf4-43bf-9969-bc47988a2bf2
+# ╔═╡ 74054fd1-9179-4709-9e2b-052a31086182
 md"""
-**Abgabe bis**: 21.12.2023 - 1800 Uhr auf StudIP im "Aufgaben"-Menü der Vorlesung.
+**Abgabe bis**: 04.01.2024 - 1800 Uhr auf StudIP im "Aufgaben"-Menü der Vorlesung.
 """
 
-# ╔═╡ 43a26a2c-76e0-4fcb-b53a-2f0378e70f9f
+# ╔═╡ 0ff9e755-3d3e-42ff-a4c5-857d6f5de7e1
 md"""
 !!! correct "Person"
 	Ändern Sie in der unteren Zelle `Max Mustermann` zu Ihren Namen (ebenfalls Matrikelnummer `1234` sowie `Studiumsfach` ändern) und drücken Sie anschließend `shift` + `enter` zum Ausführen der Zelle. Nun sollte sich oben alles angepasst haben.
 """
 
-# ╔═╡ 3df7b4bd-7202-4c98-8d4c-20c2c74d44ad
+# ╔═╡ 5e298ce9-4e29-40d9-af55-fdb37fab62c9
 student = Dict(
 	"name" => "Max Mustermann", 
 	"fach" => "Studiumsfach",
 	"matrikelnr" => "1234")
 
-# ╔═╡ 9944cda6-40fb-45dd-8984-1ecfcaf99dcc
+# ╔═╡ 06249239-45b6-463a-87ae-e1224f635249
 md"""
 **Autor der Abgabe**: $(student["name"]), **MNR**: $(student["matrikelnr"]), **Fach**: $(student["fach"])
 """
 
-# ╔═╡ 0aac7f63-3e0e-4a56-ad6f-52d8349f64fa
+# ╔═╡ 57ff7845-ba14-4800-9900-5cb90e8d4834
 md"""
-## Aufgabe 1: Fehlersuche Euler
+## 1. Aufgabe: Fehlersuche 
 """
 
-# ╔═╡ a4e664f9-0fd4-49f7-921c-a72570849bd0
-md"""
-Beim menschlichen Darmbakterium wurde unter Idealbedingungen eine Wachstumgsrate von $\lambda = 2$ pro Stunde beobachtet (dies entspricht einer ungefähren Verdopplung der Bakterienanzahl alle 20 ). Gegeben seien die Folgenden Aufgaben, mit einer entsprechend fehlerhaften Lösung
-(eulerforward_fehler). Finden Sie die Fehler, sodass die Funktion gemäß der Aufgabenstellung funktioniert.
-"""
-
-# ╔═╡ 3a0dfc8a-57f2-4698-ae81-813084000187
-function eulerforward_fehler(t0, tn, x0, f, Delta)
-    xnew = x0
-    tnew = t0
-    solx =  Float64[x0]
-	solt = Float64[t0]
-    while tnew < tn 
-        xold = xnew
-        xnew = xold + 0.5*Delta*f(xold)
-        tnew = tnew + Deltat
-        push!(solt, tnew)
-		push!(solt, xnew)
-    end
-	return solt, solx
-end
-
-# ╔═╡ 91902c1e-ff3d-453e-9258-766e57b08b42
+# ╔═╡ 32c86514-bcaa-4b1a-95b1-4d2080394be0
 md"""
 !!! warning "1a)"
-	Implementieren Sie als Funktion in Julia die Euler-Vorwärts-Metode zur numerischen Lösung (Integration) einer gewöhlichen Differenzialgleichung in einer Dimension, also 
-	
-	$x(t_{k+1}) = x(t_k) + \Delta t f(t_k, x(t_k)), \qquad k = 0, \ldots, n-1$
-
-	ausgehend von der Startzeit $t_0$ bis zur Zeit $t_n$.
-	Das Anfangswertproblem ist durch $\frac{\mathrm{d}}{\mathrm{d}t}x(t) = f(x(t))$ mit $t\in\mathbb{R}$ und dem Anfangswert $x(t_0) = x_0$ gegeben. Verwenden Sie den Anfangszeitpunkt $t_0$ und den Zeitpunkt $t_n$, bis zu dem die numerische Lösung bestimmt werden soll, den Anfangswert $x_0$, die Funktion $f:\mathbb{R} \to \mathbb{R}$ und die Schrittweite $\Delta t$ als Eingaben der Funktion.
+	Korrigieren Sie die fehlerhafte Funktion `matrixmulti()`.
 """
 
-# ╔═╡ d73cda92-1c8b-495c-9129-ee96213fa1cd
-let
-# missing code (verbesserten Code hier einügen)
+# ╔═╡ 657d0f33-3d71-422d-8f8d-a83d40113d49
+function matrixmulti(A, B)
+   sizeA = size(A)
+   sizeB = size(B)
+    C = zeros(sizeA[1],sizeB[1])
+    for i in 1:sizeA[2]
+        for j in 1:sizeB[1]
+            for k in 1:sizeA[2]
+                C[i,j] = A[i,k]*B[k,j];
+            end
+        end
+    end
 end
 
-# ╔═╡ cb889cac-73be-4d99-8474-290a88ef548b
+# ╔═╡ a2fbd076-230d-446a-b017-7ae896be85b8
 md"""
 !!! warning "1b)"
-	Testen Sie Ihre Julia-Funktion aus Teil $a)$ durch numerisches Lösen der Gleichung des Bakterienwachstums $\frac{\mathrm{d}}{\mathrm{d}t}x(t)=\lambda x = 2x$ mit $x_0 = 1$ Bakterienkultur, $t_0 = 0$ und $t_n = 5$, also der Anzahl der Bakterienkultur nach 5 Stunden. Vergleichen Sie dabei die Ergebnisse für die Schrittweiten $\Delta t = 0.1, \Delta t = 0.01, \Delta t = 0.001$ mit der analytischen Lösung. 
-"""
-
-# ╔═╡ 31ed8455-e0ff-4200-b03c-7360e18159f4
-let
-# missing code
-end
-
-# ╔═╡ 738fd6ce-7c8c-461c-a12f-a7189f2c03d0
-md"""
-!!! warning "1c)"
-	Plotten Sie alle numerische Lösungen und die analytische Lösung in ein Diagramm. 
-"""
-
-# ╔═╡ 1b1f36e7-23b8-41a2-8a15-046cd063d8f1
-let
-# missing code
-end
-
-# ╔═╡ 60d46ef2-7eed-46bc-95e3-aa5d7d66c323
-md"""
-## (Zusatz)aufgabe 2 - Frobeniusnorm
-"""
-
-# ╔═╡ 4019d3a6-dd24-42f0-bd8e-da92518de567
-md"""
-!!! danger "2b)"
-	Gegeben sei die Matrix 
-
-	$M = \begin{pmatrix} 1 & 0 & -1 \\ -4 & 5 & 6 \\ 1 & 4 & -2 \end{pmatrix}$
-
-	Schreiben Sie eine Funktion `fro(A,n)`, welche bei Eingabe einer $n\times n$ Matrix $A$ folgendes berechnet:
-
-	$f=\sqrt{\sum\limits_{i=1}^n\sum\limits_{j=1}^n |a_{ij}|^2}$
-
-	Diese Größe wird auch Frobeniusnorm der Matrix $A$ genannt. Testen Sie Ihre Funktion mit der gegebenen Matrix $M$.
-"""
-
-# ╔═╡ 930efb9a-2fa2-49b6-87da-650dc432fb44
-let
-# missing code
-end
-
-# ╔═╡ 70db49cd-31ba-4fde-b595-0fa0569305d0
-md"""
-## Aufgabe 3 -  Lösen linearer Gleichungssysteme
-"""
-
-# ╔═╡ bcdaf486-4b9b-4bda-ba19-86431e7b1e08
-md"""
-Gegeben sei das folgende Gleichungssystem:
+	Testen Sie die korrigierte Funktion mit den folgenden Matrizen
 	
-$\begin{eqnarray*}a + b + c + d & = & 1\\ a + 2b + 3c + 4d & = & 5\\ a + 4b + 9c + 16d & = & 25\\ a + 8b + 27c + 64d & = & 125\end{eqnarray*}$
+	$A=\begin{pmatrix}1 & 0 & 4\\9 & 3 & 0\end{pmatrix} \quad\text{und}\quad B=\begin{pmatrix}0 & 1 \\1 & 3\\0 & 2\end{pmatrix}$
 
-	
+	Vergleichen Sie das Ergebnis der Funktion mit dem der Julia-internen Funktion. Passen Sie die Funktion so an, dass das Ergebnis der Definition entspricht.
 """
 
-# ╔═╡ 5d40f979-b166-4d3f-977e-239d3a1399be
+# ╔═╡ 02133a0f-91a7-4ef4-b658-cdca06838860
+begin 
+# missing code
+end
+
+# ╔═╡ 6d2666c0-017e-43bb-aeec-b60daca65196
+md"""
+## 2. Aufgabe: Rekursive Berechnung der Fakultät
+"""
+
+# ╔═╡ c880f371-222d-4533-bf0a-134f903506ab
+md"""
+!!! warning "2 a)"
+	Es gelte 0! = 1 und für alle n ≥ 1 die Beziehung n! = n · (n − 1)! zur rekursiven Berechnung der Fakultät. Berechnen Sie n! rekursiv aus verschiedenen Werten n ≥ 0. Schauen Sie sich dafür noch einmal Aufgabe 3 von Übungsblatt 4 an.
+"""
+
+# ╔═╡ 2ea40ee0-7c20-494c-84bb-f57eb9ddb639
+begin 
+# missing code
+end
+
+# ╔═╡ 6e646653-9424-42d9-b66c-5b6c39ec172a
+md"""
+## 3. Aufgabe: Sortieralgorithmen
+"""
+
+# ╔═╡ 1e4353c4-2240-4e01-9d55-9d320d890af8
+md"""
+	Wählen Sie als Sortieralgorithmus entweder Bubblesort oder Insertionsort und bearbeiten Sie folgende Aufgaben.
+"""
+
+# ╔═╡ 2fd66668-f53f-4a51-8903-f0dfeb1cb765
 md"""
 !!! warning "3a)"
-	Stellen Sie die entprechende Koeffizientenmatrix und erweiterte Koeffizientenmatrix auf.
+	Schreiben Sie eine Funktion, welche ein 1D-Array mit dem ausgewählten Sortieralgorithmus sortiert und geordnet zurück gibt.
 """
 
-# ╔═╡ b84a6978-9f01-420e-b363-081833cbe214
-let
+# ╔═╡ 29952ec1-70fb-4dd4-b733-cbb068361cd5
+begin 
 # missing code
 end
 
-# ╔═╡ 4f6133a8-5fb1-4aa1-9317-4f28c8b40fc4
+# ╔═╡ d8172a5d-1191-40f0-a06d-10374e816680
 md"""
 !!! warning "3b)"
-	Nutzen Sie den Befehl `rref(C)`, wobei `C` die erweiterte Koeffizientenmatrix ist, um das Gleichungssystem zu lösen.
+	Erweitern Sie Ihr Programm um eine Zählvariable, welche die Anzahl der benötigten Vergleichsoperationen mitzählt. Diese soll nach Durchlauf des Verfahrens mit ausgegeben werden.
 """
 
-# ╔═╡ c8b199b7-f0f2-4127-8bd7-08dd3848d634
-let
+# ╔═╡ 99a475ca-4102-4104-a8e0-f2ba934e67ae
+begin 
 # missing code
 end
 
-# ╔═╡ 81d3d0b0-5fa9-4d42-8597-00120752a0fd
+# ╔═╡ c94da548-a0cd-4e82-9bf6-158606c4e433
 md"""
 !!! warning "3c)"
-	Nutzen Sie den Befehl `A\b`, wobei `A` die Koeffizientenmatrix und `b` die rechte Seite der Gleichung ist.
+	Sortieren Sie mit der von Ihnen programmierten Funktion die folgenden `1D-Arrays` L1 bis L5. Vergleichen Sie die Anzahl der Vergleichsoperationen bei den unterschiedlichen `1D-Arrays`. Was fällt Ihnen auf?
+
+	$L_1 = [9,8,7,6,5,4,3,2,1,0]$
+	$L_2 = [1,2,3,4,5,6,7,8,9,0]$
+	$L_3 = [0,1,2,3,4,5,6,7,8,9]$
+	$L_4 = [5,1,0,7,2,8,3,4,9,6]$
+	$L_5 = [3,4,0,2,1,5,8,6,9,7]$
 """
 
-# ╔═╡ cb95b4e6-b45a-434c-aae3-55a03bc32b02
-let 
+# ╔═╡ 6d974a99-46ce-4633-9a02-ef48650a45d7
+begin 
 # missing code
 end
 
-# ╔═╡ 08802923-d753-4a06-b51c-8e1d12dec948
+# ╔═╡ b1f3c53d-a227-471a-8db9-8e648ca5494d
 md"""
-## Aufgabe 4
+!!! warning "3d)"
+	Vergleichen Sie Ihre Ergebnisse mit denen von Studierenden, die ein anderes Verfahren gewählt haben.
 """
 
-# ╔═╡ 5b929d79-f6d9-4101-b9ad-e8be3f397a1d
+# ╔═╡ 15dbf4c2-ce51-422b-bfbd-86ef01f74c28
 md"""
-Vertiefung von Schleifen, Funktionen und Matrixoperationen. Schreiben Sie Funktionen für die folgenden Matrix-Operationen ohne Verwendung der diesbezüglichen vorhandenen Julia-internen Funktionen. Testen Sie Ihre Funktionen an geeigneten, zufällig generierten Beispielen unterschiedlicher Dimension und überprüfen Sie die Ergebnisse mit den entsprechenden Julia-Befehlen.
+test
 """
 
-# ╔═╡ 61abad35-4f3d-4e41-b793-1b6a0be59d5d
+# ╔═╡ 4d5ad1c4-d594-4729-8c71-68ee50381d0c
 md"""
-!!! warning "4a)"
-	Addition von zwei $m\times n$ Matrizen $A$ und $B$ mit $A, B \in \mathbb{R}^{m \times n}$. Diese Addition resultiert in eine $m\times n$ Matrix $C$ mit $C=A+B$ und jedes Element von $C$ ist durch $c_{ij} = a_{ij} + b_{ij}$ definiert.
+!!! danger "3e)*"
+	Sortieren Sie das folgende `1D-Array`. Plotten Sie das ursprüngliche `1D-Array` und das sortierte `1D-Array`.
+	
+	$L = [10,3,9,10,56,1,12,30,50,6]$
 """
 
-# ╔═╡ df679cb1-174c-47b2-bd6a-3cf1c31ee2f8
-let
-#missing code
+# ╔═╡ 62b8a557-1e87-4a43-b2c9-1d72495ef987
+begin 
+# missing code
 end
 
-# ╔═╡ e329e9ff-4268-46d1-afb2-638712ad5be3
+# ╔═╡ dc7d0d28-c51c-4bd9-97e7-35f1f2a0c8c4
 md"""
-!!! warning "4b)"
-	Multiplikation einer $l\times m$ Matrix mit einer $m\times n$ Matrix: Diese Multiplikation resultiert in einer $l\times n$ Matrix  
-	$C=A \cdot B$, mit $c_{ij} = \sum\limits_{k=1}^m a_{ik} \cdot b_{kj}$
+!!! danger "3f)*"
+	Führen Sie die Teilaufgaben a)-c) mit Selectionsort als gewählten Sortieralgorithmus durch.
 """
 
-# ╔═╡ 9e75ae3a-13b2-482b-81c7-8ae677ecd2a1
-let
-#missing code
+# ╔═╡ bfe41c1d-0ebd-4969-9964-2030343f94b9
+begin 
+# missing code
 end
 
-# ╔═╡ 42920ab6-0f40-442f-8df8-0a24aeaa955a
+# ╔═╡ d6bfe5b6-e4de-4912-a022-66733d895898
 md"""
-# (Haus)aufgabe 5 - Gaußsche Elimination
+### Bubblesort
 """
 
-# ╔═╡ 75636158-3617-4775-bc6c-cc64e57cc57c
+# ╔═╡ 341afaf7-e6e0-4cd0-8b50-1c7596aecb6f
 md"""
-  Implementieren Sie das Verfahren der Gauß-Elimination mit
-  Eingabe einer erweiterten Koeffizientenmatrix $(A|b)$ mit
-  $A\in\mathbb{R}^{m\times n}$ und $b\in\mathbb{R}^m$ und Ausgabe der Lösung
-  $x\in\mathbb{R}^n$ des linearen Gleichungssystems $Ax=b$. Es seien $a_{ij}$
-  die Elemente der Matrix $A$ sowie $b_i$ und $x_i$ die Elemente der
-  Vektoren $b$ und $x$. Testen Sie ihre Implementierung mit
+	Das `1D-Array` wird in einer Bubble-Phase von links nach rechts durchlaufen. Dabei wird in jedem Schritt das aktuelle Element mit dem rechten Nachbarn verglichen. Falls es kleiner als dieser ist, werden diese beiden Elemente getauscht.
 """
 
-# ╔═╡ 97568c71-f932-4594-a5d3-ad4523ce61bb
+# ╔═╡ 8cb034f6-ce55-4d49-aee4-776ebc60da21
 md"""
-(i).
-
-$A=\begin{pmatrix}
-1 & 1 & 1\\
-4 & 2 & 1\\
-9 & 3 & 1
-\end{pmatrix}
-\quad\text{und}\quad
-b=\begin{pmatrix}0 \\1\\3\end{pmatrix}$
-
-(ii).
-
-$A=\begin{pmatrix}
-1 & 0 & 4\\
-1 & -2 & -2\\
--2 & 3 & 1
-\end{pmatrix}
-\quad\text{und}\quad
-b=\begin{pmatrix}3 \\1\\3\end{pmatrix}.$
+### Insertionsort
 """
 
-# ╔═╡ 5124f174-76a2-4671-9acc-5e8364c05164
+# ╔═╡ 2242bf9b-6eb4-417c-b583-5febfa9614b5
 md"""
-Führen Sie die folgende Schritte durch:
+	Insertionsort entnimmt den unsortierten 1D-Array pro Durchlauf jeweils ein Element und fügt es an richtiger Stelle in das Ausgabenarray ein. Ist das Eingabearray leer, ist das Verfahren fertig und das Ausgabenarray kann zurück gegeben werden.
 """
 
-# ╔═╡ 69bb6d60-cbeb-4501-b458-f0ec48d5ee38
+# ╔═╡ 2979add7-9e17-45fe-b42c-ff18a05b7cea
 md"""
-!!! warning "5a)"
-	Als Vorbereitung zur Implementierung des Verfahrens auf dem Computer berechnen Sie die Lösung für das Beispiel (i) per Hand und führen Sie dabei die einzelnen Schritte der Gauß-Elimination sorgfältig durch.
+### Selectionsort
 """
 
-# ╔═╡ 6bfb1dda-26f2-4e3d-8068-f7668e40cf34
+# ╔═╡ 14b047ce-a9ba-4169-82ae-1894ab870ca8
 md"""
-!!! warning "3b)"
-	Implementieren Sie die Gauß-Elimination in einer eigenen
-	Julia-Funktion. Lesen Sie hierzu zunächst eine Matrix
-	$(A|b)\in\mathbb{R}^{m\times (n+1)}$, die erweiterte Koeffizientenmatrix, ein.
+	Das Eingabearray wird durchlaufen. Dabei wird das größte Element des Eingabearrays entnommen und hinten in das Ausgabearray angefügt. Ist das Eingabearray leer, ist das Vefahren fertig und das Ausgabearray kann zurück gegeben werden.
 """
 
-# ╔═╡ b10ccb93-42fe-4bf7-bf85-15b870167a4d
-let
-#missing code
-end
-
-# ╔═╡ ff1cdd29-c8d4-46ed-b04f-c7b4f60fcdfd
+# ╔═╡ c1e458fb-745c-4df1-bab0-475ff7fbbebf
 md"""
-!!! warning "3c)"
-	Transformieren Sie Schritt für Schritt die erweiterte
-	Koeffizientenmatrix in eine Trapezform. 
-	Gehen Sie dafür jede Spalte von $A$ durch, angefangen bei der ersten.
-	Im $k$-ten Schritt wird demnach die $k$-te Spalte betrachtet,
-	wobei alle Einträge unterhalb der Hauptdiagonalen zu Null werden sollen.
-	Hierf\"ur wird von jeder Zeile $i>k$ die mit
-	$\frac{a_{ik}}{a_{kk}}$ multiplizierte $k$-te Zeile abgezogen.
-	Dazu muss $a_{kk}\neq 0$ gelten, prüfen Sie dies vorher.
+### Mergesort
 """
 
-# ╔═╡ fc7e14d5-2745-4e33-b9ac-ad9abc71fd2e
-let
-#missing code
-end
-
-# ╔═╡ c6835362-b83e-4822-bd5f-ffa1556a90cd
+# ╔═╡ 07b334b0-3a24-4e8d-8306-a007cb5d89c2
 md"""
-!!! danger "3d)*"
-	Falls $a_{kk}=0$, so müssen geeignete Zeilen getauscht werden. Implementieren Sie diesen Fall.
+	Das Verfahren zerlegt ein 1D-Array in kleinere 1D-Arrays, die jeweils für sich sortiert werden. Die sortierten 1D-Arrays werden dann im Reißverschlussverfahren zu größeren 1D-Arrays zusammengefügt. Hierbei eignet sich eine rekursive Implementierung.
 """
-
-# ╔═╡ 868bb280-6452-4bfc-905d-bab9bda7b343
-md"""
-!!! warning "3e)"
-	Testen Sie die Funktion an den unter (i) und (ii) gegebenen erweiterten Koeffizientenmatrizen.
-"""
-
-# ╔═╡ 6bc9b327-2c4e-4477-9b15-82c7939afe04
-let
-#missing code
-end
-
-# ╔═╡ ec0fc333-5549-443b-852e-fde251822c20
-md"""
-!!! warning "3f)"
-	Zur Berechnung der Lösung soll eine Funktion zur Rückwärtssubstitution geschrieben werden, die anschließend das Ergebnis ausgibt.
-"""
-
-# ╔═╡ 578f1b66-3468-4f29-b2b0-2c7837b2ae94
-let 
-#missing code
-end
-
-# ╔═╡ 5468cfca-c428-4464-9345-f9377390f9af
-md"""
-!!! danger "3g)**"
-	Schreiben Sie eine Funktion, die bei den Aquivalenzumformungen statt der Trapezform eine (evtl. abgeschnittene) Einheitsmatrix erzeugt, vorherige Ergebnisse können hierbei genutzt werden. Dies wird als Gauß-Jordan-Methode bezeichnet. Die Lösung des linearen Gleichungssystems kann dann direkt abgelesen werden. Wenn für $b$ die kanonischen Basisvektoren verwendet werden, eignet sich die Methode auch zur spaltenweisen Berechnung der zu $A$ Inversen Matrix $A^{-1}$, für die mit der Einheitsmatrix $E$ die Beziehung $A^{-1}\cdot A=A\cdot A^{-1}=E$ gilt. Berechnen Sie zusätzlich die Inversen der beiden Matrizen in (i) und (ii), falls diese existieren.
-"""
-
-# ╔═╡ 9240449b-146a-4293-8735-4223cb3cd53a
-let
-#missing code
-end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
-LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-RowEchelon = "af85af4c-bcd5-5d23-b03a-a909639aa875"
 
 [compat]
 CairoMakie = "~0.11.3"
-RowEchelon = "~0.2.1"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -368,7 +260,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.9.3"
 manifest_format = "2.0"
-project_hash = "c173e856133a8d7e6a64b8e3fc8171a78fc907d9"
+project_hash = "d32e909060aae41e42b593fb14a7820ce2cb97e1"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -1539,12 +1431,6 @@ git-tree-sha1 = "40b9edad2e5287e05bd413a38f61a8ff55b9557b"
 uuid = "5eaf0fd0-dfba-4ccb-bf02-d820a40db705"
 version = "0.2.1"
 
-[[deps.RowEchelon]]
-deps = ["LinearAlgebra"]
-git-tree-sha1 = "f479526c4f6efcbf01e7a8f4223d62cfe801c974"
-uuid = "af85af4c-bcd5-5d23-b03a-a909639aa875"
-version = "0.2.1"
-
 [[deps.SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 version = "0.7.0"
@@ -1941,54 +1827,43 @@ version = "3.5.0+0"
 """
 
 # ╔═╡ Cell order:
-# ╠═2b062f58-206b-4587-a563-0c87b89e23bd
-# ╟─d736a172-98e1-11ee-0243-f916c013b372
-# ╟─1a505c99-242c-4115-b471-ea3fbde6aaf9
-# ╟─45415390-7cf4-43bf-9969-bc47988a2bf2
-# ╟─9944cda6-40fb-45dd-8984-1ecfcaf99dcc
-# ╟─43a26a2c-76e0-4fcb-b53a-2f0378e70f9f
-# ╠═3df7b4bd-7202-4c98-8d4c-20c2c74d44ad
-# ╟─0aac7f63-3e0e-4a56-ad6f-52d8349f64fa
-# ╟─a4e664f9-0fd4-49f7-921c-a72570849bd0
-# ╠═3a0dfc8a-57f2-4698-ae81-813084000187
-# ╟─91902c1e-ff3d-453e-9258-766e57b08b42
-# ╠═d73cda92-1c8b-495c-9129-ee96213fa1cd
-# ╟─cb889cac-73be-4d99-8474-290a88ef548b
-# ╠═31ed8455-e0ff-4200-b03c-7360e18159f4
-# ╟─738fd6ce-7c8c-461c-a12f-a7189f2c03d0
-# ╠═1b1f36e7-23b8-41a2-8a15-046cd063d8f1
-# ╟─60d46ef2-7eed-46bc-95e3-aa5d7d66c323
-# ╟─4019d3a6-dd24-42f0-bd8e-da92518de567
-# ╠═930efb9a-2fa2-49b6-87da-650dc432fb44
-# ╟─70db49cd-31ba-4fde-b595-0fa0569305d0
-# ╟─bcdaf486-4b9b-4bda-ba19-86431e7b1e08
-# ╟─5d40f979-b166-4d3f-977e-239d3a1399be
-# ╠═b84a6978-9f01-420e-b363-081833cbe214
-# ╟─4f6133a8-5fb1-4aa1-9317-4f28c8b40fc4
-# ╠═c8b199b7-f0f2-4127-8bd7-08dd3848d634
-# ╟─81d3d0b0-5fa9-4d42-8597-00120752a0fd
-# ╠═cb95b4e6-b45a-434c-aae3-55a03bc32b02
-# ╟─08802923-d753-4a06-b51c-8e1d12dec948
-# ╟─5b929d79-f6d9-4101-b9ad-e8be3f397a1d
-# ╟─61abad35-4f3d-4e41-b793-1b6a0be59d5d
-# ╠═df679cb1-174c-47b2-bd6a-3cf1c31ee2f8
-# ╟─e329e9ff-4268-46d1-afb2-638712ad5be3
-# ╠═9e75ae3a-13b2-482b-81c7-8ae677ecd2a1
-# ╟─42920ab6-0f40-442f-8df8-0a24aeaa955a
-# ╟─75636158-3617-4775-bc6c-cc64e57cc57c
-# ╟─97568c71-f932-4594-a5d3-ad4523ce61bb
-# ╟─5124f174-76a2-4671-9acc-5e8364c05164
-# ╟─69bb6d60-cbeb-4501-b458-f0ec48d5ee38
-# ╟─6bfb1dda-26f2-4e3d-8068-f7668e40cf34
-# ╠═b10ccb93-42fe-4bf7-bf85-15b870167a4d
-# ╟─ff1cdd29-c8d4-46ed-b04f-c7b4f60fcdfd
-# ╠═fc7e14d5-2745-4e33-b9ac-ad9abc71fd2e
-# ╟─c6835362-b83e-4822-bd5f-ffa1556a90cd
-# ╟─868bb280-6452-4bfc-905d-bab9bda7b343
-# ╠═6bc9b327-2c4e-4477-9b15-82c7939afe04
-# ╟─ec0fc333-5549-443b-852e-fde251822c20
-# ╠═578f1b66-3468-4f29-b2b0-2c7837b2ae94
-# ╟─5468cfca-c428-4464-9345-f9377390f9af
-# ╠═9240449b-146a-4293-8735-4223cb3cd53a
+# ╟─69982520-9f38-11ee-0bb1-5544ef121a53
+# ╠═6bf6e398-6f90-4ffc-8ae8-54ef1f8a80d3
+# ╟─9f7af807-944b-4b6f-9e4c-9664c1dd8812
+# ╟─f7e6d57c-654c-4e90-bc5b-ff81811c0740
+# ╟─74054fd1-9179-4709-9e2b-052a31086182
+# ╟─06249239-45b6-463a-87ae-e1224f635249
+# ╟─0ff9e755-3d3e-42ff-a4c5-857d6f5de7e1
+# ╠═5e298ce9-4e29-40d9-af55-fdb37fab62c9
+# ╟─57ff7845-ba14-4800-9900-5cb90e8d4834
+# ╟─32c86514-bcaa-4b1a-95b1-4d2080394be0
+# ╠═657d0f33-3d71-422d-8f8d-a83d40113d49
+# ╟─a2fbd076-230d-446a-b017-7ae896be85b8
+# ╠═02133a0f-91a7-4ef4-b658-cdca06838860
+# ╟─6d2666c0-017e-43bb-aeec-b60daca65196
+# ╟─c880f371-222d-4533-bf0a-134f903506ab
+# ╠═2ea40ee0-7c20-494c-84bb-f57eb9ddb639
+# ╟─6e646653-9424-42d9-b66c-5b6c39ec172a
+# ╟─1e4353c4-2240-4e01-9d55-9d320d890af8
+# ╟─2fd66668-f53f-4a51-8903-f0dfeb1cb765
+# ╠═29952ec1-70fb-4dd4-b733-cbb068361cd5
+# ╟─d8172a5d-1191-40f0-a06d-10374e816680
+# ╠═99a475ca-4102-4104-a8e0-f2ba934e67ae
+# ╟─c94da548-a0cd-4e82-9bf6-158606c4e433
+# ╠═6d974a99-46ce-4633-9a02-ef48650a45d7
+# ╟─b1f3c53d-a227-471a-8db9-8e648ca5494d
+# ╠═15dbf4c2-ce51-422b-bfbd-86ef01f74c28
+# ╟─4d5ad1c4-d594-4729-8c71-68ee50381d0c
+# ╠═62b8a557-1e87-4a43-b2c9-1d72495ef987
+# ╟─dc7d0d28-c51c-4bd9-97e7-35f1f2a0c8c4
+# ╠═bfe41c1d-0ebd-4969-9964-2030343f94b9
+# ╟─d6bfe5b6-e4de-4912-a022-66733d895898
+# ╟─341afaf7-e6e0-4cd0-8b50-1c7596aecb6f
+# ╟─8cb034f6-ce55-4d49-aee4-776ebc60da21
+# ╟─2242bf9b-6eb4-417c-b583-5febfa9614b5
+# ╟─2979add7-9e17-45fe-b42c-ff18a05b7cea
+# ╟─14b047ce-a9ba-4169-82ae-1894ab870ca8
+# ╟─c1e458fb-745c-4df1-bab0-475ff7fbbebf
+# ╟─07b334b0-3a24-4e8d-8306-a007cb5d89c2
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
