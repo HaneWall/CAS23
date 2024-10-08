@@ -14,12 +14,12 @@ layout: "md.jlmd"
         Praktika in  Julia
     </p>
     <p style="font-size: 20px;">
-        Universität Rostock, Institut für Mathematik, Winter 2023/24<br>
+        Universität Rostock, Institut für Mathematik, Winter 2024/25<br>
     </p>
 </div>
 
 
-Willkommen in der Julia-Praktikumsgruppe der CAS-Vorlesung im Wintersemester 2023/2024. Auf dieser Homepage werdet ihr eine Übersicht
+Willkommen in der Julia-Praktikumsgruppe der CAS-Vorlesung im Wintersemester 2024/2025. Auf dieser Homepage werdet ihr eine Übersicht
 zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitung der Aufgaben bereitgestellt. Außerdem versuche ich mit einem Delay die Vorlesung auf Julia zu übersetzen und ebenfalls im "Vorlesungen"-Reiter dieser Homepage hochzuladen.
 
 <div style="border: 2px solid #000; border-radius: 10px; padding: 20px;">
@@ -29,9 +29,9 @@ zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitun
 ## Randbedingungen
 
 ### Hardware
-- Unser Praktikumsraum Haus 1, Raum 227 besitzt Windows-PCs. 
+- Unser Praktikumsraum Haus 1, Raum 226 besitzt Windows-PCs. 
 
-- Praktika findet wöchentlich donnerstags um 0730 Uhr ☕️ statt.
+- Praktika findet wöchentlich montags um 1500 Uhr ☕️ statt.
 
 - Liebend gern könnt ihr eure eigenen Rechner mitbringen (MacOS, Linux oder Windows) - wir benötigen keine Software-Lizenzen
 
