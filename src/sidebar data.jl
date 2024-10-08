@@ -9,12 +9,12 @@ Dict(
     ],
     :about => Dict(
         :authors => [
-            (name = "Prof. Jens Starke", url = "http://www.jstarke.eu"),
-            (name = "Hannes Wallner", url = "https://github.com/HaneWall")
+            #(name = "Prof. Jens Starke", url = "http://www.jstarke.eu"),
+            (name = "Hannes Wallner", url = "https://github.com/HaneWall"),
         ],
         :title => "CMAS Julia",
         :subtitle => "Eine interaktive Einführung",
-        :term => "Winter 2023/2024",
+        :term => "Winter 2024/2025",
         :institution => "Universität Rostock",
         :institution_url => "http://www.uni-rostock.de",
         :institution_logo => "black-logo-uni-julia.svg",

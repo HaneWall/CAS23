@@ -73,13 +73,13 @@ md"""
 Julia hat einen integrierten *Package Manager*. Ihr gelangt in den *Package Manager Modus* indem ihr eine eckige Klammer ] in das Julia Terminal schreibt :
 ```julia
 julia> ]
-@(v.1.9)pkg> 
+@(v.1.11)pkg> 
 ```
 
 Dort angelangt installieren wir Pluto mit dem Befehl (nur `add Pluto`):
 
 ```julia
-@(v.1.9)pkg> add Pluto
+@(v.1.11)pkg> add Pluto
 
 ```
 Dies kann durchaus einige Minuten in Anspruch nehmen. Habt Geduld ☕️.

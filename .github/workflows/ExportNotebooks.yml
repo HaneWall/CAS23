@@ -5,6 +5,9 @@ on:
     push:
         branches:
             - main
+    pull_request:
+        branches:
+            - main
     workflow_dispatch:
 concurrency:
     group: export
@@ -20,7 +23,7 @@ jobs:
             - name: 🙌 Install Julia
               uses: julia-actions/setup-julia@v1
               with:
-                  version: "~1.9.3"
+                  version: "1"
 
             - name: ⏱ Cache notebook states
               uses: actions/cache@v2
@@ -39,14 +42,14 @@ jobs:
                     ${{ runner.os }}-dotjulia-v1-${{ hashFiles('**/Project.toml', '**/Manifest.toml') }}
 
             - name: 🪴 Generate site
-              run: julia --project=PlutoPages/pluto-deployment-environment -e '
+              run: julia --project=pluto-deployment-environment -e '
                   import Pkg;
                   Pkg.instantiate();
-
-                  include("./PlutoPages/generate.jl")'
+                  import PlutoPages;                   
+                  PlutoPages.generate("."; html_report_path="generation_report.html")'
 
             - name: 📰 Upload site generation report
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4
               if: always()
               with:
                 path: generation_report.html
@@ -54,12 +57,24 @@ jobs:
             - name: 🔀 Combine semesters into single site
               run: |
                 mkdir www
-                mv PlutoPages/_site www/Fall23
-                mv PlutoPages/extra_outputs/* www
+                mv _site www/Fall23
+                mv extra_outputs/* www
 
-            - name: 🚀 Deploy to GitHub Pages
+            - name: 🚀 Deploy to GitHub Pages (main)
+              if: github.event_name == 'push' && github.ref == 'refs/heads/main'
               uses: JamesIves/github-pages-deploy-action@releases/v3
               with:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  BRANCH: output
-                  FOLDER: www
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                BRANCH: output
+                FOLDER: www
+                CLEAN_EXCLUDE: |
+                  previews/*
+    
+            - name: Deploy PR preview
+              if: github.event_name == 'pull_request' && github.repository == github.event.pull_request.head.repo.full_name # if this build is a PR build and the PR is NOT from a fork
+              uses: JamesIves/github-pages-deploy-action@releases/v3
+              with:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                BRANCH: output
+                FOLDER: www
+                TARGET_FOLDER: "previews/PR${{ github.event.number }}" # The website preview is going to be stored in the previews subfolder
