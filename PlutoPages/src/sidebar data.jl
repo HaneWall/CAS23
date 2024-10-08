@@ -2,18 +2,18 @@ Dict(
     :main => [
         "Willkommen" => collections["welcome"].pages,
         "Grundlagen Julia" => collections["preliminaries"].pages,
-        "Aufgabenblätter" => collections["assignments"].pages,
-        "Vorlesungen" => collections["lecs"].pages,
+        "Lehrmaterial" => collections["assignments"].pages,
+        #"Vorlesungen" => collections["lecs"].pages,
         #"Module 3: Climate Science" => collections["module3"].pages,
 
     ],
     :about => Dict(
         :authors => [
-            #(name = "Prof. Jens Starke", url = "http://www.jstarke.eu"),
+            (name = "Prof. Jens Starke", url = "http://www.jstarke.eu"),
             (name = "Hannes Wallner", url = "https://github.com/HaneWall"),
         ],
         :title => "CMAS Julia",
-        :subtitle => "Eine interaktive Einführung",
+        :subtitle => "Computerorientierte Mathematik, Algorithmen und Strukturen",
         :term => "Winter 2024/2025",
         :institution => "Universität Rostock",
         :institution_url => "http://www.uni-rostock.de",
