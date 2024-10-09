@@ -130,7 +130,7 @@ $(pluto_head)
                             @htl("""<li class=$([
                                 active ? "active" : nothing,
                                 "homework",
-                            ])><a href=$(href) title=$(desc)><span class="entry-number">Homework $(homework_number):</span> $(name)</a></li>""")
+                            ])><a href=$(href) title=$(desc)><span class="entry-number">Praktika $(homework_number):</span> $(name)</a></li>""")
                         end
                     end for other_page in pages
                 ])
