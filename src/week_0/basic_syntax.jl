@@ -12,6 +12,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 97da2bc0-f16d-4d57-a0a5-fe8aea53b738
+using PlutoUI
+
 # ╔═╡ 0d3aec92-edeb-11ea-3adb-cd0dc17cbdab
 md"""# Kurzübersicht Julia
 
@@ -83,9 +86,6 @@ end
 md"""
 Man definiert die Variablen also lokal in der Zelle (`local scope`). Demnach erhalten wir nach Abfrage der Variablen `c` in einer anderen Zelle einen Error.
 """
-
-# ╔═╡ 09ae4991-3a11-406f-9aaf-617700cc3b12
-c
 
 # ╔═╡ 7e46f0e8-edeb-11ea-1092-4b5e8acd9ee0
 md"Mithilfe von `typeof` können wir den Typen einer Variablen abfragen:"
@@ -174,12 +174,10 @@ Wir haben gerade einen `let` Block genutzt um eine Variable `s` zu definieren. D
 
 # ╔═╡ 683af3e2-eded-11ea-25a5-0d90bf099d98
 function mysum(n)
-	s = 0
-	
+	s = 0 #startwert
 	for i in 1:n
 		s += i  # Äquivalent zu s = s + i
 	end
-	
 	return s
 end
 
@@ -325,7 +323,6 @@ md"""
 
 # ╔═╡ 56996bd1-efbd-4c46-bbf2-f681480aee37
 let 
-	
 i = 0
 while i < 5
 	if i == 3
@@ -334,7 +331,6 @@ while i < 5
 	@info "i ist $(i) und damit kleiner als 5"
 	i = i + 1
 end
-
 end
 
 # ╔═╡ 994ffad1-6aeb-4711-a266-0b6d5bf73a5c
@@ -357,9 +353,6 @@ while i < 5
 end
 
 end
-
-# ╔═╡ 97da2bc0-f16d-4d57-a0a5-fe8aea53b738
-using PlutoUI
 
 # ╔═╡ 8602aa26-ee1c-43cf-b33e-50cd19b39abc
 TableOfContents()
@@ -669,7 +662,6 @@ version = "17.4.0+2"
 # ╟─2e3f401a-584c-4760-bf07-0ad15c4a28f1
 # ╠═f4e9eb19-2ddf-4155-aa35-5ee94cb82554
 # ╟─3fa50afa-c2eb-4dd2-80bc-2a891d6289c1
-# ╠═09ae4991-3a11-406f-9aaf-617700cc3b12
 # ╟─7e46f0e8-edeb-11ea-1092-4b5e8acd9ee0
 # ╠═8a695b86-edeb-11ea-08cc-17263bec09df
 # ╟─e76fce0f-d3b3-4068-a456-75bc5811e80d
