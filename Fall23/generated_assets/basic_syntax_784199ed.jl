@@ -185,7 +185,7 @@ end
 
 # ╔═╡ 2e69abc7-d6ed-4260-a47a-b0d733e47f49
 md"""
-Jetzt können wir die Funktion in einer anderen Zelle aufrufen. Zum Beispiel können wir die ersten 100 natürlichen Zahlen aufsummieren:
+Jetzt können wir die Funktion in einer anderen Zelle aufrufen. Zum Beispiel können wir die ersten 100 natürlichen Zahlen aufsummieren.
 """
 
 # ╔═╡ 76764ea2-eded-11ea-1aa6-296f3421de1c

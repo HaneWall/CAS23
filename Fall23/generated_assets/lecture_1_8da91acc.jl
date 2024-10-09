@@ -11,12 +11,6 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 666714f6-3778-4a5e-bf41-a41f7167bbfc
-md"""
-#### Pakete die wir benötigen
-
-"""
-
 # ╔═╡ 69b2a0ed-4403-4d77-a7bc-2bc63c759cd6
 begin 
 	using CairoMakie # zum Plotten
@@ -30,10 +24,10 @@ html"""
 	</h1>
 	<div style="text-align:center">
 		<p style="font-weight:bold; font-size: 35px; font-variant: small-caps; margin: 0px">
-			1. Vorlesung in Julia
+			Code 1. Vorlesung in Julia
 		</p>
 		<p style="font-size: 20px;">
-			Universität Rostock, Institut für Mathematik, Winter 2023/24<br>
+			Universität Rostock, Institut für Mathematik, Winter 2024/25<br>
 		</p>
 	</div>
 """
@@ -42,7 +36,13 @@ html"""
 md"""
 *Vorlesung*: Prof. J. Starke
 
-*Übersetzung des Codes*: M.Sc. H. Wallner
+*Übersetzung*: H. Wallner
+"""
+
+# ╔═╡ 666714f6-3778-4a5e-bf41-a41f7167bbfc
+md"""
+#### Pakete die wir benötigen
+
 """
 
 # ╔═╡ d913314f-67b7-49ab-9548-8173a3f6d14d
@@ -67,8 +67,8 @@ pi
 
 # ╔═╡ 327492c2-b83b-493e-9018-7954ac70604d
 md"""
-!!! correct "Tipp-Latex"
-	Noch schöner mittels `\pi + <Tab>`. Für Experten: Julia benutzt einen größeren Unicode Input.
+> #### Tipp-Latex
+>> Noch schöner mittels `\pi + <Tab>`. Für Experten: Julia benutzt einen größeren Unicode Input.
 """
 
 # ╔═╡ f19721a1-2b4d-4a9d-a5ea-17b96584095c
@@ -90,8 +90,8 @@ println("Hello World!")
 
 # ╔═╡ 2d8067b0-29af-42d2-967d-0048436016e2
 md"""
-!!! correct "Tipp-Schönere Version einer Ausgabe"
-	In der Plutoumgebung kannst du das `Macro` `@info` für eine bessere Ausgabe wählen.
+> #### Bessere Ausgabe
+>> In der Plutoumgebung kannst du das `Macro` `@info` für eine bessere Ausgabe wählen.
 """
 
 # ╔═╡ 115aaee5-214f-4e8c-801c-ee0061f449e5
@@ -105,8 +105,8 @@ md"""
 
 # ╔═╡ 822262d9-1b1a-47ca-91db-5ab97761e2c9
 md"""
-!!! warning "Hinweis"
-	Um mehrere Zeilen in einer Plutozelle auszuführen benötigen wir eine `begin .. end` Umgebung.
+> #### Hinweis
+>> Um mehrere Zeilen in einer Plutozelle auszuführen benötigen wir eine `begin .. end` Umgebung.
 """
 
 # ╔═╡ 2960bfef-fd8a-4555-b233-6d3071291f65
@@ -121,6 +121,12 @@ end
 # ╔═╡ 5a37254b-26cf-4747-a6ba-54532b5a60aa
 md"""
 ##### For Schleife
+"""
+
+# ╔═╡ 9c9623db-2b8b-46b5-b65a-60d0bca69e95
+md"""
+> #### Eine Schleife mit festen Ende
+>> Man iteriert einen Prozess solange, wie eine `dummy` variable in bestimmten Grenzen abgefahren wird. (Hier 1:5, also 5 mal)
 """
 
 # ╔═╡ c40eb3ad-e77e-4fc5-bb73-75fcf0941d2d
@@ -147,8 +153,8 @@ scatter(a)
 
 # ╔═╡ d1d5ff1f-7827-4da2-864e-3e275de55be8
 md"""
-!!! correct "Tipp-Der moderne Weg"
-	Niemand der Julia/Python kennt würde so einen for loop schreiben. Stattdessen nutzt man das array comprehension Muster. Ein einfacher Einzeiler: (den es so in Maple/Matlab nicht gibt.)
+> #### Eleganter
+>> Niemand der Julia/Python Erfahrung hat würde so einen for-loop schreiben. Stattdessen nutzt man das array comprehension Muster. Ein einfacher Einzeiler
 """
 
 # ╔═╡ 845b6c02-8334-48b9-ad08-782f6e0b681f
@@ -175,8 +181,8 @@ end
 
 # ╔═╡ a4d4f450-948f-481a-acca-fa14800f7604
 md"""
-!!! correct "Tipp - Latex"
-	Falls du mit $\LaTeX$ vertraut bist, kannst du auch `\geq + tab` (≥) anstelle von >= schreiben.
+> #### Tipp - Latex
+>> Falls du mit $\LaTeX$ vertraut bist, kannst du auch `\geq + tab` (≥) anstelle von >= schreiben.
 """
 
 # ╔═╡ fab1b2fc-957b-43a5-8fd3-455ef9099ddd
@@ -200,7 +206,7 @@ Startwert der einen Rechteckseite: $x_1 = 1$. Somit ist die andere Rechteckseite
 
 Iterative Berechnung der neuen Rechteckseite: 
 
-$$x_{k+1} = 0.5 * (x_{k} + c/x_{k})$$
+$$x_{k+1} = \frac{1}{2} (x_{k} + c/x_{k})$$
 
 Somit ist die andere Rechteckseite:
 
@@ -1889,10 +1895,10 @@ version = "3.6.0+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─666714f6-3778-4a5e-bf41-a41f7167bbfc
-# ╠═69b2a0ed-4403-4d77-a7bc-2bc63c759cd6
 # ╟─efb4414e-6607-11ee-2534-671e4686c7a6
 # ╟─f7f5c779-6c00-48b2-84a0-fdb8f01ad8b2
+# ╟─666714f6-3778-4a5e-bf41-a41f7167bbfc
+# ╠═69b2a0ed-4403-4d77-a7bc-2bc63c759cd6
 # ╟─d913314f-67b7-49ab-9548-8173a3f6d14d
 # ╠═96a60a4b-b647-4421-b0c6-1e3fa4c6d14b
 # ╠═944fd385-7372-4d4e-8ecb-4113ffbfaaa8
@@ -1911,6 +1917,7 @@ version = "3.6.0+0"
 # ╟─822262d9-1b1a-47ca-91db-5ab97761e2c9
 # ╠═2960bfef-fd8a-4555-b233-6d3071291f65
 # ╟─5a37254b-26cf-4747-a6ba-54532b5a60aa
+# ╟─9c9623db-2b8b-46b5-b65a-60d0bca69e95
 # ╠═c40eb3ad-e77e-4fc5-bb73-75fcf0941d2d
 # ╟─2d61749f-0480-41e5-9464-db5b0f8da29b
 # ╠═e2d9892e-a25a-40d1-b738-68adb10593be
