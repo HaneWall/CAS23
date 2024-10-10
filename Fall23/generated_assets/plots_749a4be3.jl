@@ -2,8 +2,8 @@
 # v0.19.46
 
 #> [frontmatter]
-#> chapter = 3
-#> order = 3
+#> chapter = 4
+#> order = 4
 #> title = "Plots mit Makie"
 #> layout = "layout.jlhtml"
 #> tags = ["preliminaries"]

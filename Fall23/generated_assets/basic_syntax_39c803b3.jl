@@ -1,13 +1,6 @@
 ### A Pluto.jl notebook ###
 # v0.19.46
 
-#> [frontmatter]
-#> chapter = 1
-#> order = 1
-#> title = "Variablen, Funktionen, Schleifen, Bedingungen"
-#> layout = "layout.jlhtml"
-#> tags = ["preliminaries"]
-#> description = ""
 
 using Markdown
 using InteractiveUtils
@@ -24,19 +17,6 @@ md"""# Kurzübersicht Julia
 	🎬 Ready ? Dann hier eine kleine Einführung:
 """
 
-
-# ╔═╡ 5c9a51ea-99f7-40ef-91a4-c88ca15b9c66
-md"""
-Aus archaischen Gründen:
-"""
-
-# ╔═╡ d14522f2-3ad7-4300-96e5-9b023d5e30b9
-println("Hello World!")
-
-# ╔═╡ e608a0b6-ac32-4d9b-80eb-f901156d5eaf
-md"
-Wie wir sehen emuliert die Pluto-Notebookumgebung die entsprechnde `Terminal` / `REPL` -Ausgabe.
-"
 
 # ╔═╡ ba3659ad-f5fb-42fe-9141-9a4582c6d057
 md"""
@@ -150,7 +130,6 @@ md"## For loops / For Schleifen"
 # ╔═╡ ec751446-edeb-11ea-31ba-2372e7c71b42
 md"""
 >Nutze `for` zum iterieren über ein `Iterator` / `Array` / `Range` und dessen Variablen.
-
 """
 
 # ╔═╡ fe3fa290-edeb-11ea-121e-7114e5c573c1
@@ -651,9 +630,6 @@ version = "17.4.0+2"
 
 # ╔═╡ Cell order:
 # ╟─0d3aec92-edeb-11ea-3adb-cd0dc17cbdab
-# ╟─5c9a51ea-99f7-40ef-91a4-c88ca15b9c66
-# ╠═d14522f2-3ad7-4300-96e5-9b023d5e30b9
-# ╟─e608a0b6-ac32-4d9b-80eb-f901156d5eaf
 # ╟─ba3659ad-f5fb-42fe-9141-9a4582c6d057
 # ╠═3e8e0ea0-edeb-11ea-22e0-c58f7c2168ce
 # ╠═59b66862-edeb-11ea-2d62-71dcc79dbfab
