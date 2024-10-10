@@ -42,7 +42,7 @@ Wie wir sehen emuliert die Pluto-Notebookumgebung die entsprechnde `Terminal` / 
 md"""
 ## Variablen
 
-Wir können mithilfe des `=` Zuweisungsoperators Variablen definieren. Dabei wird immer der linken Variablen der rechte Wert zugewiesen. Einmal festgelegt können wir dann die Größe/Variable auch in anderen Zellen nutzen.
+> Wir können mithilfe des `=` Zuweisungsoperators Variablen definieren. Dabei wird immer der linken Variablen der rechte Wert zugewiesen. Einmal festgelegt können wir dann die Größe/Variable auch in anderen Zellen nutzen.
  """
 
 # ╔═╡ 3e8e0ea0-edeb-11ea-22e0-c58f7c2168ce
@@ -59,7 +59,7 @@ md"""
 
 # ╔═╡ bdc1f6f8-4f0f-459f-941a-b29b0fae0b87
 md"""
-Um mehrere Zeilen ausführen zu können und dennoch die Variablen global (in allen Zellen) bereitzustellen, kann eine `begin ... end` Umgebung genutzt werden.
+>Um mehrere Zeilen ausführen zu können und dennoch die Variablen global (in allen Zellen) bereitzustellen, kann eine `begin ... end` Umgebung genutzt werden.
 """
 
 # ╔═╡ 6ad8fcba-b82e-4ba7-a977-20e5611a0e77
@@ -73,7 +73,8 @@ end
 k
 
 # ╔═╡ 2e3f401a-584c-4760-bf07-0ad15c4a28f1
-md"""Möchte man mehrere Zeilen hintereinander ausführen, aber die Sichtbarkeit der Variablen für andere Zellen beschränken so kann man eine `let ... end` Umgebung nutzen."""
+md"""
+>Möchte man mehrere Zeilen hintereinander ausführen, aber die Sichtbarkeit der Variablen für andere Zellen beschränken so kann man eine `let ... end` Umgebung nutzen."""
 
 # ╔═╡ f4e9eb19-2ddf-4155-aa35-5ee94cb82554
 let 
@@ -84,18 +85,19 @@ end
 
 # ╔═╡ 3fa50afa-c2eb-4dd2-80bc-2a891d6289c1
 md"""
-Man definiert die Variablen also lokal in der Zelle (`local scope`). Demnach erhalten wir nach Abfrage der Variablen `c` in einer anderen Zelle einen Error.
+>Man definiert die Variablen also lokal in der Zelle (`local scope`). Demnach erhalten wir nach Abfrage der Variablen `c` in einer anderen Zelle einen Error.
 """
 
 # ╔═╡ 7e46f0e8-edeb-11ea-1092-4b5e8acd9ee0
-md"Mithilfe von `typeof` können wir den Typen einer Variablen abfragen:"
+md"
+>Mithilfe von `typeof` können wir den Typen einer Variablen abfragen:"
 
 # ╔═╡ 8a695b86-edeb-11ea-08cc-17263bec09df
 typeof(y)
 
 # ╔═╡ e76fce0f-d3b3-4068-a456-75bc5811e80d
 md"""
-In diesen Fall ist `y` eine 64Bit Integer Zahl. Es werden demnach 64 Bits (Nullen und Einsen) bereitgestellt um die ganze Zahl darzustellen. Dazu eventuell an anderer Stelle mehr...
+>In diesen Fall ist `y` eine 64Bit Integer Zahl. Es werden demnach 64 Bits (Nullen und Einsen) bereitgestellt um die ganze Zahl darzustellen. Dazu eventuell an anderer Stelle mehr...
 """
 
 # ╔═╡ 8e2dd3be-edeb-11ea-0703-354fb31c12f5
@@ -103,27 +105,28 @@ md"## Funktionen"
 
 # ╔═╡ 5474a16a-f7db-4273-aff2-34811a1fa9cf
 md"""
-Häufig braucht man eine bestimmte Prozedur/bestimmte Abfolge von Befehlen innerhalb eines Programms immer und immer wieder. Zur Förderung der Lesbarkeit des Codes, aber auch zur Verkürzung ist es dann ratsam Funktionen zu definieren.
+>Häufig braucht man eine bestimmte Prozedur/bestimmte Abfolge von Befehlen innerhalb eines Programms immer und immer wieder. Zur Förderung der Lesbarkeit des Codes, aber auch zur Verkürzung ist es dann ratsam Funktionen zu definieren.
 
-In Julia gibt es ganz verschiedene Möglichkeiten Funktionen zu deklarieren. Hier sind ein paar aufgezeigt, die alle identisch sind: 
+>In Julia gibt es ganz verschiedene Möglichkeiten Funktionen zu deklarieren. Hier sind ein paar aufgezeigt, die alle identisch sind: 
 """
 
 # ╔═╡ a7453572-edeb-11ea-1e27-9f710fd856a6
-f₁(x) = 2 + x
+f1(x) = 2 + x
 
 # ╔═╡ eaba936b-9ba0-461a-b49a-c4cbcaf7fc0b
-f₂(x) = x -> 2 + x
+f2(x) = x -> 2 + x
 
 # ╔═╡ a4ae0945-c6ea-43ae-beed-ce2b63d673b3
-function f₃(x)
+function f3(x)
 	return 2 + x
 end
 
 # ╔═╡ b341db4e-edeb-11ea-078b-b71ac00089d7
-md"Um eine Funktion aufzurufen und an einer Stelle auszuwerten müssen wir runde Klammern `( )` nutzen."
+md"
+>Um eine Funktion aufzurufen und an einer Stelle auszuwerten müssen wir runde Klammern `( )` nutzen."
 
 # ╔═╡ cc1f6872-edeb-11ea-33e9-6976fd9b107a
-f₁(10)
+f1(10)
 
 # ╔═╡ ce9667c2-edeb-11ea-2665-d789032abd11
 md"""
@@ -146,7 +149,7 @@ md"## For loops / For Schleifen"
 
 # ╔═╡ ec751446-edeb-11ea-31ba-2372e7c71b42
 md"""
-Nutze `for` zum iterieren über ein `Iterator` / `Array` / `Range` und dessen Variablen.
+>Nutze `for` zum iterieren über ein `Iterator` / `Array` / `Range` und dessen Variablen.
 
 """
 
@@ -162,14 +165,15 @@ s
 end
 
 # ╔═╡ 394b0ec8-eded-11ea-31fb-27392068ef8f
-md"Hier ist `1:10` eine **range** welche die Zahlen von 1 bis 10 repräsentiert. Der `default` Abstand zwischen den Zahlen ist 1."
+md"
+>Hier ist `1:10` eine **range** welche die Zahlen von 1 bis 10 repräsentiert. Der `default` Abstand zwischen den Zahlen ist 1."
 
 # ╔═╡ 4dc00908-eded-11ea-25c5-0f7b2b7e18f9
 typeof(1:10)
 
 # ╔═╡ 6c44abb4-edec-11ea-16bd-557800b5f9d2
 md"""
-Wir haben gerade einen `let` Block genutzt um eine Variable `s` zu definieren. Dabei wäre es hier angebracht gewesen eine Funktion `mysum` zu schreiben, welche dann `global` in allen Zellen dieses Notebooks ausgeführt werden kann: 
+>Wir haben gerade einen `let` Block genutzt um eine Variable `s` zu definieren. Dabei wäre es hier angebracht gewesen eine Funktion `mysum` zu schreiben, welche dann `global` in allen Zellen dieses Notebooks ausgeführt werden kann: 
 """
 
 # ╔═╡ 683af3e2-eded-11ea-25a5-0d90bf099d98
@@ -183,7 +187,7 @@ end
 
 # ╔═╡ 2e69abc7-d6ed-4260-a47a-b0d733e47f49
 md"""
-Jetzt können wir die Funktion in einer anderen Zelle aufrufen. Zum Beispiel können wir die ersten 100 natürlichen Zahlen aufsummieren.
+>Jetzt können wir die Funktion in einer anderen Zelle aufrufen. Zum Beispiel können wir die ersten 100 natürlichen Zahlen aufsummieren.
 """
 
 # ╔═╡ 76764ea2-eded-11ea-1aa6-296f3421de1c
@@ -194,7 +198,7 @@ md"## Conditionals: `if` / Bedingungen: `if`"
 
 # ╔═╡ 82e63a24-eded-11ea-3887-15d6bfabea4b
 md"""
-Wir können auswerten ob eine Bedingung `true` oder `false` ist:
+>Wir können auswerten ob eine Bedingung `true` oder `false` ist:
 """
 
 # ╔═╡ 9b339b2a-eded-11ea-10d7-8fc9a907c892
@@ -208,7 +212,7 @@ typeof(a<5)
 
 # ╔═╡ a16299a2-eded-11ea-2b56-93eb7a1010a7
 md"""
-Wir sehen, dass Bedingungen einen `Bool` Ausgabetypen (`true` oder `false`) besitzen. Basierend auf der boolschen Ausgabe einer Bedingung können wir den Ablauf des Codes mit einer `if` - `else` - `end` Umgebung lenken.
+>Wir sehen, dass Bedingungen einen `Bool` Ausgabetypen (`true` oder `false`) besitzen. Basierend auf der boolschen Ausgabe einer Bedingung können wir den Ablauf des Codes mit einer `if` - `else` - `end` Umgebung lenken.
 """
 
 # ╔═╡ bc6b124e-eded-11ea-0290-b3760cb81024
@@ -220,7 +224,7 @@ end
 
 # ╔═╡ cfb21014-eded-11ea-1261-3bc30952a88e
 md"""
-Falls diese Verzweigung auch noch nicht genügt, kann man eine `if - elseif - else - end` Umgebung basteln.
+>Falls diese Verzweigung auch noch nicht genügt, kann man eine `if - elseif - else - end` Umgebung basteln.
 """
 
 # ╔═╡ 0ba17e45-bdca-40de-af10-e4167251a5f7
@@ -234,9 +238,9 @@ end
 
 # ╔═╡ 22d6c86e-fbf2-4246-aee1-afe700b49355
 md"""
-Hierbei haben wir Gebrauch von den `&&` Vergleichsoperator gemacht. Dieser vergleicht zwei boolsche Bedingungen (links und rechts vom Operator). Sind beide wahr (`true`), so ist die Ausgabe abermals `true`. 
+>Hierbei haben wir Gebrauch von den `&&` Vergleichsoperator gemacht. Dieser vergleicht zwei boolsche Bedingungen (links und rechts vom Operator). Sind beide wahr (`true`), so ist die Ausgabe abermals `true`. 
 
-Generell kann man sogar mehrere `elseif` Abfragen in einen solcher Umgebung unterbringen.
+>Generell kann man sogar mehrere `elseif` Abfragen in einen solcher Umgebung unterbringen.
 """
 
 # ╔═╡ d1579078-6c68-4f0a-a0a3-03c732e484d4
@@ -246,7 +250,7 @@ md"
 
 # ╔═╡ bda5a4ff-ed02-456f-a4a4-bf4428486512
 md"
-Wie in jeder Programmiersprache existieren auch in Julia neben den logischen Und `&&` andere Logikoperationen.  Zum Beispiel, das logische oder `||` oder die Negation `!`. Hier eine Reihe an Beispielen:
+>Wie in jeder Programmiersprache existieren auch in Julia neben den logischen Und `&&` andere Logikoperationen.  Zum Beispiel, das logische oder `||` oder die Negation `!`. Hier eine Reihe an Beispielen:
 "
 
 # ╔═╡ ad94f389-1b63-469c-9115-8569947f3322
@@ -290,7 +294,7 @@ end
 
 # ╔═╡ 2fbe982c-a87c-43f9-9b1c-0cb79b1e5291
 md"
-Mihilfe von Bedingungen können wir nun auch noch eine andere Art und Weise einführen Schleifen zu konstruieren. 
+>Mihilfe von Bedingungen können wir nun auch noch eine andere Art und Weise einführen Schleifen zu konstruieren. 
 "
 
 # ╔═╡ da828bb9-24bf-4754-bffa-62f82e986934
@@ -300,7 +304,7 @@ md"""
 
 # ╔═╡ d37d17fc-681b-4b7f-9f0d-bcf449a6e81e
 md"
-While Schleifen laufen solange bis sie eine Abbruchbedingung erreichen. Dies macht Sie um einiges *gefährlicher* als eine `For` Schleife, da Sie eventuell nie Ihre Abbruchbedingung erzielen und somit ewig laufen.
+> `While` Schleifen laufen solange bis sie eine Abbruchbedingung erreichen. Dies macht Sie um einiges *gefährlicher* als eine `For` Schleife, da Sie eventuell nie Ihre Abbruchbedingung erzielen und somit ewig laufen.
 "
 
 # ╔═╡ ec615b6b-c900-4add-a523-c006bdeb6e7b
@@ -341,7 +345,6 @@ md"""
 
 # ╔═╡ 07aee61c-950a-4b10-b4fa-9f643f67361d
 let 
-	
 i = 0
 while i < 5
 	if i == 3
@@ -351,7 +354,6 @@ while i < 5
 	@info "i ist $(i) und damit kleiner als 5"
 	i = i + 1
 end
-
 end
 
 # ╔═╡ 8602aa26-ee1c-43cf-b33e-50cd19b39abc
