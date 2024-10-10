@@ -7,7 +7,7 @@
 #> title = "1. Aufgabenblatt"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments", "homeworks"]
-#> description = "Abgabe 31.10.2024, 23:59 Uhr"
+#> description = "Abgabe 24.10.2025, 23:59 Uhr"
 
 using Markdown
 using InteractiveUtils

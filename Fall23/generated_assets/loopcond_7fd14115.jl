@@ -4,7 +4,7 @@
 #> [frontmatter]
 #> chapter = 2
 #> order = 2
-#> title = "Schleifen und Bedingungen"
+#> title = "Schleifen"
 #> layout = "layout.jlhtml"
 #> tags = ["preliminaries"]
 #> description = ""
@@ -84,9 +84,9 @@ md"""
 
 # ╔═╡ cd5cbe89-a9be-42ff-9f56-5921ee21b75d
 if a < 5
-	"small"
+	@info "small"
 else
-	"big"
+	@info "big"
 end
 
 # ╔═╡ 500be845-addf-489b-827e-e057e08843c3
@@ -96,11 +96,11 @@ md"""
 
 # ╔═╡ 18c2142d-48b7-4808-bb13-59fe34310cbc
 if a < 2
-	"small"
+	@info "small"
 elseif a >= 2 && a <= 4 
-    "medium"
+    @info "medium"
 else
-	"big"
+	@info "big"
 end
 
 # ╔═╡ d13fc6f3-b4a0-481b-9b70-f5cc82505eae
