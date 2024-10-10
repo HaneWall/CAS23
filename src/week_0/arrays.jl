@@ -2,8 +2,8 @@
 # v0.19.46
 
 #> [frontmatter]
-#> chapter = 2
-#> order = 2
+#> chapter = 3
+#> order = 3
 #> title = "Arrays"
 #> layout = "layout.jlhtml"
 #> tags = ["preliminaries"]
