@@ -7,7 +7,7 @@
 #> title = "1. Aufgabenblatt"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments", "homeworks"]
-#> description = "Abgabe 24.10.2025, 23:59 Uhr"
+#> description = "Abgabe 31.10.2024, 23:59 Uhr"
 
 using Markdown
 using InteractiveUtils
@@ -35,7 +35,7 @@ html"""
 
 # ╔═╡ 6a051cfc-3d26-4c20-83b3-2497410e35da
 md"""
-**Abgabe bis**: 24.10.2024 - 23:59 Uhr auf StudIP im "Aufgaben"-Menü der Vorlesung.
+**Abgabe bis**: 31.10.2024 - 23:59 Uhr auf StudIP im "Aufgaben"-Menü der Vorlesung.
 """
 
 # ╔═╡ 31c1f7d0-dc99-4c61-b693-57efdca22f08
@@ -90,8 +90,7 @@ md"""
 # ╔═╡ e246759e-655a-4bf3-b22f-d6fa484a40d2
 md"""
 > #### Aufgabe 1a)
->> Erkunden Sie ein wenig diese Homepage und installieren Sie `Julia` und `Pluto` 
->> mithilfe des Bild- und Textmaterials auf Ihren eigenen Computer oder den Computer des PC-Pools.
+>> Erkunden Sie ein wenig diese Homepage und installieren Sie `Julia` und `Pluto`, falls noch nicht erfolgt, mithilfe des Bild- und Textmaterials auf Ihren eigenen Computer oder den Computer des PC-Pools.
 """
 
 # ╔═╡ 24855b7f-3290-40a7-856b-9c9ef330c685
