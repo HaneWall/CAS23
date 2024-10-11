@@ -1,6 +1,13 @@
 ### A Pluto.jl notebook ###
 # v0.19.46
 
+#> [frontmatter]
+#> chapter = 1
+#> order = 1
+#> title = "Variablen, Funktionen, Schleifen, Bedingungen"
+#> layout = "layout.jlhtml"
+#> tags = ["preliminaries"]
+#> description = ""
 
 using Markdown
 using InteractiveUtils
@@ -288,14 +295,12 @@ md"
 
 # ╔═╡ ec615b6b-c900-4add-a523-c006bdeb6e7b
 let 
-	
 i = 0
 while i < 5
 	# Ausgabe einer Zeile. Das $ Zeichen wertet die Variable in den runden Klammern aus und führt es in ein `String` über:
 	@info "i ist $(i) und damit kleiner als 5"
 	i = i + 1
 end
-
 end
 
 # ╔═╡ 857c3e4b-f615-4eea-bde4-a27cdcec2be5

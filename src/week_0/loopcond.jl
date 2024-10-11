@@ -83,10 +83,12 @@ md"""
 """
 
 # ╔═╡ cd5cbe89-a9be-42ff-9f56-5921ee21b75d
+let 
 if a < 5
 	@info "small"
 else
 	@info "big"
+end
 end
 
 # ╔═╡ 500be845-addf-489b-827e-e057e08843c3
@@ -95,12 +97,14 @@ md"""
 """
 
 # ╔═╡ 18c2142d-48b7-4808-bb13-59fe34310cbc
+let
 if a < 2
 	@info "small"
 elseif a >= 2 && a <= 4 
     @info "medium"
 else
 	@info "big"
+end
 end
 
 # ╔═╡ d13fc6f3-b4a0-481b-9b70-f5cc82505eae
