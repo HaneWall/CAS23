@@ -20,7 +20,8 @@ layout: "md.jlmd"
 
 
 Willkommen in der Julia-Praktikumsgruppe der CAS-Vorlesung im Wintersemester 2024/2025. Auf dieser Homepage werdet ihr eine Übersicht
-zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitung der Aufgaben bereitgestellt. Außerdem versuche ich mit einem Delay die Vorlesung auf Julia zu übersetzen und ebenfalls im "Vorlesungen"-Reiter dieser Homepage hochzuladen.
+zur Julia-Syntax erhalten. Zudem werden hier eure Pluto-Notebooks zur Bearbeitung der Aufgaben bereitgestellt. Außerdem versuche ich 
+bevor die Vorlesung stattfindet, hier auch den entsprechenden Julia Code im "Lehrmaterial" Reiter bereitzustellen.
 
 <div style="border: 2px solid #000; border-radius: 10px; padding: 20px;">
     Man sollte dennoch die Vorlesung besuchen, denn dort werden vorallem mathematische Konzepte aufgezeigt.  

@@ -4,7 +4,7 @@
 #> [frontmatter]
 #> chapter = 2
 #> order = 2
-#> title = "Schleifen"
+#> title = "Schleifen und Bedingung"
 #> layout = "layout.jlhtml"
 #> tags = ["preliminaries"]
 #> description = ""
@@ -136,7 +136,7 @@ while i < 5
 	# Ausgabe einer Zeile. Das $ Zeichen wertet die 
 	# Variable in den runden Klammern 
 	# aus und führt es in ein `String` über:
-	@info "i ist $(i) und damit kleiner als 5"
+	println("i ist $(i) und damit kleiner als 5")
 	i = i + 1
 end
 end
