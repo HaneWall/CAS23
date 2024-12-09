@@ -40,7 +40,7 @@ html"""
 md"""
 *Vorlesung*: Prof. J. Starke
 
-*Praktika*: M.Beller,  C. Rönnfeld, N. Kruse & H. Wallner
+*Praktika*: M.Beller,  C. Rönnfeld,  N. Kruse & H. Wallner
 """
 
 # ╔═╡ 45415390-7cf4-43bf-9969-bc47988a2bf2
