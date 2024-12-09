@@ -9,7 +9,6 @@
 #> tags = ["assignments", "homeworks"]
 #> description = "Abgabe 19.12.2024, 23:59 Uhr"
 
-
 using Markdown
 using InteractiveUtils
 
@@ -18,7 +17,6 @@ begin
 	using CairoMakie
 	using Symbolics
 	using LinearAlgebra
-	using RowEchelon
 end
 
 # ╔═╡ d736a172-98e1-11ee-0243-f916c013b372
@@ -40,7 +38,7 @@ html"""
 md"""
 *Vorlesung*: Prof. J. Starke
 
-*Praktika*: M.Beller,  C. Rönnfeld,  N. Kruse & H. Wallner
+*Praktika*: M.Beller, C. Rönnfeld, N. Kruse & H. Wallner
 """
 
 # ╔═╡ 45415390-7cf4-43bf-9969-bc47988a2bf2
@@ -286,12 +284,10 @@ PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-RowEchelon = "af85af4c-bcd5-5d23-b03a-a909639aa875"
 Symbolics = "0c5d862f-8b57-4792-8d23-62f2024744c7"
 
 [compat]
 CairoMakie = "~0.11.3"
-RowEchelon = "~0.2.1"
 Symbolics = "~6.19.0"
 """
 
@@ -301,7 +297,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.0"
 manifest_format = "2.0"
-project_hash = "f7a75e48f175c73a0799a3732d517df64f521524"
+project_hash = "8bb320af1d3ec37d068ef6f3f16cc1b5d1d06c79"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "72af59f5b8f09faee36b4ec48e014a79210f2f4f"
@@ -1589,12 +1585,6 @@ version = "0.5.1+0"
 [[deps.RoundingEmulator]]
 git-tree-sha1 = "40b9edad2e5287e05bd413a38f61a8ff55b9557b"
 uuid = "5eaf0fd0-dfba-4ccb-bf02-d820a40db705"
-version = "0.2.1"
-
-[[deps.RowEchelon]]
-deps = ["LinearAlgebra"]
-git-tree-sha1 = "f479526c4f6efcbf01e7a8f4223d62cfe801c974"
-uuid = "af85af4c-bcd5-5d23-b03a-a909639aa875"
 version = "0.2.1"
 
 [[deps.RuntimeGeneratedFunctions]]
