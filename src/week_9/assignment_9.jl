@@ -2,31 +2,36 @@
 # v0.19.46
 
 #> [frontmatter]
-#> homework_number = "8"
-#> order = 8.5
-#> title = "8. Aufgabenblatt"
+#> homework_number = "9"
+#> order = 9.5
+#> title = "9. Aufgabenblatt"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments", "homeworks"]
-#> description = "Abgabe 19.12.2024, 23:59 Uhr"
+#> description = "Abgabe 09.11.2025, 23:59 Uhr"
+
 
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 2b062f58-206b-4587-a563-0c87b89e23bd
-begin 
+# ╔═╡ 6bf6e398-6f90-4ffc-8ae8-54ef1f8a80d3
+begin
 	using CairoMakie
-	using Symbolics
 	using LinearAlgebra
 end
 
-# ╔═╡ d736a172-98e1-11ee-0243-f916c013b372
+# ╔═╡ 69982520-9f38-11ee-0bb1-5544ef121a53
+md"""
+## Pakete die wir benötigen
+"""
+
+# ╔═╡ 9f7af807-944b-4b6f-9e4c-9664c1dd8812
 html"""
 	<h1 style="text-align:center">
 		Computerorientierte Mathematik, Algorithmen & Strukturen
 	</h1>
 	<div style="text-align:center">
 		<p style="font-weight:bold; font-size: 35px; font-variant: small-caps; margin: 0px">
-			8. Aufgabenblatt - Julia
+			9. Aufgabenblatt - Julia
 		</p>
 		<p style="font-size: 20px;">
 			Universität Rostock, Institut für Mathematik, Winter 2024/25<br>
@@ -34,261 +39,265 @@ html"""
 	</div>
 """
 
-# ╔═╡ 1a505c99-242c-4115-b471-ea3fbde6aaf9
+# ╔═╡ f7e6d57c-654c-4e90-bc5b-ff81811c0740
 md"""
 *Vorlesung*: Prof. J. Starke
 
 *Praktika*: M.Beller, C. Rönnfeld, N. Kruse & H. Wallner
 """
 
-# ╔═╡ 45415390-7cf4-43bf-9969-bc47988a2bf2
+# ╔═╡ 74054fd1-9179-4709-9e2b-052a31086182
 md"""
-**Abgabe bis**: 19.12.2023 - 23:59 Uhr auf StudIP im "Aufgaben"-Menü der Vorlesung.
+**Abgabe bis**: 09.01.2025 - 2359 Uhr auf StudIP im "Aufgaben"-Menü der Vorlesung.
 """
 
-# ╔═╡ 43a26a2c-76e0-4fcb-b53a-2f0378e70f9f
+# ╔═╡ 0ff9e755-3d3e-42ff-a4c5-857d6f5de7e1
 md"""
 > Fügen Sie in der unteren Zelle Ihre Daten ein und drücken Sie anschließend 		`shift` + `enter` zum Ausführen der Zelle. Nun sollte sich oben alles angepasst haben. 
 """
 
-# ╔═╡ 3df7b4bd-7202-4c98-8d4c-20c2c74d44ad
+# ╔═╡ 5e298ce9-4e29-40d9-af55-fdb37fab62c9
 student = Dict(
 	"name" => "Max Mustermann", 
 	"fach" => "Studiumsfach",
 	"matrikelnr" => "1234")
 
-# ╔═╡ 9944cda6-40fb-45dd-8984-1ecfcaf99dcc
+# ╔═╡ 06249239-45b6-463a-87ae-e1224f635249
 md"""
 **Autor der Abgabe**: $(student["name"]), **MNR**: $(student["matrikelnr"]), **Fach**: $(student["fach"])
 """
 
-# ╔═╡ 0aac7f63-3e0e-4a56-ad6f-52d8349f64fa
+# ╔═╡ 7dbaf33b-47ee-4b6f-8bd3-6d198323f2d0
 md"""
-## Teil 1: Lineare Gleichungssysteme
+# Lernziele
+> - Geometrisches Verständnis von Eigenwerten und Eigenvektoren in der Ebene und im Anschauungsraum
+> - Tieferes Verständnis der Gauß-Elimination
+
+
+
 """
 
-# ╔═╡ 9fe90426-8423-420f-b8e4-2633642de751
+# ╔═╡ 57ff7845-ba14-4800-9900-5cb90e8d4834
+md"""
+## Teil 1: Lineare Abbildungen und Eigenvektoren
+"""
+
+# ╔═╡ 32c86514-bcaa-4b1a-95b1-4d2080394be0
 md"""
 > #### Preliminaries
->> Gegeben sei das lineare Gleichungssystem:
->> $$2x_1 - 5x_2 = -1, \quad $$5x_1 - 8x_2 = 11$$
+>> Betrachte die lineare Abbildung $x\mapsto Ax$ mit 
+>> $\begin{aligned}A = \begin{pmatrix} 0 & 1 \\ 1.2 & 1.5 \end{pmatrix}. \end{aligned}$
+>> Visualisiere mit einer grafischen Ausgabe die Abbildung, indem $100$ äquidistante Punkte auf dem Einheitskreis mit der linearen Abbildung $A$ transformiert werden.
 """
 
-# ╔═╡ a4e664f9-0fd4-49f7-921c-a72570849bd0
+# ╔═╡ a2fbd076-230d-446a-b017-7ae896be85b8
 md"""
 > #### Aufgabe 1a)
->> Loesen Sie das Gleichungssystem handschriftlich.
+>> Diskretisieren Sie den Kreis mithilfe der Parametrisierung $x = \cos\varphi, y = \sin\varphi,$ wobei $\varphi \in [0,2\pi)$, in 100 äquidistante Punkte. Plotten Sie den Einheitskreis und verwenden Sie ein Regenbogenfarbschema, wobei einer Farbe ein diskreter Winkel $\varphi$ der Diskretisierung zugeordnet wird.
 """
 
-# ╔═╡ 2b824a7b-63e7-46d0-a1a0-9983519cd1d0
-md"""
-missing text
-"""
+# ╔═╡ 02133a0f-91a7-4ef4-b658-cdca06838860
+let 
+# missing code
+end
 
-# ╔═╡ 3a0dfc8a-57f2-4698-ae81-813084000187
+# ╔═╡ 49820c3c-b147-468e-8976-3a54c8bc981b
 md"""
 > #### Aufgabe 1b)
->> Loesen Sie das System durch symbolische Berechnung mithilfe Ihrer Programmiersprache.
+>> Plotten Sie die transformierten Punkte 
+$$\begin{aligned}
+    \begin{pmatrix}
+        \tilde{x} \\ \tilde{y}
+    \end{pmatrix} = A \begin{pmatrix}
+        x \\ y
+    \end{pmatrix}
+\end{aligned}$$
+>> und verwenden Sie für den Punkt $(\tilde{x},\tilde{y})^T$ die gleiche Farbe wie für den Punkt $(x,y)^T$.
 """
 
-# ╔═╡ 06006f5b-8fe3-4202-9e62-250d774466e8
+# ╔═╡ e153e5c7-e3f1-45ea-9c40-753bb3c322c3
 let 
-#missing code
+	#missing
 end
 
-# ╔═╡ 91902c1e-ff3d-453e-9258-766e57b08b42
+# ╔═╡ b11d14e0-5695-4823-9969-e847d88c7fb9
 md"""
 > #### Aufgabe 1c)
->> Überführen Sie das System zunächst in die Form $Ax = b$, wobei $A\in\mathbb{R}^{2\times2}, x = (x_1,x_2)\in\mathbb{R}^2$ und $b = (-1, 11)\in \mathbb{R}^2$. Berechnen Sie anschließend den Lösungsvektor $x$ numerisch mit einem geeigneten Befehl.
+>> Berechnen Sie mit einem geeigneten Befehl die zwei Eigenvektoren $v_1$ und $v_2$ der Matrix $A$. Stellen Sie die Vektoren $v_1,v_2,Av_1$ und $Av_2$ grafisch dar. 
 """
 
-# ╔═╡ d73cda92-1c8b-495c-9129-ee96213fa1cd
-let
-# missing code 
+# ╔═╡ 854603b4-1089-4820-bf35-ab9026d1090a
+let 
+	#missing
 end
 
-# ╔═╡ 60d46ef2-7eed-46bc-95e3-aa5d7d66c323
+# ╔═╡ 6d2666c0-017e-43bb-aeec-b60daca65196
 md"""
-## Teil 2 - Loesen linearer Gleichungssysteme
+## Teil 2: Eigenwerte und Eigenvektoren anhand von 3D-Drehungen 
 """
 
-# ╔═╡ 4019d3a6-dd24-42f0-bd8e-da92518de567
+# ╔═╡ bc06ae58-9955-4a55-85b0-debb03e1031a
 md"""
-> #### Preliminaries
->> Gegeben sei das folgende Gleichungssystem:
-
->> $$\begin{aligned} a + b + c + d & = & 1\\a + 2b + 3c + 4d & = & 5\\a + 4b + 9c + 16d & = & 25\\a + 8b + 27c + 64d & = & 125\end{aligned}$$
+> #### Preliminaries 
+>> Gegeben seien die kanonischen Basisvektoren $e_1 = (1,0,0)^T$, $e_2 = (0,1,0)^T$ und $e_3 = (0,0,1)^T$. 
 """
 
-# ╔═╡ 930efb9a-2fa2-49b6-87da-650dc432fb44
-let
-# missing code
-end
-
-# ╔═╡ 13729cbd-86c4-42a7-84c8-8a41f7b0f843
-md"""
+# ╔═╡ 52664fc7-6c41-46c0-a0f2-70ccca23d559
+md""" 
 > #### Aufgabe 2a)
->> Stellen Sie die entsprechende Koeffizientenmatrix und erweiterte Koeffizientenmatrix auf. 
+>>Stellen sie den durch die Vektoren aufgespannten Würfel mit Kantenlänge 1 grafisch dar. 
 """
 
-# ╔═╡ fd11afb0-ad2d-4895-a295-e216f9149508
-let 
-# missing code
-end 
-
-# ╔═╡ 483cc6fd-fd2a-4c62-8906-4a46bc33ab34
-md"""
-> #### Aufgabe 2b)
->> Nutzen Sie einen Befehl um die Matrix mittels des Gaussschen-Eliminationsverfahrens in Zeilenstufenform Trapezform (Echelonform) zu bringen.
-"""
-
-# ╔═╡ 7d39f632-6c77-4e44-8d0f-37f6474a0b5a
-let 
-# missing 
-end
-
-# ╔═╡ 8f83d93e-e582-4e56-97d1-9c50bfb57c89
-md"""
-> #### Aufgabe 2c)
->> Loesen Sie das Gleichungssystem unter Verwendung eines geeigneten Befehls.
-"""
-
-# ╔═╡ 2bc360ef-7f45-4e6d-9f95-b107bf2c7364
-let 
-# missing 
-end 
-
-# ╔═╡ 70db49cd-31ba-4fde-b595-0fa0569305d0
-md"""
-## Teil 3 - Lineare Transformationen
-"""
-
-# ╔═╡ bcdaf486-4b9b-4bda-ba19-86431e7b1e08
-md"""
-> #### Aufgabe 3a)
->> Schreiben Sie eine Funktion zur Berechnung linearer Transformationen. Dabei soll die Funktion eine $n\times n$ Matrix, das heißt $A = (a_{ij})\in \mathbb{R}^{n\times n}$, sowie einen Vektor $x \in \mathbb{R}^n$ einlesen und den Vektor $y = Ax \in \mathbb{R}^n$ ausgeben, wobei 
-
->> $$\begin{aligned}y_i = \sum_{j=1}^{n}a_{ij}x_j,\quad i = 1,\dots,n.\end{aligned}$$
-
->> Testen Sie Ihre Funktion anhand von mindestens drei von Ihnen ausgewählten Beispielen und vergleichen Sie die Ergebnisse mit den intern implementierten Matrixoperationen.
-    
-	
-"""
-
-# ╔═╡ b84a6978-9f01-420e-b363-081833cbe214
+# ╔═╡ 693970ae-27f4-41bc-a499-fb8d917c32ff
 let 
 #missing
-end 
+end
 
-# ╔═╡ 4f6133a8-5fb1-4aa1-9317-4f28c8b40fc4
+# ╔═╡ 19b4b039-905c-4d19-846d-5c11f3cc2436
 md"""
-> #### Aufgabe 3b)
->> Gegeben seien die kanonischen Basisvektoren $e_1 = (1,0)^T$ und $e_2 = (0,1)^T$. Berechnen Sie die Vektoren $Ae_1$ sowie $Ae_2$, d.h. die Abbildung der Vektoren $e_1$ und $e_2$ auf die Vektoren $Ae_1$ sowie $Ae_2$. Plotten Sie sowohl $e_{1}, e_2$ als auch $Ae_{1}$ und $Ae_2$ als Ortsvektoren (Pfeil vom Ursprung zu den Punkten $Ae_{1}$ und $Ae_2$).
+> #### Aufgabe 2b) 
+>> Gegeben sei die Matrix 
+$$\begin{aligned}
+    A = \begin{pmatrix}
+         \cos{\alpha} & -\sin{\alpha} & 0\\
+        \sin{\alpha} & \cos{\alpha} & 0 \\
+        0 & 0 & 1
+    \end{pmatrix},
+\end{aligned}$$
+>> wobei $\alpha = 2\pi/3$. Berechnen Sie $Ax$, indem Sie für $x$ alle Ortsvektoren der Eckpunkte einsetzen. Plotten Sie die acht erhaltenen Vektoren als Eckpunkte des transformierten Würfels im gleichen Koordinatensystem. Stellen Sie beide Würfel oder zumindest deren Eckpunkte mit verschiedenen Farben dar. """
+
+# ╔═╡ ab23cece-32c3-4365-8df5-da6a9635e2bf
+let 
+# missing 
+end
+
+# ╔═╡ c880f371-222d-4533-bf0a-134f903506ab
+md"""
+> #### Aufgabe 2c) 
+>> Welcher der Würfelkanten ist invariant und erfüllt somit die Eigenwertgleichung zum Eigenwert 1? Plotten Sie einen Ausschnitt der Geraden, welche die invariante Kante enthält, in das bereits verwendete Koordinatensystem. """
+
+# ╔═╡ 2ea40ee0-7c20-494c-84bb-f57eb9ddb639
+let 
+# missing code
+end
+
+# ╔═╡ 8f0f713d-5bee-4ee7-9dac-c8cfa39dc772
+md"""
+## (Haus)aufgabe 3 - Gauss Elimination
 """
 
-# ╔═╡ da10aa7d-bdf4-4611-8c32-2ed59e87a527
+# ╔═╡ 2fd66668-f53f-4a51-8903-f0dfeb1cb765
+md"""
+>>Implementieren Sie das Verfahren der Gauß-Elimination mit Eingabe einer erweiterten Koeffizientenmatrix $(A|b)$ mit $A\in\mathbb{R}^{m\times n}$ und $b\in\mathbb{R}^m$ und Ausgabe der Lösung $x\in\mathbb{R}^n$ des linearen Gleichungssystems $Ax=b$. Es seien $a_{ij}$ die Elemente der Matrix $A$ sowie $b_i$ und $x_i$ die Elemente der Vektoren $b$ und $x$. Testen Sie ihre Implementierung mit
+"""
+
+# ╔═╡ 29952ec1-70fb-4dd4-b733-cbb068361cd5
 md"""
 (i).
 
-$A = \begin{pmatrix}
-        2 & 0 \\
-        0 & 3
-    \end{pmatrix}$
-"""
+$A=\begin{pmatrix}
+1 & 1 & 1\\
+4 & 2 & 1\\
+9 & 3 & 1
+\end{pmatrix}
+\quad\text{und}\quad
+b=\begin{pmatrix}0 \\1\\3\end{pmatrix}$
 
-# ╔═╡ 0fd90a4e-612a-41d7-9f06-91def43a5d22
-let
-# missing
-end
-
-# ╔═╡ 02ae81e7-e4cf-4a8a-aed5-fc80e7bb54ef
-md"""
 (ii).
 
-$A= \begin{pmatrix}\cos{\alpha} & -\sin{\alpha} \\ \sin{\alpha} & \cos{\alpha}\end{pmatrix}$ , wobei $\alpha = \pi, \pi/2, \pi/4$
+$A=\begin{pmatrix}
+1 & 0 & 4\\
+1 & -2 & -2\\
+-2 & 3 & 1
+\end{pmatrix}
+\quad\text{und}\quad
+b=\begin{pmatrix}3 \\1\\3\end{pmatrix}.$
 """
 
-# ╔═╡ 1f16dbcc-59f0-4179-bdea-41d5cf3b4910
-let
-# missing
+# ╔═╡ d8172a5d-1191-40f0-a06d-10374e816680
+md"""
+!!! warning "3a)"
+	Als Vorbereitung zur Implementierung des Verfahrens auf dem Computer berechnen Sie die Lösung für das Beispiel (i) per Hand und führen Sie dabei die einzelnen Schritte der Gauß-Elimination sorgfältig durch.
+"""
+
+# ╔═╡ c94da548-a0cd-4e82-9bf6-158606c4e433
+md"""
+!!! warning "3b)"
+	Implementieren Sie die Gauß-Elimination in einer eigenen
+	Julia-Funktion. Lesen Sie hierzu zunächst eine Matrix
+	$(A|b)\in\mathbb{R}^{m\times (n+1)}$, die erweiterte Koeffizientenmatrix, ein.
+"""
+
+# ╔═╡ 6d974a99-46ce-4633-9a02-ef48650a45d7
+begin 
+# missing function
 end
 
-# ╔═╡ 31fdbbae-a0f8-46bd-9cec-8e13da4b231c
+# ╔═╡ b1f3c53d-a227-471a-8db9-8e648ca5494d
 md"""
-(iii).
-
-$A = \begin{pmatrix}
-        2 & 1 \\
-        1 & 3
-    \end{pmatrix}$
+!!! warning "3c)"
+	Transformieren Sie Schritt für Schritt die erweiterte
+	Koeffizientenmatrix in eine Trapezform. 
+	Gehen Sie dafür jede Spalte von $A$ durch, angefangen bei der ersten.
+	Im $k$-ten Schritt wird demnach die $k$-te Spalte betrachtet,
+	wobei alle Einträge unterhalb der Hauptdiagonalen zu Null werden sollen.
+	Hierf\"ur wird von jeder Zeile $i>k$ die mit
+	$\frac{a_{ik}}{a_{kk}}$ multiplizierte $k$-te Zeile abgezogen.
+	Dazu muss $a_{kk}\neq 0$ gelten, prüfen Sie dies vorher.
 """
 
-# ╔═╡ c8b199b7-f0f2-4127-8bd7-08dd3848d634
-let
+# ╔═╡ 15dbf4c2-ce51-422b-bfbd-86ef01f74c28
+md"""
+bearbeite in 3b) angefangene Funktion
+"""
+
+# ╔═╡ 4d5ad1c4-d594-4729-8c71-68ee50381d0c
+md"""
+!!! danger "Zusatz 3d)*"
+	Falls $a_{kk}=0$, so müssen geeignete Zeilen getauscht werden. Implementieren Sie diesen Fall.
+"""
+
+# ╔═╡ dc7d0d28-c51c-4bd9-97e7-35f1f2a0c8c4
+md"""
+!!! warning "3e)"
+	Testen Sie die Funktion an den unter (i) und (ii) gegebenen erweiterten Koeffizientenmatrizen.
+"""
+
+# ╔═╡ bfe41c1d-0ebd-4969-9964-2030343f94b9
+let 
 # missing code
 end
 
-# ╔═╡ 08802923-d753-4a06-b51c-8e1d12dec948
+# ╔═╡ 6268a45d-1521-44e0-a77b-8286785b023c
 md"""
-# (Haus)aufgabe 4 - Verkettungen linearer Abbildungen
+!!! warning "3f)"
+	Zur Berechnung der Lösung soll eine Funktion zur Rückwärtssubstitution geschrieben werden, die anschließend das Ergebnis ausgibt.
 """
 
-# ╔═╡ 5b929d79-f6d9-4101-b9ad-e8be3f397a1d
-md"""
-!!! warning "4a)"
-	Berechnen Sie mit Hilfe des in Aufgabe 3 erstellten Programms die hintereinander ausgeführten Abbildungen $y = Ax$ und $z = By$, wobei 
-
-	$\begin{aligned}
-        A &= \begin{pmatrix}
-        0 & -1 \\
-        1 & 0
-    \end{pmatrix} \\
-    B &= \begin{pmatrix}
-        -1 & 0 \\
-        0 & -1
-    \end{pmatrix}. 
-	\end{aligned}$
-
-	Interpretieren Sie das Ergebnis mit Hilfe der in Aufgabe 3b) 2) verwendeten Matrix. Verwenden sie hierfür den Vektor $x = (2, 2)^T$. Plotten Sie die Vektoren $x,y,z$ in ein gemeinsames Koordinatensystem.
-"""
-
-# ╔═╡ df679cb1-174c-47b2-bd6a-3cf1c31ee2f8
-let
-#missing code
+# ╔═╡ fa63b90b-0a39-4327-aa45-6afeb13edee5
+begin 
+#missing
 end
 
-# ╔═╡ 9e75ae3a-13b2-482b-81c7-8ae677ecd2a1
+# ╔═╡ e3c3718e-411a-4d85-b9af-5ddd7218d28b
 md"""
-!!! warning "4b)"
-	Erweitern Sie das in Aufgabe 3 erstellte Programm um die Multiplikation einer $l\times m$ Matrix mit einer $m\times n$ Matrix. Diese Multiplikation resultiert in einer $l\times n$ Matrix  $C=AB$, mit $c_{ij} = \sum\limits_{k=1}^m a_{ik} \cdot b_{kj}$, wobei $A = (a_{ij})\in \mathbb{R}^{l \times m}$ und $B = (b_{ij}) \in \mathbb{R}^{m \times n}$. Berechnen Sie die Matrix $C = AB$ mithilfe Ihrer Funktion, wobei $A$ und $B$ aus Aufgabe a) zu verwenden sind. Plotten Sie die Vektoren $z$ und $\tilde{z}=(AB)x = Cx$ in ein gemeinsames Koordinatensystem.
+!!! danger "Zuzusatz 3g)**"
+	Schreiben Sie eine Funktion, die bei den Aquivalenzumformungen statt der Trapezform eine (evtl. abgeschnittene) Einheitsmatrix erzeugt, vorherige Ergebnisse können hierbei genutzt werden. Dies wird als Gauß-Jordan-Methode bezeichnet. Die Lösung des linearen Gleichungssystems kann dann direkt abgelesen werden. Wenn für $b$ die kanonischen Basisvektoren verwendet werden, eignet sich die Methode auch zur spaltenweisen Berechnung der zu $A$ Inversen Matrix $A^{-1}$, für die mit der Einheitsmatrix $E$ die Beziehung $A^{-1}\cdot A=A\cdot A^{-1}=E$ gilt. Berechnen Sie zusätzlich die Inversen der beiden Matrizen in (i) und (ii), falls diese existieren.
 """
 
-# ╔═╡ 7ad9bd52-82a1-42da-a8fd-2fb2ca0f8fc9
+# ╔═╡ 55795c6e-c80d-45b0-8967-465d00cec882
 let
-#missing code
+	#missing
 end
-
-# ╔═╡ 64c005e1-f01a-4e8a-9ddd-13ef55dc4144
-md"""
-!!! warning "Zusatz 4c)"
-	Beweisen Sie das in b) verwendete Assoziativgesetz $(AB)x = A(Bx)$.
-"""
-
-# ╔═╡ 80f55f77-f31a-43f2-b35d-18200e7c7f33
-md"""
-#text
-"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-Symbolics = "0c5d862f-8b57-4792-8d23-62f2024744c7"
 
 [compat]
 CairoMakie = "~0.11.3"
-Symbolics = "~6.19.0"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -297,22 +306,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.0"
 manifest_format = "2.0"
-project_hash = "8bb320af1d3ec37d068ef6f3f16cc1b5d1d06c79"
-
-[[deps.ADTypes]]
-git-tree-sha1 = "72af59f5b8f09faee36b4ec48e014a79210f2f4f"
-uuid = "47edcb42-4c32-4615-8424-f2b9edc5f35b"
-version = "1.11.0"
-
-    [deps.ADTypes.extensions]
-    ADTypesChainRulesCoreExt = "ChainRulesCore"
-    ADTypesConstructionBaseExt = "ConstructionBase"
-    ADTypesEnzymeCoreExt = "EnzymeCore"
-
-    [deps.ADTypes.weakdeps]
-    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
-    ConstructionBase = "187b0558-2788-49d3-abe0-74a17ed4e7c9"
-    EnzymeCore = "f151be2c-9106-41f4-ab19-57ee4f262869"
+project_hash = "c9c6885dd61ea6d3a0bc3112d2ee2a46355ef900"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -329,31 +323,6 @@ weakdeps = ["ChainRulesCore", "Test"]
 git-tree-sha1 = "2d9c9a55f9c93e8887ad391fbae72f8ef55e1177"
 uuid = "1520ce14-60c1-5f80-bbc7-55ef81b5835c"
 version = "0.4.5"
-
-[[deps.Accessors]]
-deps = ["CompositionsBase", "ConstructionBase", "InverseFunctions", "LinearAlgebra", "MacroTools", "Markdown"]
-git-tree-sha1 = "b392ede862e506d451fc1616e79aa6f4c673dab8"
-uuid = "7d9f7c33-5ae7-4f3b-8dc6-eff91059b697"
-version = "0.1.38"
-
-    [deps.Accessors.extensions]
-    AccessorsAxisKeysExt = "AxisKeys"
-    AccessorsDatesExt = "Dates"
-    AccessorsIntervalSetsExt = "IntervalSets"
-    AccessorsStaticArraysExt = "StaticArrays"
-    AccessorsStructArraysExt = "StructArrays"
-    AccessorsTestExt = "Test"
-    AccessorsUnitfulExt = "Unitful"
-
-    [deps.Accessors.weakdeps]
-    AxisKeys = "94b1ba4f-4ee9-5380-92f1-94cde586c3c5"
-    Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
-    IntervalSets = "8197267c-284f-5f27-9208-e0e47529a953"
-    Requires = "ae029012-a4dd-5104-9daa-d747884805df"
-    StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
-    StructArrays = "09ab397b-f2b6-538f-b94a-2f83cf4a842a"
-    Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-    Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [[deps.Adapt]]
 deps = ["LinearAlgebra", "Requires"]
@@ -386,38 +355,6 @@ version = "0.4.1"
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
 version = "1.1.2"
 
-[[deps.ArrayInterface]]
-deps = ["Adapt", "LinearAlgebra"]
-git-tree-sha1 = "d5140b60b87473df18cf4fe66382b7c3596df047"
-uuid = "4fba245c-0d91-5ea0-9b3e-6abc04ee57a9"
-version = "7.17.1"
-
-    [deps.ArrayInterface.extensions]
-    ArrayInterfaceBandedMatricesExt = "BandedMatrices"
-    ArrayInterfaceBlockBandedMatricesExt = "BlockBandedMatrices"
-    ArrayInterfaceCUDAExt = "CUDA"
-    ArrayInterfaceCUDSSExt = "CUDSS"
-    ArrayInterfaceChainRulesCoreExt = "ChainRulesCore"
-    ArrayInterfaceChainRulesExt = "ChainRules"
-    ArrayInterfaceGPUArraysCoreExt = "GPUArraysCore"
-    ArrayInterfaceReverseDiffExt = "ReverseDiff"
-    ArrayInterfaceSparseArraysExt = "SparseArrays"
-    ArrayInterfaceStaticArraysCoreExt = "StaticArraysCore"
-    ArrayInterfaceTrackerExt = "Tracker"
-
-    [deps.ArrayInterface.weakdeps]
-    BandedMatrices = "aae01518-5342-5314-be14-df237901396f"
-    BlockBandedMatrices = "ffab5731-97b5-5995-9138-79e8c1846df0"
-    CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
-    CUDSS = "45b445bb-4962-46a0-9369-b4df9d0f772e"
-    ChainRules = "082447d4-558c-5d27-93f4-14fc19e9eca2"
-    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
-    GPUArraysCore = "46192b85-c4d5-4398-a991-12ede77f4527"
-    ReverseDiff = "37e2e3b7-166d-5795-8a7a-e32c996b4267"
-    SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
-    StaticArraysCore = "1e83bf80-4336-4d27-bf5d-d5a4f845583c"
-    Tracker = "9f7883ad-71c0-57eb-9f7f-b5c9e6d3789c"
-
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 version = "1.11.0"
@@ -443,11 +380,6 @@ version = "0.4.7"
 [[deps.Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 version = "1.11.0"
-
-[[deps.Bijections]]
-git-tree-sha1 = "d8b0439d2be438a5f2cd68ec158fe08a7b2595b7"
-uuid = "e2ed5e7c-b2de-5872-ae92-c73ca462fb04"
-version = "0.1.9"
 
 [[deps.Bzip2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -532,21 +464,6 @@ git-tree-sha1 = "362a287c3aa50601b0bc359053d5c2468f0e7ce0"
 uuid = "5ae59095-9a9b-59fe-a467-6f913c188581"
 version = "0.12.11"
 
-[[deps.Combinatorics]]
-git-tree-sha1 = "08c8b6831dc00bfea825826be0bc8336fc369860"
-uuid = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
-version = "1.0.2"
-
-[[deps.CommonSolve]]
-git-tree-sha1 = "0eee5eb66b1cf62cd6ad1b460238e60e4b09400c"
-uuid = "38540f10-b2f7-11e9-35d8-d573e4eb0ff2"
-version = "0.2.4"
-
-[[deps.CommonWorldInvalidations]]
-git-tree-sha1 = "ae52d1c52048455e85a387fbee9be553ec2b68d0"
-uuid = "f70d9fcc-98c5-4d4a-abd7-e4cdeebd8ca8"
-version = "1.0.0"
-
 [[deps.Compat]]
 deps = ["TOML", "UUIDs"]
 git-tree-sha1 = "8ae8d32e09f0dcf42a36b90d4e17f5dd2e4c4215"
@@ -561,20 +478,6 @@ weakdeps = ["Dates", "LinearAlgebra"]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
 version = "1.1.1+0"
-
-[[deps.CompositeTypes]]
-git-tree-sha1 = "bce26c3dab336582805503bed209faab1c279768"
-uuid = "b152e2b5-7a66-4b01-a709-34e65c35f657"
-version = "0.1.4"
-
-[[deps.CompositionsBase]]
-git-tree-sha1 = "802bb88cd69dfd1509f6670416bd4434015693ad"
-uuid = "a33af91c-f02d-484b-be07-31d278c5ca2b"
-version = "0.1.2"
-weakdeps = ["InverseFunctions"]
-
-    [deps.CompositionsBase.extensions]
-    CompositionsBaseInverseFunctionsExt = "InverseFunctions"
 
 [[deps.ConstructionBase]]
 git-tree-sha1 = "76219f1ed5771adbb096743bff43fb5fdd4c1157"
@@ -619,12 +522,6 @@ git-tree-sha1 = "668bb97ea6df5e654e6288d87d2243591fe68665"
 uuid = "927a84f5-c5f4-47a5-9785-b46e178433df"
 version = "1.6.0"
 
-[[deps.DiffRules]]
-deps = ["IrrationalConstants", "LogExpFunctions", "NaNMath", "Random", "SpecialFunctions"]
-git-tree-sha1 = "23163d55f885173722d1e4cf0f6110cdbaf7e272"
-uuid = "b552c78f-8df3-52c6-915a-8e097449b14b"
-version = "1.15.1"
-
 [[deps.Distributed]]
 deps = ["Random", "Serialization", "Sockets"]
 uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
@@ -652,26 +549,10 @@ git-tree-sha1 = "2fb1e02f2b635d0845df5d7c167fec4dd739b00d"
 uuid = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
 version = "0.9.3"
 
-[[deps.DomainSets]]
-deps = ["CompositeTypes", "IntervalSets", "LinearAlgebra", "Random", "StaticArrays"]
-git-tree-sha1 = "490392af2c7d63183bfa2c8aaa6ab981c5ba7561"
-uuid = "5b8099bc-c8ec-5219-889f-1d9e522a28bf"
-version = "0.7.14"
-weakdeps = ["Makie"]
-
-    [deps.DomainSets.extensions]
-    DomainSetsMakieExt = "Makie"
-
 [[deps.Downloads]]
 deps = ["ArgTools", "FileWatching", "LibCURL", "NetworkOptions"]
 uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 version = "1.6.0"
-
-[[deps.DynamicPolynomials]]
-deps = ["Future", "LinearAlgebra", "MultivariatePolynomials", "MutableArithmetics", "Reexport", "Test"]
-git-tree-sha1 = "9a3ae38b460449cc9e7dd0cfb059c76028724627"
-uuid = "7c1d4256-1411-5781-91ec-d7bc3513ac07"
-version = "0.6.1"
 
 [[deps.EarCut_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -695,17 +576,6 @@ deps = ["Artifacts", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "1c6317308b9dc757616f0b5cb379db10494443a7"
 uuid = "2e619515-83b5-522b-bb60-26c02a35a201"
 version = "2.6.2+0"
-
-[[deps.ExprTools]]
-git-tree-sha1 = "27415f162e6028e81c72b82ef756bf321213b6ec"
-uuid = "e2ba6199-217a-4e67-a87a-7c52f15ade04"
-version = "0.1.10"
-
-[[deps.Expronicon]]
-deps = ["MLStyle", "Pkg", "TOML"]
-git-tree-sha1 = "fc3951d4d398b5515f91d7fe5d45fc31dccb3c9b"
-uuid = "6b7a57c9-7cc1-4fdf-b7f5-e857abae3636"
-version = "0.8.5"
 
 [[deps.Extents]]
 git-tree-sha1 = "81023caa0021a41712685887db1fc03db26f41f5"
@@ -810,28 +680,6 @@ git-tree-sha1 = "1ed150b39aebcc805c26b93a8d0122c940f64ce2"
 uuid = "559328eb-81f9-559d-9380-de523a88c83c"
 version = "1.0.14+0"
 
-[[deps.FunctionWrappers]]
-git-tree-sha1 = "d62485945ce5ae9c0c48f124a84998d755bae00e"
-uuid = "069b7b12-0de2-55c6-9aab-29f3d0a68a2e"
-version = "1.1.3"
-
-[[deps.FunctionWrappersWrappers]]
-deps = ["FunctionWrappers"]
-git-tree-sha1 = "b104d487b34566608f8b4e1c39fb0b10aa279ff8"
-uuid = "77dc65aa-8811-40c2-897b-53d922fa7daf"
-version = "0.1.3"
-
-[[deps.Future]]
-deps = ["Random"]
-uuid = "9fa8497b-333b-5362-9e8d-4d0656e87820"
-version = "1.11.0"
-
-[[deps.GPUArraysCore]]
-deps = ["Adapt"]
-git-tree-sha1 = "ec632f177c0d990e64d955ccc1b8c04c485a0950"
-uuid = "46192b85-c4d5-4398-a991-12ede77f4527"
-version = "0.1.6"
-
 [[deps.GeoFormatTypes]]
 git-tree-sha1 = "59107c179a586f0fe667024c5eb7033e81333271"
 uuid = "68eda718-8dee-11e9-39e7-89f7f65f511f"
@@ -896,11 +744,6 @@ git-tree-sha1 = "7c4195be1649ae622304031ed46a2f4df989f1eb"
 uuid = "34004b35-14d8-5ef3-9330-4cdb6864b03a"
 version = "0.3.24"
 
-[[deps.IfElse]]
-git-tree-sha1 = "debdd00ffef04665ccbb3e150747a77560e8fad1"
-uuid = "615f187c-cbe4-4ef1-ba3b-2fcf58d6d173"
-version = "0.1.1"
-
 [[deps.ImageAxes]]
 deps = ["AxisArrays", "ImageBase", "ImageCore", "Reexport", "SimpleTraits"]
 git-tree-sha1 = "2e4520d67b0cef90865b3ef727594d2a58e0e1f8"
@@ -946,11 +789,6 @@ version = "1.0.0"
 git-tree-sha1 = "d1b1b796e47d94588b3757fe84fbf65a5ec4a80d"
 uuid = "d25df0c9-e2be-5dd7-82c8-3ad0b3e990b9"
 version = "0.1.5"
-
-[[deps.IntegerMathUtils]]
-git-tree-sha1 = "b8ffb903da9f7b8cf695a8bead8e01814aa24b30"
-uuid = "18e54dd8-cb9d-406c-a71d-865a43cbb235"
-version = "0.1.2"
 
 [[deps.IntelOpenMP_jll]]
 deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl"]
@@ -999,22 +837,16 @@ version = "0.22.17"
 git-tree-sha1 = "dba9ddf07f77f60450fe5d2e2beb9854d9a49bd0"
 uuid = "8197267c-284f-5f27-9208-e0e47529a953"
 version = "0.7.10"
-weakdeps = ["Random", "RecipesBase", "Statistics"]
 
     [deps.IntervalSets.extensions]
     IntervalSetsRandomExt = "Random"
     IntervalSetsRecipesBaseExt = "RecipesBase"
     IntervalSetsStatisticsExt = "Statistics"
 
-[[deps.InverseFunctions]]
-git-tree-sha1 = "a779299d77cd080bf77b97535acecd73e1c5e5cb"
-uuid = "3587e190-3f89-42d0-90ee-14403ec27112"
-version = "0.1.17"
-weakdeps = ["Dates", "Test"]
-
-    [deps.InverseFunctions.extensions]
-    InverseFunctionsDatesExt = "Dates"
-    InverseFunctionsTestExt = "Test"
+    [deps.IntervalSets.weakdeps]
+    Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+    RecipesBase = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
+    Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [[deps.IrrationalConstants]]
 git-tree-sha1 = "630b497eafcc20001bba38a4651b327dcfc491d2"
@@ -1089,22 +921,6 @@ version = "2.10.2+1"
 git-tree-sha1 = "50901ebc375ed41dbf8058da26f9de442febbbec"
 uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 version = "1.3.1"
-
-[[deps.Latexify]]
-deps = ["Format", "InteractiveUtils", "LaTeXStrings", "MacroTools", "Markdown", "OrderedCollections", "Requires"]
-git-tree-sha1 = "ce5f5621cac23a86011836badfedf664a612cee4"
-uuid = "23fbe1c1-3f47-55db-b15f-69d7ec21a316"
-version = "0.16.5"
-
-    [deps.Latexify.extensions]
-    DataFramesExt = "DataFrames"
-    SparseArraysExt = "SparseArrays"
-    SymEngineExt = "SymEngine"
-
-    [deps.Latexify.weakdeps]
-    DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
-    SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
-    SymEngine = "123dc426-2d89-5057-bbad-38513e3affd8"
 
 [[deps.LazyArtifacts]]
 deps = ["Artifacts", "Pkg"]
@@ -1212,11 +1028,6 @@ git-tree-sha1 = "f046ccd0c6db2832a9f639e2c669c6fe867e5f4f"
 uuid = "856f044c-d86e-5d09-b602-aeab76dc8ba7"
 version = "2024.2.0+0"
 
-[[deps.MLStyle]]
-git-tree-sha1 = "bc38dff0548128765760c79eb7388a4b37fae2c8"
-uuid = "d8e11817-5142-5d16-987a-aa16d5891078"
-version = "0.4.17"
-
 [[deps.MacroTools]]
 deps = ["Markdown", "Random"]
 git-tree-sha1 = "2fa9ee3e63fd3a4f7a9a4f4744a52f4856de82df"
@@ -1275,18 +1086,6 @@ version = "0.3.4"
 [[deps.MozillaCACerts_jll]]
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
 version = "2023.12.12"
-
-[[deps.MultivariatePolynomials]]
-deps = ["ChainRulesCore", "DataStructures", "LinearAlgebra", "MutableArithmetics"]
-git-tree-sha1 = "8d39779e29f80aa6c071e7ac17101c6e31f075d7"
-uuid = "102ac46a-7ee4-5c85-9060-abc95bfdeaa3"
-version = "0.5.7"
-
-[[deps.MutableArithmetics]]
-deps = ["LinearAlgebra", "SparseArrays", "Test"]
-git-tree-sha1 = "a2710df6b0931f987530f59427441b21245d8f5e"
-uuid = "d8a4904e-b15c-11e9-3269-09a3773c0cb0"
-version = "1.6.0"
 
 [[deps.NaNMath]]
 deps = ["OpenLibm_jll"]
@@ -1454,12 +1253,6 @@ git-tree-sha1 = "9306f6085165d270f7e3db02af26a400d580f5c6"
 uuid = "21216c6a-2e73-6563-6e65-726566657250"
 version = "1.4.3"
 
-[[deps.Primes]]
-deps = ["IntegerMathUtils"]
-git-tree-sha1 = "cb420f77dc474d23ee47ca8d14c90810cafe69e7"
-uuid = "27ebfcd6-29c5-5fa9-bf4b-fb8fc14df3ae"
-version = "0.5.6"
-
 [[deps.Printf]]
 deps = ["Unicode"]
 uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
@@ -1519,40 +1312,6 @@ weakdeps = ["FixedPointNumbers"]
     [deps.Ratios.extensions]
     RatiosFixedPointNumbersExt = "FixedPointNumbers"
 
-[[deps.RecipesBase]]
-deps = ["PrecompileTools"]
-git-tree-sha1 = "5c3d09cc4f31f5fc6af001c250bf1278733100ff"
-uuid = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
-version = "1.3.4"
-
-[[deps.RecursiveArrayTools]]
-deps = ["Adapt", "ArrayInterface", "DocStringExtensions", "GPUArraysCore", "IteratorInterfaceExtensions", "LinearAlgebra", "RecipesBase", "StaticArraysCore", "Statistics", "SymbolicIndexingInterface", "Tables"]
-git-tree-sha1 = "32f824db4e5bab64e25a12b22483a30a6b813d08"
-uuid = "731186ca-8d62-57ce-b412-fbd966d074cd"
-version = "3.27.4"
-
-    [deps.RecursiveArrayTools.extensions]
-    RecursiveArrayToolsFastBroadcastExt = "FastBroadcast"
-    RecursiveArrayToolsForwardDiffExt = "ForwardDiff"
-    RecursiveArrayToolsMeasurementsExt = "Measurements"
-    RecursiveArrayToolsMonteCarloMeasurementsExt = "MonteCarloMeasurements"
-    RecursiveArrayToolsReverseDiffExt = ["ReverseDiff", "Zygote"]
-    RecursiveArrayToolsSparseArraysExt = ["SparseArrays"]
-    RecursiveArrayToolsStructArraysExt = "StructArrays"
-    RecursiveArrayToolsTrackerExt = "Tracker"
-    RecursiveArrayToolsZygoteExt = "Zygote"
-
-    [deps.RecursiveArrayTools.weakdeps]
-    FastBroadcast = "7034ab61-46d4-4ed7-9d0f-46aef9175898"
-    ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
-    Measurements = "eff96d63-e80a-5855-80a2-b1b0885c5ab7"
-    MonteCarloMeasurements = "0987c9cc-fe09-11e8-30f0-b96dd679fdca"
-    ReverseDiff = "37e2e3b7-166d-5795-8a7a-e32c996b4267"
-    SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
-    StructArrays = "09ab397b-f2b6-538f-b94a-2f83cf4a842a"
-    Tracker = "9f7883ad-71c0-57eb-9f7f-b5c9e6d3789c"
-    Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
-
 [[deps.Reexport]]
 git-tree-sha1 = "45e428421666073eab6f2da5c9d310d99bb12f9b"
 uuid = "189a3867-3050-52da-a836-e630ba90ab69"
@@ -1587,12 +1346,6 @@ git-tree-sha1 = "40b9edad2e5287e05bd413a38f61a8ff55b9557b"
 uuid = "5eaf0fd0-dfba-4ccb-bf02-d820a40db705"
 version = "0.2.1"
 
-[[deps.RuntimeGeneratedFunctions]]
-deps = ["ExprTools", "SHA", "Serialization"]
-git-tree-sha1 = "04c968137612c4a5629fa531334bb81ad5680f00"
-uuid = "7e49a35a-f44a-4d26-94aa-eba1b4ca6b47"
-version = "0.5.13"
-
 [[deps.SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 version = "0.7.0"
@@ -1603,48 +1356,6 @@ git-tree-sha1 = "98ca7c29edd6fc79cd74c61accb7010a4e7aee33"
 uuid = "fdea26ae-647d-5447-a871-4b548cad5224"
 version = "3.6.0"
 
-[[deps.SciMLBase]]
-deps = ["ADTypes", "Accessors", "ArrayInterface", "CommonSolve", "ConstructionBase", "Distributed", "DocStringExtensions", "EnumX", "Expronicon", "FunctionWrappersWrappers", "IteratorInterfaceExtensions", "LinearAlgebra", "Logging", "Markdown", "PrecompileTools", "Preferences", "Printf", "RecipesBase", "RecursiveArrayTools", "Reexport", "RuntimeGeneratedFunctions", "SciMLOperators", "SciMLStructures", "StaticArraysCore", "Statistics", "SymbolicIndexingInterface"]
-git-tree-sha1 = "f48e0239fbb7799e8d81133ea71a726ec510c9ef"
-uuid = "0bca4576-84f4-4d90-8ffe-ffa030f20462"
-version = "2.65.1"
-
-    [deps.SciMLBase.extensions]
-    SciMLBaseChainRulesCoreExt = "ChainRulesCore"
-    SciMLBaseMakieExt = "Makie"
-    SciMLBasePartialFunctionsExt = "PartialFunctions"
-    SciMLBasePyCallExt = "PyCall"
-    SciMLBasePythonCallExt = "PythonCall"
-    SciMLBaseRCallExt = "RCall"
-    SciMLBaseZygoteExt = "Zygote"
-
-    [deps.SciMLBase.weakdeps]
-    ChainRules = "082447d4-558c-5d27-93f4-14fc19e9eca2"
-    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
-    Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
-    PartialFunctions = "570af359-4316-4cb7-8c74-252c00c2016b"
-    PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
-    PythonCall = "6099a3de-0909-46bc-b1f4-468b9a2dfc0d"
-    RCall = "6f49c342-dc21-5d91-9882-a32aef131414"
-    Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
-
-[[deps.SciMLOperators]]
-deps = ["Accessors", "ArrayInterface", "DocStringExtensions", "LinearAlgebra", "MacroTools"]
-git-tree-sha1 = "6149620767866d4b0f0f7028639b6e661b6a1e44"
-uuid = "c0aeaf25-5076-4817-a8d5-81caf7dfa961"
-version = "0.3.12"
-weakdeps = ["SparseArrays", "StaticArraysCore"]
-
-    [deps.SciMLOperators.extensions]
-    SciMLOperatorsSparseArraysExt = "SparseArrays"
-    SciMLOperatorsStaticArraysCoreExt = "StaticArraysCore"
-
-[[deps.SciMLStructures]]
-deps = ["ArrayInterface"]
-git-tree-sha1 = "0444a37a25fab98adbd90baa806ee492a3af133a"
-uuid = "53ae85a6-f571-4167-b2af-e1d143709226"
-version = "1.6.1"
-
 [[deps.Scratch]]
 deps = ["Dates"]
 git-tree-sha1 = "3bac05bc7e74a75fd9cba4295cde4045d9fe2386"
@@ -1654,12 +1365,6 @@ version = "1.2.1"
 [[deps.Serialization]]
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
 version = "1.11.0"
-
-[[deps.Setfield]]
-deps = ["ConstructionBase", "Future", "MacroTools", "StaticArraysCore"]
-git-tree-sha1 = "e2cc6d8c88613c05e1defb55170bf5ff211fbeac"
-uuid = "efcf1570-3423-57d1-acb7-fd33fddbac46"
-version = "1.1.1"
 
 [[deps.ShaderAbstractions]]
 deps = ["ColorTypes", "FixedPointNumbers", "GeometryBasics", "LinearAlgebra", "Observables", "StaticArrays", "StructArrays", "Tables"]
@@ -1770,24 +1475,32 @@ deps = ["HypergeometricFunctions", "IrrationalConstants", "LogExpFunctions", "Re
 git-tree-sha1 = "b423576adc27097764a90e163157bcfc9acf0f46"
 uuid = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
 version = "1.3.2"
-weakdeps = ["ChainRulesCore", "InverseFunctions"]
 
     [deps.StatsFuns.extensions]
     StatsFunsChainRulesCoreExt = "ChainRulesCore"
     StatsFunsInverseFunctionsExt = "InverseFunctions"
+
+    [deps.StatsFuns.weakdeps]
+    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
+    InverseFunctions = "3587e190-3f89-42d0-90ee-14403ec27112"
 
 [[deps.StructArrays]]
 deps = ["ConstructionBase", "DataAPI", "Tables"]
 git-tree-sha1 = "f4dc295e983502292c4c3f951dbb4e985e35b3be"
 uuid = "09ab397b-f2b6-538f-b94a-2f83cf4a842a"
 version = "0.6.18"
-weakdeps = ["Adapt", "GPUArraysCore", "SparseArrays", "StaticArrays"]
 
     [deps.StructArrays.extensions]
     StructArraysAdaptExt = "Adapt"
     StructArraysGPUArraysCoreExt = "GPUArraysCore"
     StructArraysSparseArraysExt = "SparseArrays"
     StructArraysStaticArraysExt = "StaticArrays"
+
+    [deps.StructArrays.weakdeps]
+    Adapt = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
+    GPUArraysCore = "46192b85-c4d5-4398-a991-12ede77f4527"
+    SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+    StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
 [[deps.StyledStrings]]
 uuid = "f489334b-da3d-4c2e-b8f0-e476e12c162b"
@@ -1801,54 +1514,6 @@ uuid = "4607b0f0-06f3-5cda-b6b1-a6196a1729e9"
 deps = ["Artifacts", "Libdl", "libblastrampoline_jll"]
 uuid = "bea87d4a-7f5b-5778-9afe-8cc45184846c"
 version = "7.7.0+0"
-
-[[deps.SymbolicIndexingInterface]]
-deps = ["Accessors", "ArrayInterface", "RuntimeGeneratedFunctions", "StaticArraysCore"]
-git-tree-sha1 = "6c6761e08bf5a270905cdd065be633abfa1b155b"
-uuid = "2efcf032-c050-4f8e-a9bb-153293bab1f5"
-version = "0.3.35"
-
-[[deps.SymbolicLimits]]
-deps = ["SymbolicUtils"]
-git-tree-sha1 = "fabf4650afe966a2ba646cabd924c3fd43577fc3"
-uuid = "19f23fe9-fdab-4a78-91af-e7b7767979c3"
-version = "0.2.2"
-
-[[deps.SymbolicUtils]]
-deps = ["AbstractTrees", "ArrayInterface", "Bijections", "ChainRulesCore", "Combinatorics", "ConstructionBase", "DataStructures", "DocStringExtensions", "DynamicPolynomials", "IfElse", "LinearAlgebra", "MultivariatePolynomials", "NaNMath", "Setfield", "SparseArrays", "SpecialFunctions", "StaticArrays", "SymbolicIndexingInterface", "TermInterface", "TimerOutputs", "Unityper"]
-git-tree-sha1 = "04e9157537ba51dad58336976f8d04b9ab7122f0"
-uuid = "d1185830-fcd6-423d-90d6-eec64667417b"
-version = "3.7.2"
-
-    [deps.SymbolicUtils.extensions]
-    SymbolicUtilsLabelledArraysExt = "LabelledArrays"
-    SymbolicUtilsReverseDiffExt = "ReverseDiff"
-
-    [deps.SymbolicUtils.weakdeps]
-    LabelledArrays = "2ee39098-c373-598a-b85f-a56591580800"
-    ReverseDiff = "37e2e3b7-166d-5795-8a7a-e32c996b4267"
-
-[[deps.Symbolics]]
-deps = ["ADTypes", "ArrayInterface", "Bijections", "CommonWorldInvalidations", "ConstructionBase", "DataStructures", "DiffRules", "Distributions", "DocStringExtensions", "DomainSets", "DynamicPolynomials", "IfElse", "LaTeXStrings", "Latexify", "Libdl", "LinearAlgebra", "LogExpFunctions", "MacroTools", "Markdown", "NaNMath", "PrecompileTools", "Primes", "RecipesBase", "Reexport", "RuntimeGeneratedFunctions", "SciMLBase", "Setfield", "SparseArrays", "SpecialFunctions", "StaticArraysCore", "SymbolicIndexingInterface", "SymbolicLimits", "SymbolicUtils", "TermInterface"]
-git-tree-sha1 = "24e006074ef13894ed23d006f55e6082998c9035"
-uuid = "0c5d862f-8b57-4792-8d23-62f2024744c7"
-version = "6.19.0"
-
-    [deps.Symbolics.extensions]
-    SymbolicsForwardDiffExt = "ForwardDiff"
-    SymbolicsGroebnerExt = "Groebner"
-    SymbolicsLuxExt = "Lux"
-    SymbolicsNemoExt = "Nemo"
-    SymbolicsPreallocationToolsExt = ["PreallocationTools", "ForwardDiff"]
-    SymbolicsSymPyExt = "SymPy"
-
-    [deps.Symbolics.weakdeps]
-    ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
-    Groebner = "0b43b601-686d-58a3-8a1c-6623616c7cd4"
-    Lux = "b2108857-7c20-44ae-9111-449ecde12c47"
-    Nemo = "2edaba10-b0f1-5616-af89-8c11ac63239a"
-    PreallocationTools = "d236fae5-4411-538c-8e31-a6e3d9e00b46"
-    SymPy = "24249f21-da20-56a4-8eb1-6a02cf4ae2e6"
 
 [[deps.TOML]]
 deps = ["Dates"]
@@ -1878,11 +1543,6 @@ git-tree-sha1 = "1feb45f88d133a655e001435632f019a9a1bcdb6"
 uuid = "62fd8b95-f654-4bbd-a8a5-9c27f68ccd50"
 version = "0.1.1"
 
-[[deps.TermInterface]]
-git-tree-sha1 = "d673e0aca9e46a2f63720201f55cc7b3e7169b16"
-uuid = "8ea1fca8-c5ef-4a55-8b96-4e9afe9c9a3c"
-version = "2.0.0"
-
 [[deps.Test]]
 deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
 uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
@@ -1893,12 +1553,6 @@ deps = ["ColorTypes", "DataStructures", "DocStringExtensions", "FileIO", "FixedP
 git-tree-sha1 = "bc7fd5c91041f44636b2c134041f7e5263ce58ae"
 uuid = "731e570b-9d59-4bfa-96dc-6df516fadf69"
 version = "0.10.0"
-
-[[deps.TimerOutputs]]
-deps = ["ExprTools", "Printf"]
-git-tree-sha1 = "3a6f063d690135f5c1ba351412c82bae4d1402bf"
-uuid = "a759f4b9-e2f1-59dc-863e-4aeb61b1ea8f"
-version = "0.5.25"
 
 [[deps.TranscodingStreams]]
 git-tree-sha1 = "0c45878dcfdcfa8480052b6ab162cdd138781742"
@@ -1924,12 +1578,6 @@ deps = ["REPL"]
 git-tree-sha1 = "53915e50200959667e78a92a418594b428dffddf"
 uuid = "1cfade01-22cf-5700-b092-accc4b62d6e1"
 version = "0.4.1"
-
-[[deps.Unityper]]
-deps = ["ConstructionBase"]
-git-tree-sha1 = "25008b734a03736c41e2a7dc314ecb95bd6bbdb0"
-uuid = "a7c27f48-0311-42f6-a7f8-2c11e75eb415"
-version = "0.1.6"
 
 [[deps.WoodburyMatrices]]
 deps = ["LinearAlgebra", "SparseArrays"]
@@ -2079,46 +1727,45 @@ version = "3.6.0+0"
 """
 
 # ╔═╡ Cell order:
-# ╠═2b062f58-206b-4587-a563-0c87b89e23bd
-# ╟─d736a172-98e1-11ee-0243-f916c013b372
-# ╟─1a505c99-242c-4115-b471-ea3fbde6aaf9
-# ╟─45415390-7cf4-43bf-9969-bc47988a2bf2
-# ╟─9944cda6-40fb-45dd-8984-1ecfcaf99dcc
-# ╟─43a26a2c-76e0-4fcb-b53a-2f0378e70f9f
-# ╠═3df7b4bd-7202-4c98-8d4c-20c2c74d44ad
-# ╟─0aac7f63-3e0e-4a56-ad6f-52d8349f64fa
-# ╟─9fe90426-8423-420f-b8e4-2633642de751
-# ╟─a4e664f9-0fd4-49f7-921c-a72570849bd0
-# ╠═2b824a7b-63e7-46d0-a1a0-9983519cd1d0
-# ╟─3a0dfc8a-57f2-4698-ae81-813084000187
-# ╠═06006f5b-8fe3-4202-9e62-250d774466e8
-# ╟─91902c1e-ff3d-453e-9258-766e57b08b42
-# ╠═d73cda92-1c8b-495c-9129-ee96213fa1cd
-# ╟─60d46ef2-7eed-46bc-95e3-aa5d7d66c323
-# ╟─4019d3a6-dd24-42f0-bd8e-da92518de567
-# ╠═930efb9a-2fa2-49b6-87da-650dc432fb44
-# ╟─13729cbd-86c4-42a7-84c8-8a41f7b0f843
-# ╠═fd11afb0-ad2d-4895-a295-e216f9149508
-# ╟─483cc6fd-fd2a-4c62-8906-4a46bc33ab34
-# ╠═7d39f632-6c77-4e44-8d0f-37f6474a0b5a
-# ╟─8f83d93e-e582-4e56-97d1-9c50bfb57c89
-# ╠═2bc360ef-7f45-4e6d-9f95-b107bf2c7364
-# ╟─70db49cd-31ba-4fde-b595-0fa0569305d0
-# ╟─bcdaf486-4b9b-4bda-ba19-86431e7b1e08
-# ╠═b84a6978-9f01-420e-b363-081833cbe214
-# ╟─4f6133a8-5fb1-4aa1-9317-4f28c8b40fc4
-# ╟─da10aa7d-bdf4-4611-8c32-2ed59e87a527
-# ╠═0fd90a4e-612a-41d7-9f06-91def43a5d22
-# ╟─02ae81e7-e4cf-4a8a-aed5-fc80e7bb54ef
-# ╠═1f16dbcc-59f0-4179-bdea-41d5cf3b4910
-# ╟─31fdbbae-a0f8-46bd-9cec-8e13da4b231c
-# ╠═c8b199b7-f0f2-4127-8bd7-08dd3848d634
-# ╟─08802923-d753-4a06-b51c-8e1d12dec948
-# ╟─5b929d79-f6d9-4101-b9ad-e8be3f397a1d
-# ╠═df679cb1-174c-47b2-bd6a-3cf1c31ee2f8
-# ╟─9e75ae3a-13b2-482b-81c7-8ae677ecd2a1
-# ╠═7ad9bd52-82a1-42da-a8fd-2fb2ca0f8fc9
-# ╟─64c005e1-f01a-4e8a-9ddd-13ef55dc4144
-# ╠═80f55f77-f31a-43f2-b35d-18200e7c7f33
+# ╟─69982520-9f38-11ee-0bb1-5544ef121a53
+# ╠═6bf6e398-6f90-4ffc-8ae8-54ef1f8a80d3
+# ╟─9f7af807-944b-4b6f-9e4c-9664c1dd8812
+# ╟─f7e6d57c-654c-4e90-bc5b-ff81811c0740
+# ╟─74054fd1-9179-4709-9e2b-052a31086182
+# ╟─06249239-45b6-463a-87ae-e1224f635249
+# ╟─0ff9e755-3d3e-42ff-a4c5-857d6f5de7e1
+# ╠═5e298ce9-4e29-40d9-af55-fdb37fab62c9
+# ╟─7dbaf33b-47ee-4b6f-8bd3-6d198323f2d0
+# ╟─57ff7845-ba14-4800-9900-5cb90e8d4834
+# ╟─32c86514-bcaa-4b1a-95b1-4d2080394be0
+# ╟─a2fbd076-230d-446a-b017-7ae896be85b8
+# ╠═02133a0f-91a7-4ef4-b658-cdca06838860
+# ╟─49820c3c-b147-468e-8976-3a54c8bc981b
+# ╠═e153e5c7-e3f1-45ea-9c40-753bb3c322c3
+# ╟─b11d14e0-5695-4823-9969-e847d88c7fb9
+# ╠═854603b4-1089-4820-bf35-ab9026d1090a
+# ╟─6d2666c0-017e-43bb-aeec-b60daca65196
+# ╟─bc06ae58-9955-4a55-85b0-debb03e1031a
+# ╟─52664fc7-6c41-46c0-a0f2-70ccca23d559
+# ╠═693970ae-27f4-41bc-a499-fb8d917c32ff
+# ╟─19b4b039-905c-4d19-846d-5c11f3cc2436
+# ╠═ab23cece-32c3-4365-8df5-da6a9635e2bf
+# ╟─c880f371-222d-4533-bf0a-134f903506ab
+# ╠═2ea40ee0-7c20-494c-84bb-f57eb9ddb639
+# ╟─8f0f713d-5bee-4ee7-9dac-c8cfa39dc772
+# ╟─2fd66668-f53f-4a51-8903-f0dfeb1cb765
+# ╟─29952ec1-70fb-4dd4-b733-cbb068361cd5
+# ╟─d8172a5d-1191-40f0-a06d-10374e816680
+# ╟─c94da548-a0cd-4e82-9bf6-158606c4e433
+# ╠═6d974a99-46ce-4633-9a02-ef48650a45d7
+# ╟─b1f3c53d-a227-471a-8db9-8e648ca5494d
+# ╟─15dbf4c2-ce51-422b-bfbd-86ef01f74c28
+# ╟─4d5ad1c4-d594-4729-8c71-68ee50381d0c
+# ╟─dc7d0d28-c51c-4bd9-97e7-35f1f2a0c8c4
+# ╠═bfe41c1d-0ebd-4969-9964-2030343f94b9
+# ╟─6268a45d-1521-44e0-a77b-8286785b023c
+# ╠═fa63b90b-0a39-4327-aa45-6afeb13edee5
+# ╟─e3c3718e-411a-4d85-b9af-5ddd7218d28b
+# ╠═55795c6e-c80d-45b0-8967-465d00cec882
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
