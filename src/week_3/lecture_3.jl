@@ -3,7 +3,7 @@
 
 #> [frontmatter]
 #> order = 3
-#> title = "Code 3. Vorlesung"
+#> title = "Fixpunkt-Iterationen"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments"]
 #> description = ""

@@ -3,7 +3,7 @@
 
 #> [frontmatter]
 #> order = 7
-#> title = "Code 7. Vorlesung"
+#> title = "Euler-Verfahren"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments"]
 #> description = ""

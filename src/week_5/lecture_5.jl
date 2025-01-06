@@ -3,7 +3,7 @@
 
 #> [frontmatter]
 #> order = 5
-#> title = "Code 5. Vorlesung"
+#> title = "Newton-Verfahren"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments"]
 #> description = ""

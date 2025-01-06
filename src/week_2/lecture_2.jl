@@ -3,7 +3,7 @@
 
 #> [frontmatter]
 #> order = 2
-#> title = "Code 2. Vorlesung"
+#> title = "Folgen"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments"]
 #> description = ""

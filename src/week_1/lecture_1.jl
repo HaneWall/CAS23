@@ -3,7 +3,7 @@
 
 #> [frontmatter]
 #> order = 1
-#> title = "Code 1. Vorlesung"
+#> title = "Heron-Verfahren"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments"]
 #> description = ""

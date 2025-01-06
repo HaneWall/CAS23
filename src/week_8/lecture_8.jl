@@ -3,7 +3,7 @@
 
 #> [frontmatter]
 #> order = 8
-#> title = "Code 8. Vorlesung"
+#> title = "Gauss-Elimination"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments"]
 #> description = ""

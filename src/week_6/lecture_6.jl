@@ -3,7 +3,7 @@
 
 #> [frontmatter]
 #> order = 6
-#> title = "Code 6. Vorlesung"
+#> title = "Taylorreihen und Bisektion"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments"]
 #> description = ""
