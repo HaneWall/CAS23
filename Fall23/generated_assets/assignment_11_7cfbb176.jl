@@ -17,6 +17,7 @@ begin
 	using CairoMakie
 	using LinearAlgebra
 	using PlutoUI
+	using PlutoTurtles
 end
 
 # ╔═╡ b6199eb8-bd2d-4e74-90ed-75dd959f7f24
@@ -152,15 +153,59 @@ begin
 #missing code
 end 
 
+# ╔═╡ f0e66e83-4ed7-42c2-b93f-b7de7b1e737a
+md"""
+# 3. Teil: (Haus)aufgabe \ Miniprojekt
+"""
+
+# ╔═╡ 2896e207-f3d2-4ee8-82c1-d7b847d24069
+PlutoUI.Resource("https://i.imgur.com/dFdod6i.png")
+
+# ╔═╡ cd57e8c7-2498-4d52-bb14-5b1c8b09c970
+md"""
+>> *Caption:* Graphische Repräsentation des Anfangtextes `S` (links), der ersten Iterierten (mitte) mit Text `SLSRSLS` und der zweiten Iterierten (rechts) mit dem Text `SLSRSLSLSLSRSLSRSLSRSLSLSLSRSLS` in zwei Dimensionen.
+"""
+
+# ╔═╡ cf7be273-dc20-482a-8db8-c97130f69208
+md"""
+> #### Preliminaries
+>> Die Kochkurve ist ein Spezialfall eines sogenannten Lindenmayer-Systems, welches durch iterativ angewendete Regeln erzeugt wird. Es besteht aus einem Alphabet bestimmter Symbole, die verwendet werden können um Texte zu erzeugen, Ersetzungsregeln, die Symbole durch Texte von Symbolen des Alphabets ersetzen und einen Anfangstext, der zu Beginn der iterativen Konstruktion verwendet wird.
+
+>> Verwendet man die Symbole `S`, `L` und `R`, den Anfangstext `S` und für jeden Iterationsschritt die Ersetzungsregeln
+
+$\begin{aligned} S & \rightarrow & SLSRSLS\\
+L & \rightarrow & L\\
+R & \rightarrow & R
+\end{aligned}$
+
+>> erhält man nach der ersten Iteration den Text `SLSRSLS` und nach der zweiten Iteration den Text `SLSRSLSLSLSRSLSRSLSRSLSLSLSRSLS`.
+
+>> Die Folge von Symbolen eine Textes wird grafisch visualisiert, indem jedes Symbol in einen Befehl einer sogenannten Turtle-Grafik übersetzt wird: $S$ wird als Befehl eine Strecke zu zeichnen interpretiert, wobei eine Anfangsposition und eine Anfangsrichtung (z.B. der kanonische Basisvektor $(1, 0)^T$) verwendet wird. $L$ wird als Drehung nach links um $60^\circ$ und $R$ wird als Drehung nach rechts um  $120^\circ$ interpretiert. Dies erzeugt für den Anfangstext `S` (siehe Abbildung oben) nach der ersten Iteration den Text `SLSRSLS` und nach der zweiten Iteration den Text `SLSRSLSLSLSRSLSRSLSRSLSLSLSRSLS`. Die Länge der zu zeichnenden Strecken verringert sich bei jedem Iterationsschritt um den Faktor $\frac{1}{3}$.
+"""
+
+# ╔═╡ 57ca9e48-3efc-41af-bb14-007a8aecc8b5
+md"""
+!!! warning "Aufgabe 3a)"
+	Erstellen Sie ein Programm, welches eine Anzahl $n$ einliest, dann den durch die beschriebene Iteration erzeugten Text nach jeder der $n$ Iterationen ausgibt und schlie{\ss}lich die dazugehörigen Visualisierungen grafisch darstellt. Nutzen Sie das oben geladene `PlutoTurtles` package.
+
+"""
+
+# ╔═╡ 10141c1c-3795-4872-8e39-1ec89b6f8cb2
+let
+# missing code
+end
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+PlutoTurtles = "67697473-756c-6b61-6172-6b407461726b"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
 CairoMakie = "~0.11.4"
+PlutoTurtles = "~1.0.1"
 PlutoUI = "~0.7.54"
 """
 
@@ -170,7 +215,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.11.0"
 manifest_format = "2.0"
-project_hash = "bbbcec05134123ec5b30f12047639e3dd17924c0"
+project_hash = "8e42079fbf81d127c097adfa0ea38e0ae0e624c4"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -1129,6 +1174,12 @@ git-tree-sha1 = "7b1a9df27f072ac4c9c7cbe5efb198489258d1f5"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
 version = "1.4.1"
 
+[[deps.PlutoTurtles]]
+deps = ["AbstractPlutoDingetjes", "Compat", "HypertextLiteral", "InteractiveUtils", "Markdown", "PlutoUI"]
+git-tree-sha1 = "467866275ad02b4abf63c80bad78ad4f92744473"
+uuid = "67697473-756c-6b61-6172-6b407461726b"
+version = "1.0.1"
+
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
 git-tree-sha1 = "eba4810d5e6a01f612b948c9fa94f905b49087b0"
@@ -1642,7 +1693,7 @@ version = "3.6.0+0"
 # ╟─e24d1579-46b5-4ee9-80f8-06a1c2210bd1
 # ╟─92722ba0-217a-40ae-87fd-e6e3f3c9c15e
 # ╟─5a4808d4-cc49-494b-be19-98efa7ade539
-# ╠═142c2454-3717-47b5-b876-e346d2129e6c
+# ╟─142c2454-3717-47b5-b876-e346d2129e6c
 # ╠═3e646b7b-7b87-4740-b6e6-ecb17140de25
 # ╟─5c06b63e-8e4c-47b4-a25e-0301323e27be
 # ╟─89f82cff-f9b0-4308-8a41-cc6bb4f7c827
@@ -1659,5 +1710,11 @@ version = "3.6.0+0"
 # ╠═35571eed-c495-4d08-80d6-61cb1e213403
 # ╟─f883f9b8-7870-4fd9-bc70-13c9efd8aa76
 # ╠═a178f345-67c3-49ad-958f-c1d82ab7caf9
+# ╟─f0e66e83-4ed7-42c2-b93f-b7de7b1e737a
+# ╟─2896e207-f3d2-4ee8-82c1-d7b847d24069
+# ╟─cd57e8c7-2498-4d52-bb14-5b1c8b09c970
+# ╟─cf7be273-dc20-482a-8db8-c97130f69208
+# ╟─57ca9e48-3efc-41af-bb14-007a8aecc8b5
+# ╠═10141c1c-3795-4872-8e39-1ec89b6f8cb2
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
