@@ -1,6 +1,8 @@
 name: Export Pluto notebooks & Deploy
+
 permissions:
     contents: write
+
 on:
     push:
         branches:
@@ -9,6 +11,7 @@ on:
         branches:
             - main
     workflow_dispatch:
+
 concurrency:
     group: export
     cancel-in-progress: true
@@ -17,29 +20,31 @@ jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout Fall 23 source
-              uses: actions/checkout@v2
+            - name: 📥 Checkout Repository
+              uses: actions/checkout@v4
 
             - name: 🙌 Install Julia
-              uses: julia-actions/setup-julia@v1
+              uses: julia-actions/setup-julia@v2
               with:
                   version: "1.11.0"
 
             - name: ⏱ Cache notebook states
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                 path: _cache
                 key: ${{ runner.os }}-pluto_state_cache-v3-${{ hashFiles('**/Project.toml', '**/Manifest.toml') }}-${{ github.run_id }}
                 restore-keys: |
                     ${{ runner.os }}-pluto_state_cache-v3-${{ hashFiles('**/Project.toml', '**/Manifest.toml') }}
+              continue-on-error: true
 
             - name: ⏱ Cache .julia
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                 path: ~/.julia
                 key: ${{ runner.os }}-dotjulia-v1-${{ hashFiles('**/Project.toml', '**/Manifest.toml') }}-${{ github.run_id }}
                 restore-keys: |
                     ${{ runner.os }}-dotjulia-v1-${{ hashFiles('**/Project.toml', '**/Manifest.toml') }}
+              continue-on-error: true
 
             - name: 🪴 Generate site
               run: julia --project=pluto-deployment-environment -e '
@@ -52,6 +57,7 @@ jobs:
               uses: actions/upload-artifact@v4
               if: always()
               with:
+                name: Site Generation Report
                 path: generation_report.html
 
             - name: 🔀 Combine semesters into single site
@@ -62,19 +68,19 @@ jobs:
 
             - name: 🚀 Deploy to GitHub Pages (main)
               if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-              uses: JamesIves/github-pages-deploy-action@releases/v3
+              uses: JamesIves/github-pages-deploy-action@v4
               with:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                BRANCH: output
-                FOLDER: www
-                CLEAN_EXCLUDE: |
+                token: ${{ secrets.GITHUB_TOKEN }}
+                branch: output
+                folder: www
+                clean-exclude: |
                   previews/*
-    
-            - name: Deploy PR preview
-              if: github.event_name == 'pull_request' && github.repository == github.event.pull_request.head.repo.full_name # if this build is a PR build and the PR is NOT from a fork
-              uses: JamesIves/github-pages-deploy-action@releases/v3
+
+            - name: 🚀 Deploy PR preview
+              if: github.event_name == 'pull_request' && github.repository == github.event.pull_request.head.repo.full_name
+              uses: JamesIves/github-pages-deploy-action@v4
               with:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                BRANCH: output
-                FOLDER: www
-                TARGET_FOLDER: "previews/PR${{ github.event.number }}" # The website preview is going to be stored in the previews subfolder
+                token: ${{ secrets.GITHUB_TOKEN }}
+                branch: output
+                folder: www
+                target-folder: "previews/PR${{ github.event.number }}"
