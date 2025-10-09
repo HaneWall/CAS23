@@ -10,14 +10,17 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# Prevent different runs on the same branch/PR from stepping on each other,
+# but don't cancel across different branches or PRs.
 concurrency:
-  group: export-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: export-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 180
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -27,6 +30,7 @@ jobs:
         with:
           version: "1.12.0"
 
+      # Reusable caches (no run_id so they actually restore)
       - name: ⏱ Cache notebook states
         uses: actions/cache@v3
         with:
@@ -43,17 +47,23 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-dotjulia-v1-
 
+      # Warm deps to speed up the actual site generation
       - name: 📦 Instantiate & precompile
-        run: julia --project=pluto-deployment-environment --startup-file=no -e '
-          import Pkg; Pkg.instantiate(); Pkg.precompile()'
+        run: |
+          julia --project=pluto-deployment-environment --startup-file=no -e '
+            import Pkg; Pkg.instantiate(); Pkg.precompile()'
 
+      # Keep-alive prevents the "no output for N minutes" killer
       - name: 🪴 Generate site (keep-alive)
         env:
           JULIA_NUM_THREADS: auto
         run: |
-          ( while true; do echo "still working..."; sleep 60; done ) &
+          set -euo pipefail
+          ( while true; do echo "[keep-alive] $(date -Is)"; sleep 60; done ) & 
           KEEPID=$!
+          trap 'echo "::warning::received SIGTERM in Generate site step (likely cancelled)"; kill $KEEPID || true; exit 143' TERM
           julia --project=pluto-deployment-environment --startup-file=no -e '
+            import Pkg; Pkg.instantiate();
             import PlutoPages;
             PlutoPages.generate("."; html_report_path="generation_report.html")'
           kill $KEEPID
@@ -68,9 +78,12 @@ jobs:
 
       - name: 🔀 Combine semesters into single site
         run: |
+          set -euo pipefail
           mkdir -p www
           mv _site www/Fall23
-          mv extra_outputs/* www
+          if compgen -G "extra_outputs/*" > /dev/null; then
+            mv extra_outputs/* www
+          fi
 
       - name: 🚀 Deploy to GitHub Pages (main)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
