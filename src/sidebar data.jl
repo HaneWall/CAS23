@@ -14,10 +14,10 @@ Dict(
         ],
         :title => "CMAS Julia",
         :subtitle => "Computerorientierte Mathematik, Algorithmen und Strukturen",
-        :term => "Winter 2024/2025",
+        :term => "Winter 2025/2026",
         :institution => "Universität Rostock",
         :institution_url => "http://www.uni-rostock.de",
         :institution_logo => "black-logo-uni-julia.svg",
-        :institution_logo_darkmode => "white-logo-uni-julia.svg"
-    )
+        :institution_logo_darkmode => "white-logo-uni-julia.svg",
+    ),
 )
