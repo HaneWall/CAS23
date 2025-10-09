@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.46
+# v0.20.19
 
 #> [frontmatter]
 #> chapter = 1
@@ -102,7 +102,7 @@ md"""
 f1(x) = 2 + x
 
 # ╔═╡ f5157e9a-a271-46c2-a414-53e05dbbd7bc
-f2(x) = x -> 2 + x
+f2 = x -> 2 + x
 
 # ╔═╡ be5c9978-a5b0-4202-9234-7b686957de7a
 function f3(x)
@@ -115,6 +115,9 @@ md"
 
 # ╔═╡ 7c0f4e69-d477-4497-b804-a531547b2585
 f1(10)
+
+# ╔═╡ d444bcbc-b385-456b-a449-91a2beda471d
+f2(10)
 
 # ╔═╡ 679d6d48-7c7c-4506-97f0-17f68b2c371f
 md"""
@@ -130,6 +133,22 @@ end
 
 # ╔═╡ 99620184-a312-4829-bffe-35285646cb4e
 g(1, 2)
+
+# ╔═╡ 00000000-0000-0000-0000-000000000001
+PLUTO_PROJECT_TOML_CONTENTS = """
+[deps]
+"""
+
+# ╔═╡ 00000000-0000-0000-0000-000000000002
+PLUTO_MANIFEST_TOML_CONTENTS = """
+# This file is machine-generated - editing it directly is not advised
+
+julia_version = "1.12.0"
+manifest_format = "2.0"
+project_hash = "71853c6197a6a7f222db0f1978c7cb232b87c5ee"
+
+[deps]
+"""
 
 # ╔═╡ Cell order:
 # ╟─7dae278c-8713-11ef-258b-b9c8c5eaef71
@@ -155,6 +174,9 @@ g(1, 2)
 # ╠═be5c9978-a5b0-4202-9234-7b686957de7a
 # ╟─9338443a-e6fa-48f4-99bc-6eb655ac3279
 # ╠═7c0f4e69-d477-4497-b804-a531547b2585
+# ╠═d444bcbc-b385-456b-a449-91a2beda471d
 # ╟─679d6d48-7c7c-4506-97f0-17f68b2c371f
 # ╠═97526255-823f-4a71-a596-23bd23f4783b
 # ╠═99620184-a312-4829-bffe-35285646cb4e
+# ╟─00000000-0000-0000-0000-000000000001
+# ╟─00000000-0000-0000-0000-000000000002

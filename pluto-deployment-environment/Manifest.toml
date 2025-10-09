@@ -614,9 +614,9 @@ version = "1.0.0"
 
 [[deps.PlutoSliderServer]]
 deps = ["AbstractPlutoDingetjes", "Base64", "BetterFileWatching", "Configurations", "Distributed", "FromFile", "Git", "Glob", "GracefulPkg", "HTTP", "JSON", "LibGit2", "Logging", "Pkg", "Pluto", "PlutoDependencyExplorer", "SHA", "Serialization", "Sockets", "TOML", "TerminalLoggers", "UUIDs"]
-git-tree-sha1 = "fb4ac53b5d67a8a2c412a0579bfb8574349a7b5d"
+git-tree-sha1 = "9fc73a5278a4bc6fb900206d321c6aae3a7fdbb6"
 uuid = "2fc8631c-6f24-4c5b-bca7-cbb509c42db4"
-version = "1.7.0"
+version = "1.7.1"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "Downloads", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
