@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.19
+# v0.20.20
 
 #> [frontmatter]
 #> order = 5
@@ -95,7 +95,7 @@ md"""
 
 # ╔═╡ 1d29870f-2866-4f39-b38e-adabd42a2405
 let 
-CairoMakie.activate!(type="svg")
+CairoMakie.activate!(type="png")
 	
 h = x->x^2 - 2	
 h_prime = x->2x 
@@ -135,7 +135,7 @@ md"""
 # ╔═╡ cf251916-3d23-4876-a9f6-0735daa743c4
 let
 let 
-CairoMakie.activate!(type="svg")
+CairoMakie.activate!(type="png")
 	
 h = x->x^2 - 2	
 h_prime = x->2x 
@@ -2165,7 +2165,7 @@ uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
 version = "1.64.0+1"
 
 [[deps.oneTBB_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl"]
+deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl"]
 git-tree-sha1 = "d5a767a3bb77135a99e433afe0eb14cd7f6914c3"
 uuid = "1317d2d5-d96f-522e-a858-c73665f53c3e"
 version = "2022.0.0+0"

@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.19
+# v0.20.20
 
 #> [frontmatter]
 #> homework_number = "5"
@@ -13,10 +13,10 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 1beaa3ac-87b9-11ee-24e9-87176e7206c3
-begin 
-	using CairoMakie # zum Plotten
-	using ForwardDiff
-	using Symbolics
+begin
+    using CairoMakie # zum Plotten
+    using ForwardDiff
+    using Symbolics
 end
 
 # ╔═╡ ee47c24b-424b-4be4-9005-b5e67bfd4cd3
@@ -60,10 +60,7 @@ md"""
 """
 
 # ╔═╡ 386c25de-1d91-41e6-ac23-437b3c4c2c10
-student = Dict(
-	"name" => "Max Mustermann", 
-	"fach" => "Studiumsfach",
-	"matrikelnr" => "1234")
+student = Dict("name" => "Max Mustermann", "fach" => "Studiumsfach", "matrikelnr" => "1234")
 
 # ╔═╡ 1c752035-6262-4b6a-9aba-9f74349d011e
 md"""
@@ -126,8 +123,8 @@ md"""
 """
 
 # ╔═╡ 008a6aee-8c21-428d-9296-e2f4e9cdd813
-let 
-# missing code 
+let
+    # missing code 
 end
 
 # ╔═╡ 5b5c5ca6-f3bb-4ae1-9fd8-9e414a762d44
@@ -195,8 +192,8 @@ md"""
 """
 
 # ╔═╡ 0a2b2c8a-2060-4f94-ae9c-a3390e82928e
-let 
-# missing code 
+let
+    # missing code 
 end
 
 # ╔═╡ 1359eb17-7181-42d2-9418-e30ec7d09363
@@ -207,7 +204,7 @@ md"""
 
 # ╔═╡ 4fe37126-421f-4479-94ed-b577e208d754
 let
-# missing code
+    # missing code
 end
 
 # ╔═╡ 72a79067-ab49-43b2-8eb3-07813b3a2364
@@ -218,7 +215,7 @@ md"""
 
 # ╔═╡ c00966ca-fe6d-490d-b489-7c851570fe8a
 let
-# missing code
+    # missing code
 end
 
 # ╔═╡ d405db6b-81dd-406a-9aaf-083cf71ab355
@@ -240,7 +237,7 @@ md"""
 
 # ╔═╡ 8eb22e1d-d6b6-4e0a-a37e-fffedcfb9b78
 let
-# missing code
+    # missing code
 end
 
 # ╔═╡ 865b15b7-e341-4030-9541-af58a5e2f901
@@ -250,8 +247,8 @@ md"""
 """
 
 # ╔═╡ 6d65eee9-3564-4e85-9d2c-7d342c4bd522
-let 
-# missing code
+let
+    # missing code
 end
 
 # ╔═╡ 2d3dd206-37b5-47ed-9fa7-b684c04175da
@@ -273,7 +270,7 @@ md"""
 
 # ╔═╡ 6ba3fd7f-ca66-414a-9cf4-a93f1e63f9d4
 let
-# missing code
+    # missing code
 end
 
 # ╔═╡ 7b7c19d9-fdae-465d-aa08-76bd569d7884
@@ -283,8 +280,8 @@ md"""
 """
 
 # ╔═╡ dbb17042-73fc-4327-a0e5-84a56022c4a7
-let 
-# missing code
+let
+    # missing code
 end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -2226,7 +2223,7 @@ uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
 version = "1.64.0+1"
 
 [[deps.oneTBB_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl"]
+deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl"]
 git-tree-sha1 = "d5a767a3bb77135a99e433afe0eb14cd7f6914c3"
 uuid = "1317d2d5-d96f-522e-a858-c73665f53c3e"
 version = "2022.0.0+0"
