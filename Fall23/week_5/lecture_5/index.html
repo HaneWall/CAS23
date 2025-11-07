@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en">
+<head>
+
+<title>Newton-Verfahren — Pluto.jl</title>
+<meta name="description" content='' />
+
+<link rel="root" href="../.." />
+
+<link rel="icon" href="../../assets/favicon.ico" />
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+
+<link rel="stylesheet" href="../../assets/styles/index.css" type="text/css" />
+<link rel="stylesheet" href="../../assets/styles/layout.css" type="text/css" />
+<script src="../../assets/scripts/sidebar.js" type="module"></script>
+
+<link rel="pp-search-data" href="../../pp_search_data.json" />
+<script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js" integrity="sha256-DFDZACuFeAqEKv/7Vnu1Tt5ALa58bcWZegGGFNgET8g=" crossorigin="anonymous" defer></script>
+<script src="../../assets/scripts/search.js" type="module" defer></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.2.0/src/lite-yt-embed.js" integrity="sha256-wwYlfEzWnCf2nFlIQptfFKdUmBeH5d3G7C2352FdpWE=" crossorigin="anonymous" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.2.0/src/lite-yt-embed.css" integrity="sha256-99PgDZnzzjO63EyMRZfwIIA+i+OS2wDx6k+9Eo7JDKo=" crossorigin="anonymous">
+
+<meta name="viewport" content="width=device-width"><meta charset="utf-8">
+<meta name="pluto-insertion-spot-meta">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="white"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2a2928"><meta name="color-scheme" content="light dark"><link rel="pluto-external-source" id="pluto-logo-big" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/logo.49a14041.svg"><link rel="pluto-external-source" id="pluto-logo-small" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/favicon_unsaturated.c11d4d33.svg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/editor.521f36c3.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/editor.56af0651.css"><script type="module" src="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/index.5db535ae.js"></script><script type="module" src="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/editor.runtime.35154885.js"></script><script defer>console.log("Pluto.jl, by Fons van der Plas (https://github.com/fonsp), Mikołaj Bochenski (https://github.com/malyvsen), Michiel Dral (https://github.com/dralletje) and friends \uD83C\uDF08");</script><script src="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/editor.21e3b1fd.js" defer></script><link rel="pluto-external-source" id="vmsg-wasm" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/vmsg.56bb9389.wasm"><link rel="pluto-external-source" id="arrow_up_circle_icon" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/arrow-up-circle-outline.3f146ffe.svg"><link rel="pluto-external-source" id="document_text_icon" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/document-text-outline.8d1e2333.svg"><link rel="pluto-external-source" id="help_circle_icon" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/help-circle-outline.a023036a.svg"><link rel="pluto-external-source" id="open_icon" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/open-outline.87533923.svg"><script id="iframe-resizer-content-window-script" src="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/editor.69996afe.js" crossorigin defer></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/editor.a19283c8.css" type="text/css"><script data-pluto-file="launch-parameters">
+window.pluto_notebook_id = undefined;
+window.pluto_isolated_cell_ids = undefined;
+window.pluto_notebookfile = undefined;
+window.pluto_disable_ui = true;
+window.pluto_slider_server_url = undefined;
+window.pluto_binder_url = "https://mybinder.org/v2/gh/fonsp/pluto-on-binder/v0.20.19";
+window.pluto_statefile = undefined;
+window.pluto_preamble_html = undefined;
+window.pluto_recording_url = undefined;
+window.pluto_recording_audio_url = undefined;
+</script>
+
+<meta name="pluto-insertion-spot-parameters">
+<script src="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/editor.5a41e8b1.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/index.11569726.js"></script><link rel="pluto-external-source" id="MathJax-script" href="https://cdn.jsdelivr.net/gh/fonsp/Pluto.jl@0.20.19/frontend-dist/tex-svg-full.f72d1ae1.js" type="text/javascript">
+<meta name="pluto-insertion-spot-preload">
+
+
+</head>
+<body>
+    <div id="pages-layout">
+        <button id="toggle-nav" title="Open navigation"></button>
+        <nav id="pages-sidebar">
+        <div>
+        <ul>
+                <li class="sidebar-about">
+        <div class="course-title">
+            
+            <h1><a href="../.."><span>CMAS Julia</span></a></h1>
+            <h2><span>Computerorientierte Mathematik, Algorithmen und Strukturen</h2>
+        </div>
+        <div class="authors">
+            by <a href='http://www.jstarke.eu'>Prof. Jens Starke</a> &amp <a href='https://github.com/HaneWall'>Hannes Wallner</a>
+        </div>
+    </li>
+    <li>
+        <div class="search-bar">
+            <form action="../../search" method="GET">
+                <input type="search" name="q" placeholder="Search...">
+                <input type=submit value="🔎">
+            </form>
+        </div>
+    </li>
+
+            
+        <li>
+<h3>Willkommen</h3>
+<ul>
+<li class=' lecture'><a href='../../orga/'><span class="entry-number"></span> Kurslogistik</a></li><li class=' lecture'><a href='../../Expl_installation/' title=''><span class="entry-number"></span> Software Installation</a></li><li class=' lecture'><a href='../../cheatsheets/'><span class="entry-number"></span> Cheatsheets</a></li><li class=' lecture'><a href='../../whyjulia/'><span class="entry-number"></span> Warum Julia?</a></li>
+</ul>
+</li>
+<li>
+<h3>Grundlagen Julia</h3>
+<ul>
+<li class=' lecture'><a href='../../week_0/varfuncs/' title=''><span class="entry-number"></span> Variablen und Funktionen</a></li><li class=' lecture'><a href='../../week_0/loopcond/' title=''><span class="entry-number"></span> Schleifen und Bedingung</a></li><li class=' lecture'><a href='../../week_0/arrays/' title=''><span class="entry-number"></span> Arrays</a></li><li class=' lecture'><a href='../../week_0/plots/' title=''><span class="entry-number"></span> Plots mit Makie</a></li><li class=' homework'><a href='../../week_0/firststeps/'><span class="entry-number">Praktika 0:</span> Erste Schritte</a></li>
+</ul>
+</li>
+<li>
+<h3>Lehrmaterial</h3>
+<ul>
+<li class=' lecture'><a href='../../week_1/lecture_1/' title=''><span class="entry-number"></span> Heron-Verfahren</a></li><li class=' homework'><a href='../../week_1/assignment_1/' title='Abgabe 24.10.2025, 23:59 Uhr'><span class="entry-number">Praktika 1:</span> 1. Aufgabenblatt</a></li><li class=' lecture'><a href='../../week_2/lecture_2/' title=''><span class="entry-number"></span> Folgen</a></li><li class=' homework'><a href='../../week_2/assignment_2/' title='Abgabe 07.11.2025, 23:59 Uhr'><span class="entry-number">Praktika 2:</span> 2. Aufgabenblatt</a></li><li class=' lecture'><a href='../../week_3/lecture_3/' title=''><span class="entry-number"></span> Fixpunkt-Iterationen</a></li><li class=' homework'><a href='../../week_3/assignment_3/' title='Abgabe 14.11.2025, 23:59 Uhr'><span class="entry-number">Praktika 3:</span> 3. Aufgabenblatt</a></li><li class=' lecture'><a href='../../week_4/lecture_4/' title=''><span class="entry-number"></span> Logistische Abbildung</a></li><li class=' homework'><a href='../../week_4/assignment_4/' title='Abgabe 21.11.2024, 23:59 Uhr'><span class="entry-number">Praktika 4:</span> 4. Aufgabenblatt</a></li><li class='active lecture'><a href='../../week_5/lecture_5/' title=''><span class="entry-number"></span> Newton-Verfahren</a></li><li class=' homework'><a href='../../week_5/assignment_5/' title='Abgabe 28.11.2024, 23:59 Uhr'><span class="entry-number">Praktika 5:</span> 5. Aufgabenblatt</a></li>
+</ul>
+</li>
+
+                <li><hr></li>
+            <li class="sidebar-about">
+                <div class="semester-details">
+    <a href="../../semesters/">Winter 2025/2026</a>
+</div>
+<div class="logos">
+    <picture title='Universität Rostock'>
+        <source srcset="../../assets/white-logo-uni-julia.svg" media="(prefers-color-scheme: dark)" />
+        <img src="../../assets/black-logo-uni-julia.svg">
+    </picture>
+</div>
+
+            </li>
+        </ul>
+        </div>
+        </nav>
+        <div id="pages-content">
+           
+        <pluto-editor statefile='../../generated_assets/lecture_5_f774fcc8.plutostate' notebookfile='../../generated_assets/lecture_5_237710fa.jl' disable-ui=''></pluto-editor>
+
+        </div>
+    </div>
+</body>
+</html>
