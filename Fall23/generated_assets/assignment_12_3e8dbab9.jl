@@ -2,9 +2,9 @@
 # v0.20.19
 
 #> [frontmatter]
-#> homework_number = "12"
-#> order = 12.5
-#> title = "12. Aufgabenblatt"
+#> homework_number = "13"
+#> order = 13.5
+#> title = "13. Aufgabenblatt"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments", "homeworks"]
 #> description = "Abgabe 30.01.2025, 23:59 Uhr"
@@ -12,19 +12,19 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 9429f399-7467-420e-afcf-b9181af88270
+# ╔═╡ 97bc76ac-b166-4494-b9c1-b73e5ab8d389
 begin
-    using Colors
-    using Luxor
-    using CairoMakie
+    using CairoMakie # zum Plotten
+    using Statistics # erweiterte Statistikfunktionen
+    using Distributions # um Werte aus einer Distribution zu samplen
 end
 
-# ╔═╡ c2da9ba4-baae-11ee-0cc3-b57fbb77937a
+# ╔═╡ b3d978dd-3041-4ec7-aec0-bd53ec21e75d
 md"""
 ## Pakete die wir benötigen:
 """
 
-# ╔═╡ dbb3d523-1cf0-4112-b04c-68b50395e830
+# ╔═╡ a2a2794e-b539-11ee-07f7-97293df3f0ca
 html"""
 	<h1 style="text-align:center">
 		Computerorientierte Mathematik, Algorithmen & Strukturen
@@ -39,235 +39,274 @@ html"""
 	</div>
 """
 
-# ╔═╡ 7f23773c-162f-4150-aa66-033410ab3d2c
+# ╔═╡ 4e12467e-8d8f-418d-a4f6-13833e4c23eb
 md"""
-*Vorlesung*: Prof. J. Starke, Prof. H. Köster
+*Vorlesung*: Prof. H. Kösters
 
-*Praktika*: C. Rönnfeld, N. Kruse & H. Wallner
+*Praktika*: M.Beller, C. Rönnfeld, N. Kruse & H. Wallner
 """
 
-# ╔═╡ db223a90-32e2-45b3-a108-a8c3ada4f92e
+# ╔═╡ a8e2ab68-42df-4e36-820b-21433dc47746
+md"""
+**Abgabe bis**: siehe StudIP im "Aufgaben"-Menü der Vorlesung.
+"""
+
+# ╔═╡ a3e215d7-d14c-420e-8a97-729bc7ee145f
 md"""
 > Fügen Sie in der unteren Zelle Ihre Daten ein und drücken Sie anschließend 		`shift` + `enter` zum Ausführen der Zelle. Nun sollte sich oben alles angepasst haben. 
 """
 
-sca
-# ╔═╡ de0a31bd-47b4-47e8-b361-d91e3667f73a
+# ╔═╡ 5d809482-7fd7-406d-be8f-dc6abb384f06
 student = Dict("name" => "Max Mustermann", "fach" => "Studiumsfach", "matrikelnr" => "1234")
 
-# ╔═╡ 82750fe5-3bdb-4b89-8bf5-19422d6daaaf
+# ╔═╡ 29f74c73-90d7-4163-92a7-df99f3f6c3f8
 md"""
 **Autor der Abgabe**: $(student["name"]), **MNR**: $(student["matrikelnr"]), **Fach**: $(student["fach"])
 """
 
-# ╔═╡ cdc8e99b-6234-40b4-ad4d-e45fecec337b
+# ╔═╡ 06370a0e-a331-47de-8be3-8bb02314f1ad
 md"""
-> ### Lernziele:
->> - Wiederholung komplexe Zahlen 
->> - Attraktorgebiete von iterativen Verfahren
->> - Box-Counting-Dimension
+!!! danger "Hinweis"
+	Es empfiehlt sich die Aufzeichnungen der Vorlesung von H. Kösters parallel anzusehen (Quellen auf StudIP).
 """
 
-# ╔═╡ 2fd03893-0248-4b34-83a1-05752da8f9dd
+# ╔═╡ 0f5f58b4-29b3-4f00-b0bb-f73dac14828c
 md"""
-## Teil 1: Mandelbrot-Menge
+## Teil 1
 """
 
-# ╔═╡ 12b2542f-f0d6-4d17-9957-8c91f9648c4e
+# ╔═╡ 3aa4afac-2348-4756-95a0-15d8db182cf3
 md"""
-> #### Preliminaries
->> Die Mandelbrot-Menge wird beschrieben durch alle komplexen Zahlen $c=x+\mathrm{i} y$, für die die rekursiv definierte Folge $z_{n+1}=z_n^2+c$ mit $z_0=0$ beschränkt bleibt. Als Schranke kann man $|z_i|<2$ setzen."""
+>#### Preliminaries
+>> Ähnlich wie in Beispiel 2 der Vorlsung von Holger Kösters wird mit dem folgenden MAPLE-Code ein Näherungswert für die Wahrscheinlichkeit für das Ereignis "zweimal gleiche Augenzahl" bestimmt
 
-# ╔═╡ 2e2ad7ea-ce8c-4ee3-bc6e-dd32ddf8c837
+`sample1 := Sample(pt, 10000);`
+
+`sample2 := Sample(pt, 10000);`
+
+`add(sample1 =~ sample2)/ 10000;`
+
+>> In der letzten Zeile wird die relative Häufigkeit für das Ergebnis "zweimal gleiche Augenzahl" mit Hilfe von elementweisen Operationen für Arrays/Listen (gekennzeichnet durch die Tilde ~) bestimmt.
+"""
+
+# ╔═╡ 47c44e15-9e58-4b63-aa29-e844a5789ccc
 md"""
 > #### Aufgabe 1a)
->> Schreiben Sie eine Funktion `mandelbrot`, die für gegebene $x,y$ die Folgenglieder $z_i$ bestimmt. Zählen Sie hierbei die Iterationsschritte, solange die Iterierten die gegebene Schranke nicht überschreiten, mit einer maximalen Iterationsanzahl von  $50$. Nutzen Sie als Rückgabewert die gezählten Iterationsschritte. 
+>> Übersetzen Sie den Code in Julia mit Hilfe des Befehls `rand(a:b, N)`. Dieser erzeugt dabei $N$ gleichverteile ganze Zahlen zwischen $a$ und $b$ (inklusive Grenzen). 
 """
 
-# ╔═╡ 6023be98-dbf6-4020-92d2-d2ed78e2fbdb
-md"""
-!!! warning "Hinweis: Komplexe Zahlen in Julia"
-	In Julia können komplexe Zahlen durch `z = a + im*b` erzeugt werden. Dabei ist a der Realteil und b der Imaginärteil. Nach der Initialisierung können wir auf `a` durch `z.re` und auf `b` durch `z.im` zurückgreifen.
-"""
-
-# ╔═╡ 196b5c37-5167-44bb-8f17-adcb2818900e
-begin
+# ╔═╡ 7dfc3a8b-0cc1-4a8c-be54-5a9a2c27388c
+let
     #missing code
 end
 
-# ╔═╡ 9ed23cfe-4c07-407a-9e25-eedc1467716e
+# ╔═╡ a108bde2-5e73-4f14-9425-0e2afce52ef2
 md"""
 > #### Aufgabe 1b)
->> Nutzen Sie geignete plot-Befehle, um die Mandelbrotmenge für die Intervalle $x,y \in [-2,0.7]\times[-1.2,1.2]$ und $x,y \in [-0.83561,-0.78523]\times[0.15559,0.19343]$ darzustellen. Machen Sie sich hierfür noch einmal mit Makie und 3D-Grafiken vertraut. Nutzen Sie ein 150 $\times$ 150 Gitter. 
+>> Da hier nur die relative Häufigkeit nach s=10000 Schritten berechnet werden soll, ist eine Zwischenspeicherung von Simulationsergebnissen nicht erforderlich. Ändern Sie ihr Programm aus Teil a) ao ab, dass es ohne die Verwendung von Arrays auskommt.   
 """
 
-# ╔═╡ 6657d447-253f-4ac8-a426-bf90f92669ac
-begin
+# ╔═╡ 2b569cfb-936b-4fee-b17b-dd1cea129233
+let
     #missing code
 end
 
-# ╔═╡ 15f78543-f4d1-4d47-8be8-03e45ea25006
+# ╔═╡ 37b38b5b-16d9-4f0b-97a9-07b62e571132
 md"""
-> #### Aufgabe 1c)
->> Um eine bessere Art der Darstellung zuerzielen,erweitern Sie beide Plots um ein 150×150 Gitter. Außerdem soll eine Draufsicht der Figur erzeugt werden.
+## Teil 2: Chevalier de Méré
 """
 
-# ╔═╡ e4903e2e-ec02-4f0b-825f-18689236ff32
-begin
+# ╔═╡ d421c935-77a7-4f18-ad54-7dd30d5e232a
+md"""
+> #### Preliminaries
+>> Das folgende Programm führt uns zu den Anfängen der modernen Stochastik zurück; es soll nämlich im 17. Jahrhundert des Glücksspieler $\textit{Chevalier de M\'er\'e}$ beschäftigt und zu einem Briefwechsel zwischen ihm und dem Mathematiker $\textit{Blaise Pascal}$ geführt haben.
+
+"""
+
+# ╔═╡ 0520fe4c-9927-42ed-bef3-714b9eb920d3
+md"""
+>> Es werden 3 gewöhnliche Würfel (gleichzeitig) geworfen und die entstehende Augensumme notiert. Offensichtlich gibt es 6 Möglichkeiten, auf 11 zu kommen 
+
+>> $(6-4-1), (6-3-2), (5-5-1), (5-4-2), (5-3-3), (4-4-3)$
+
+>>und 6 Möglichkeiten, auf 12 zu kommen. 
+
+>>$(6-5-1), (6-4-2), (6-3-3), (5-5-2), (5-4-3), (4-4-4)$
+
+>>Man könnte daher vermuten, dass beide Ergebnisse die gleiche Wahrscheinlichkeit besitzen. Wiederholt man das Experiment hinreichend oft, so lässt sich allerdings beobachten, dass die Augenzahl häufiger 11 als 12 beträgt.  
+"""
+
+# ╔═╡ a64b376f-d4f8-4c77-a9a9-5d7fc5d2c411
+md"""
+> #### Aufgabe 2a)
+>> Bestätigen Sie Ihre Beobachtung mit Hilfe einer geeigneten Simualtion. 
+"""
+
+# ╔═╡ 736198ea-d8dc-4008-82f1-6d80229077fa
+let
     #missing code
 end
 
-# ╔═╡ b2c11c9b-c992-4b10-a6a7-3d744bec2c51
+# ╔═╡ 270edf87-0d78-4831-8a50-45cdd96c8068
 md"""
-> #### Aufgabe 1d)
->> Da die farbliche Darstellung nun nicht mehr optimal ist, muss diese noch geändert werden. Dies kann realisiert werden, indem man als Farbe die Funktion aus Teilaufgabe a) übergibt.
+> #### Aufgabe 2b)
+>> Erklären Sie den scheinbaren Widerspruch.
 """
 
-# ╔═╡ 31669c3f-d9fd-42e3-89f7-86f14a39235a
-begin
-    #missing code
-end
-
-# ╔═╡ 4a1f50b3-8301-455e-8ec5-f9573761e7d0
-md"""
-> #### Aufgabe 1e)
->> Konvertieren Sie das Bild in eine 2D Grafik, indem Sie den ersten Parameter als 0 übergeben und vermeiden Sie, dass das Gitter in der Grafik dargestellt wird.
-"""
-
-# ╔═╡ 5535597a-22c5-409f-8500-f662aebed785
-begin
-    #missing code
-end
-
-# ╔═╡ 06ada909-87bf-4949-b1dc-ff58549f09e1
-md"""
-> #### Aufgabe 1f)
->> Variieren Sie den dargestellten Bereich.
-"""
-
-# ╔═╡ 781e01fb-c9b5-4561-889f-c1df9e4986f6
-begin
-    #missing code
-end
-
-# ╔═╡ 3a34b575-2399-44ce-adc0-d29ec7b0fbb2
-md"""
-> #### Zusatzaufgabe 1g*)
->> Zeigen Sie, dass die Folge divergiert, wenn bereits $|c| > 2$ gewählt wird, also $|c| = 2 + t, t > 0.$ Zeigen Sie hierfür, per Induktion, dass $|z_n| ≥ 2 + n · t$ gilt. Begründen Sie anschließend, warum es ausreicht, diese Ungleichung zu zeigen.
-
-"""
-
-# ╔═╡ 298d80e8-9ae6-4470-9725-065fc5f46d8a
+# ╔═╡ 86239573-6d79-4c71-818d-f80fef5263ce
 md"""
 text
 """
 
-# ╔═╡ a35840b5-8a3f-48be-8a12-fbe3129b6f25
+# ╔═╡ 63f3bcc9-f9e3-4257-ba08-c4afad2d7042
 md"""
-## Teil 2: Attraktorgebiete des Newton-Verfahrens im Komplexen
+## Teil 3: Gefälschte Hausaufgabe 
 """
 
-# ╔═╡ b8134c42-652f-4b0f-af05-947a4b9a7930
+# ╔═╡ 5830fd4e-cb08-485a-a75d-cbd8d098dc09
 md"""
 > #### Preliminaries
->> Die Nullstellen der Funktion $f:\mathbb{C}\rightarrow \mathbb{C}$ mit $f(z)=z^3-1$ sind durch $z^{(0)}=1$, $z^{(1)}=e^{\frac{2\pi i}{3}}$ und $z^{(2)}=e^{-\frac{2\pi i}{3}}$ gegeben.
+>> Wir betrachten Beispiel 5 aus der Vorlesung von Holger Kösters und wollen die Echtheit der Liste dieses Mal aber anhand der Anzahl der Wechsel zwischen Nullen und Einsen oder Einsen und Nullen überprüfen. 
 """
 
-# ╔═╡ 3bf5db49-ebae-4e47-a49c-5bfd6ac666c4
+# ╔═╡ 4f778f00-0a0b-4763-a575-8cbfdcbd9aba
 md"""
-> #### Aufgabe 2a)
->> Schreiben Sie eine Funktion in Julia, die die Nullstellen mit dem Newton-Verfahren berechnet. Ihre Funktion soll als Eingabe den (komplexwertigen) Startwert zur Initialisierung einlesen und soll die approximierte Nullstelle ausgeben. Wählen Sie hierfür eine Toleranz, so dass Ihr Resultat auf drei signifikante Stellen genau ist.
-"""
-
-# ╔═╡ aa738340-fc55-49ce-b862-bdb1adf1885e
-begin
-    #missing code
-end
-
-# ╔═╡ fcd49655-bad0-406c-aa22-cf88ecedf9d4
-md"""
-> #### Aufgabe 2b)
->> Testen Sie Ihre Funktion mit den Startwerten $z_0=\frac{1}{2}$, $z_0=\frac{1}{2}+i$ und $z_0=\frac{1}{2}-i$.
-"""
-
-# ╔═╡ 29973056-7171-4463-ab1f-4f7160487f8c
-begin
-    #missing code
-end
-
-# ╔═╡ d073c75b-2b0b-489e-8712-5586c6ca0498
-md"""
-> #### Aufgabe 2c)
->> Es sollen nun durch Anfärben aller Startwerte in der komplexen Ebene entsprechend der Grenzwerte $z^{(0)}$, $z^{(1)}$ oder zu $z^{(2)}$ , zu denen sie konvergieren, die sogenannten Attraktorgebiete dieser Grenzwerte des Iterationsverfahrens erhalten werden. Um dies zu erreichen, definiert man eine Funktion die den Real- und den Imaginärteil des Startwertes auf den Imaginärteil der Ausgabe des Newton-Verfahrens abbildet. Werten Sie diese Funktion für die im Teil b) erwähnten Startwerte aus. Welche Eigenschaft besitzt diese Funktion?
-"""
-
-# ╔═╡ 158c38fd-9609-4d0f-b8e3-b395d4af35a8
-begin
-    #missing code
-end
-
-# ╔═╡ cd33943d-3543-4fa0-804c-e752a44081a0
-md"""
-> #### Aufgabe 2d)
->> Erstellen Sie einen Dichte-Plot der im Teil c) definierten Funktion in der komplexen Ebene. Zu diesem Zweck soll eine geeigenete Makie Plot-Funktion mit geeigneten Optionen (z.B. bzgl. des Gitters und der Art des Plottes) benutzt werden. Erstellen Sie auch eine Abbildung eines Ausschnittes der komplexen Ebene auf einer feineren Skala, so dass interessante Eigenschaften sichtbar werden."""
-
-# ╔═╡ 4fdbddf2-97c9-4879-8242-ddcabc0c2516
-begin
-    #missing code
-end
-
-# ╔═╡ 4a2e8b4d-d177-4bb0-8964-d9e26a4629c0
-md"""
-## Teil 3: Hausaufgabe: Berechnung der Fraktalen Dimension  der Koch-Kurve als Box-Counting-Dimension
-"""
-
-# ╔═╡ 190bed26-2bec-4665-ab4e-ded2c8eb49e8
-md"""
-> #### Preliminaries 
->> Nutzen Sie erneut das auf den letzten Assignment genutzte Lindenmayer-System.
-"""
-
-# ╔═╡ 99fc99f6-36a3-4f6c-aad0-0a06a83dfb98
-md"""
-!!! warning "3a)"
-	Berechnen Sie die Box-Counting-Dimension der Koch-Kurve entsprechend der Ideen, die dazu in der Vorlesung vermittelt wurden. Hinweis: Pro Strecke kann eine Box verwendet werden
-"""
-
-# ╔═╡ f0dfd2af-4bc3-47f5-ae5d-0351c1120b8b
-let
-    #code
-end
-
-# ╔═╡ 7eda6966-5ed1-40c9-b3cf-f4fa91f866e2
-md"""
-## Feedback zur Website/Julia
-"""
-
-# ╔═╡ b384882b-0b23-48b5-ba0d-ea81ef631eed
-md"""
-!!! warning "Hannes hier:"
-	Hi, ich waere euch sehr dankbar, wenn ihr mir allgemein Feedback zur Website oder allgemein zum Seminar geben koenntet. Sollte ich strukturierter Definition auf dieser Website einfuegen? Denkt Ihr, Julia bietet sich fuer Erstsemester besser an als Maple? Wuerdet Ihr ein Tutorial wollen, indem erklaert wird, wie man ausserhalb der Pluto Umgebung in einen Code-Editor Julia programmiert? Habt ihr Aufgaben/Themen, die wir unbedingt in dieser Website auflisten sollten? etc. 
+> #### Aufgabe 3a)
+>> Schreiben Sie eine Funktion `changes`, welche ein Array mit Einsen und Nullen übergeben wird und die Anzahl der Wechsel zurückgibt. 
 	
-	Cheers Hannes
+	Beispiel: `changes([1, 0, 0, 1, 0, 0, 0, 0, 1, 1]) = 4`
 """
 
-# ╔═╡ 0e77a876-c179-457a-9e7b-93f5153b8c53
+# ╔═╡ 20972438-39cf-400a-b829-fe6a6aa56c10
+let
+    #missing code
+end
+
+# ╔═╡ 16ed6ae7-a9d3-4c2f-8524-1dccd5fa5336
 md"""
-- stichpunkt
-- stichpunkt
+> #### Aufgabe 3b)
+>> Untersuchen Sie mittels Monte-Carlo-Simulation die Verteilung der Anzahl der Wechsel in einer Liste von 100 Münzwurfergbenissen. Wie beurteilen Sie Fritzchens Hausaufgabe angesichts dieser Ergebnisse?
 """
+
+# ╔═╡ 0b78a08c-893d-4c64-8848-28c137b00330
+let
+    #missing code
+end
+
+# ╔═╡ fc20b9d1-4a8e-4c22-af14-9a2421e6edb9
+md"""
+!!! danger "3c)*"
+	Man kann zeigen, dass die Verteilung in 3b) die sogenannte Binomialverteilung zu den Parametern `n=99` und `p=0.5` ist. (Das sollen Sie hier aber nicht tun) Informieren Sie sich über die Binomialverteilung und zeichnen Sie diese zum Vergleich in das Histrogramm aus 3b) ein!
+"""
+
+# ╔═╡ 4f1dae50-603d-49f3-a2b8-2c813ee40988
+let
+    #missing code
+end
+
+# ╔═╡ bb48c5fb-df25-4d53-b36c-70fea7a80673
+md"""
+# (Haus)aufgabe 4: Approximation von $\pi$
+"""
+
+# ╔═╡ ab5b8cc3-dcc6-47da-9444-5dd9640845f1
+md"""
+> #### Aufgabe 4a)
+>> Schreiben Sie eine Funktion `approx_pi`, welche zwei postive Zahlen $n, R \in \mathbb{N}$ übergeben werden und welche ein Array von $n$ Punkten mit je zwei zufälligen Koordinaten $x_i$ und $y_i$ aus dem Intervall $[-R, R]$ erzeugt.
+"""
+
+# ╔═╡ 14f0c991-7321-4109-b937-f6a433fb0a52
+md"""
+!!! danger "Hinweis"
+	Nutzen Sie den Befehl `rand(Uniform(a,b), N)` um `N` Punkte aus einer gleichverteilten Distribution in den Grenzen `a` und `b` zu erzeugen.
+"""
+
+# ╔═╡ 43a4d22a-6f36-4e85-9f3a-fa398cfd9e4f
+let
+    #missing code
+end
+
+# ╔═╡ e5f5a4d6-0192-40d8-b690-e6694a50b86d
+md"""
+> #### Aufgabe 4b)
+>> Bestimmen Sie nun in Ihrer Funktion die Anzahl A der Punkte ($x_i,y_i$), die im Innern des Kreises $x^2+y^2=R^2$ liegen, und berechnen daraus den Wert $4 A/n$, der eine Näherung für die Kreiszahl $\pi$ ist.
+"""
+
+# ╔═╡ 33d09181-2868-4b05-96fb-b6650bc49f1a
+let
+    #missing code
+end
+
+# ╔═╡ 701b5932-64c5-4aa9-bc4a-ccce6909c300
+md"""
+> #### Aufgabe 4c)
+>> Testen Sie ihre Funktion mit verschiedenen Eingabewerten. Für $n = R = 1000$ soll der Sachverhalt abschließend geeignet graphisch dargestellt und der Näherungswert für $\pi$ mit genau drei Nachkommastellen zurückgegeben werden Ergänzen Sie entsprechend der benötigten Ausgabewerte Ihre Funktion.
+"""
+
+# ╔═╡ 7c5f34c4-8a03-48f5-b9c8-b4bbd4c787d3
+let
+    #missing code
+end
+
+# ╔═╡ dea304e5-5916-4990-9917-9a21266f94c0
+md"""
+## Zusatzaufgabe 5: Sammelbilder
+"""
+
+# ╔═╡ a14de038-31ba-4dae-8610-6eb46b74c859
+md"""
+Bei einer Sammelbildaktion eines Schokoladenriegelherstellers 
+können 10 Sammelbilder gesammelt werden. Jeder Schokoladenriegel enthält genau ein Sammelbild, das man vor dem Öffnen der Verpackung natürlich nicht sehen kann.
+Wir wollen vereinfachend annehmen, dass alle Sammelbilder gleich oft vorkommen.
+Sie kaufen und öffnen so lange Schokoladenriegel, bis Sie alle Sammelbilder zusammenhaben (ohne diese zu tauschen).
+"""
+
+# ╔═╡ bfa9a76b-103d-4e2e-9cb1-ef15cb93604b
+md"""
+!!! danger "5a)*"
+	Schreiben Sie ein Programm, die Ihre Strategie zum Sammeln aller Sammelbilder simuliert. Das Endergebnis soll die (zufällige) Anzahl der Schokoladenriegel sein,
+	nach der Sie alle Sammelbilder zusammenhaben.
+"""
+
+# ╔═╡ 710ac1c1-d423-4b99-95c6-9260b4844b21
+begin
+    #missing code
+end
+
+# ╔═╡ 13bae35d-580f-4a49-8859-96410f4d7003
+md"""
+!!! danger "5b)*"
+	Schreiben Sie ein Programm, das Ihre Simulation aus Teil 5a)
+	1000-mal verwendet und am Ende einen Näherungswert
+	für die $\textit{mittlere}$ Anzahl der Schokoladenriegel bestimmt, nach der Sie alle Sammelbilder zusammenhaben.
+"""
+
+# ╔═╡ 953b1980-9428-4551-8f05-6f9c34cd094e
+begin
+    #missing code
+end
+
+# ╔═╡ 8e8eb692-690f-4235-a6b9-521ee5254e4e
+md"""
+!!! danger "5c)"
+	Wie ändern sich die Resultate, wenn 2 der 10 Sammelbilder seltener (etwa nur halb so oft) vorkommen?
+"""
+
+# ╔═╡ 214f7f8a-2dca-4b14-8d9d-8bb45df00950
+begin
+    #missing code
+end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
-Colors = "5ae59095-9a9b-59fe-a467-6f913c188581"
-Luxor = "ae8d54c2-7ccd-5906-9d76-62fc9837b5bc"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
 CairoMakie = "~0.15.6"
-Colors = "~0.12.11"
-Luxor = "~4.1.0"
+Distributions = "~0.25.122"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -276,7 +315,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.12.0"
 manifest_format = "2.0"
-project_hash = "5ac7d1f999ed1e816dc7b1a85240dea546178d38"
+project_hash = "12c632e3c5252d2ce9c55d2850ae5e7606aec5e3"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -426,15 +465,19 @@ version = "3.31.0"
 
 [[deps.ColorTypes]]
 deps = ["FixedPointNumbers", "Random"]
-git-tree-sha1 = "b10d0b65641d57b8b4d5e234446582de5047050d"
+git-tree-sha1 = "67e11ee83a43eb71ddc950302c53bf33f0690dfe"
 uuid = "3da002f7-5984-5a60-b8a6-cbb66c0b333f"
-version = "0.11.5"
+version = "0.12.1"
+weakdeps = ["StyledStrings"]
+
+    [deps.ColorTypes.extensions]
+    StyledStringsExt = "StyledStrings"
 
 [[deps.ColorVectorSpace]]
 deps = ["ColorTypes", "FixedPointNumbers", "LinearAlgebra", "Requires", "Statistics", "TensorCore"]
-git-tree-sha1 = "a1f44953f2382ebb937d60dafbe2deea4bd23249"
+git-tree-sha1 = "8b3b6f87ce8f65a2b4f857528fd8d70086cd72b1"
 uuid = "c3611d14-8923-5661-9e6a-0046d554d3a4"
-version = "0.10.0"
+version = "0.11.0"
 weakdeps = ["SpecialFunctions"]
 
     [deps.ColorVectorSpace.extensions]
@@ -442,9 +485,9 @@ weakdeps = ["SpecialFunctions"]
 
 [[deps.Colors]]
 deps = ["ColorTypes", "FixedPointNumbers", "Reexport"]
-git-tree-sha1 = "362a287c3aa50601b0bc359053d5c2468f0e7ce0"
+git-tree-sha1 = "37ea44092930b1811e666c3bc38065d7d87fcc74"
 uuid = "5ae59095-9a9b-59fe-a467-6f913c188581"
-version = "0.12.11"
+version = "0.13.1"
 
 [[deps.Compat]]
 deps = ["TOML", "UUIDs"]
@@ -489,10 +532,10 @@ uuid = "9a962f9c-6df0-11e9-0e5d-c546b8b5ee8a"
 version = "1.16.0"
 
 [[deps.DataStructures]]
-deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
-git-tree-sha1 = "4e1fe97fdaed23e9dc21d4d664bea76b65fc50a0"
+deps = ["OrderedCollections"]
+git-tree-sha1 = "6c72198e6a101cccdd4c9731d3985e904ba26037"
 uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
-version = "0.18.22"
+version = "0.19.1"
 
 [[deps.DataValueInterfaces]]
 git-tree-sha1 = "bfc1187b79289637fa0ef6d4436ebdfe6905cbd6"
@@ -569,17 +612,11 @@ git-tree-sha1 = "b309b36a9e02fe7be71270dd8c0fd873625332b4"
 uuid = "411431e0-e8b7-467b-b5e0-f676ba4f2910"
 version = "0.1.6"
 
-[[deps.FFMPEG]]
-deps = ["FFMPEG_jll"]
-git-tree-sha1 = "53ebe7511fa11d33bec688a9178fac4e49eeee00"
-uuid = "c87230d0-a227-11e9-1b43-d7ebe4e7570a"
-version = "0.4.2"
-
 [[deps.FFMPEG_jll]]
 deps = ["Artifacts", "Bzip2_jll", "FreeType2_jll", "FriBidi_jll", "JLLWrappers", "LAME_jll", "Libdl", "Ogg_jll", "OpenSSL_jll", "Opus_jll", "PCRE2_jll", "Zlib_jll", "libaom_jll", "libass_jll", "libfdk_aac_jll", "libvorbis_jll", "x264_jll", "x265_jll"]
-git-tree-sha1 = "466d45dc38e15794ec7d5d63ec03d776a9aff36e"
+git-tree-sha1 = "eaa040768ea663ca695d442be1bc97edfe6824f2"
 uuid = "b22a6f82-2f65-5046-a5b2-351ab43fb4e5"
-version = "4.4.4+1"
+version = "6.1.3+0"
 
 [[deps.FFTW]]
 deps = ["AbstractFFTs", "FFTW_jll", "Libdl", "LinearAlgebra", "MKL_jll", "Preferences", "Reexport"]
@@ -1012,12 +1049,6 @@ git-tree-sha1 = "3acf07f130a76f87c041cfb2ff7d7284ca67b072"
 uuid = "4b2f31a3-9ecc-558c-b454-b3730dcb73e9"
 version = "2.41.2+0"
 
-[[deps.Librsvg_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pango_jll", "Pkg", "XML2_jll", "gdk_pixbuf_jll"]
-git-tree-sha1 = "ae0923dab7324e6bc980834f709c4cd83dd797ed"
-uuid = "925c91fb-5dd6-59dd-8e8c-345e74382d89"
-version = "2.54.5+0"
-
 [[deps.Libtiff_jll]]
 deps = ["Artifacts", "JLLWrappers", "JpegTurbo_jll", "LERC_jll", "Libdl", "XZ_jll", "Zlib_jll", "Zstd_jll"]
 git-tree-sha1 = "f04133fe05eff1667d2054c53d59f9122383fe05"
@@ -1054,16 +1085,6 @@ version = "0.3.29"
 [[deps.Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 version = "1.11.0"
-
-[[deps.Luxor]]
-deps = ["Base64", "Cairo", "Colors", "DataStructures", "Dates", "FFMPEG", "FileIO", "PolygonAlgorithms", "PrecompileTools", "Random", "Rsvg"]
-git-tree-sha1 = "134570038473304d709de27384621bd0810d23fa"
-uuid = "ae8d54c2-7ccd-5906-9d76-62fc9837b5bc"
-version = "4.1.0"
-weakdeps = ["LaTeXStrings", "MathTeXEngine"]
-
-    [deps.Luxor.extensions]
-    LuxorExtLatex = ["LaTeXStrings", "MathTeXEngine"]
 
 [[deps.MKL_jll]]
 deps = ["Artifacts", "IntelOpenMP_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "oneTBB_jll"]
@@ -1272,11 +1293,6 @@ git-tree-sha1 = "3ca9a356cd2e113c420f2c13bea19f8d3fb1cb18"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
 version = "1.4.3"
 
-[[deps.PolygonAlgorithms]]
-git-tree-sha1 = "a5ded6396172cff3bacdd1354d190b93cb667c4b"
-uuid = "32a0d02f-32d9-4438-b5ed-3a2932b48f96"
-version = "0.2.0"
-
 [[deps.PolygonOps]]
 git-tree-sha1 = "77b3d3605fc1cd0b42d95eba87dfcd2bf67d5ff6"
 uuid = "647866c9-e3ac-4575-94e7-e3d426903924"
@@ -1386,12 +1402,6 @@ version = "0.5.1+0"
 git-tree-sha1 = "40b9edad2e5287e05bd413a38f61a8ff55b9557b"
 uuid = "5eaf0fd0-dfba-4ccb-bf02-d820a40db705"
 version = "0.2.1"
-
-[[deps.Rsvg]]
-deps = ["Cairo", "Glib_jll", "Librsvg_jll"]
-git-tree-sha1 = "3d3dc66eb46568fb3a5259034bfc752a0eb0c686"
-uuid = "c4c386cf-5103-5370-be45-f3a111cca3b8"
-version = "1.0.0"
 
 [[deps.SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
@@ -1665,12 +1675,6 @@ git-tree-sha1 = "c1a7aa6219628fcd757dede0ca95e245c5cd9511"
 uuid = "efce3f68-66dc-5838-9240-27a6d6f5f9b6"
 version = "1.0.0"
 
-[[deps.XML2_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Zlib_jll"]
-git-tree-sha1 = "80d3930c6347cfce7ccf96bd3bafdf079d9c0390"
-uuid = "02c8fc9c-b97f-50b9-bbe4-9be30ff0a78a"
-version = "2.13.9+0"
-
 [[deps.XZ_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "fee71455b0aaa3440dfdd54a9a36ccef829be7d4"
@@ -1730,12 +1734,6 @@ git-tree-sha1 = "446b23e73536f84e8037f5dce465e92275f6a308"
 uuid = "3161d3a3-bdf6-5164-811a-617609db77b4"
 version = "1.5.7+1"
 
-[[deps.gdk_pixbuf_jll]]
-deps = ["Artifacts", "Glib_jll", "JLLWrappers", "JpegTurbo_jll", "Libdl", "Libtiff_jll", "Xorg_libX11_jll", "libpng_jll"]
-git-tree-sha1 = "86e7731be08b12fa5e741f719603ae740e16b666"
-uuid = "da03df04-f53b-5353-a52f-6a8b0620ced0"
-version = "2.42.10+0"
-
 [[deps.isoband_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "51b5eeb3f98367157a7a12a1fb0aa5328946c03c"
@@ -1750,9 +1748,9 @@ version = "3.13.1+0"
 
 [[deps.libass_jll]]
 deps = ["Artifacts", "Bzip2_jll", "FreeType2_jll", "FriBidi_jll", "HarfBuzz_jll", "JLLWrappers", "Libdl", "Zlib_jll"]
-git-tree-sha1 = "e17c115d55c5fbb7e52ebedb427a0dca79d4484e"
+git-tree-sha1 = "125eedcb0a4a0bba65b657251ce1d27c8714e9d6"
 uuid = "0ac62f75-1d6f-5e53-bd7c-93b484bb37c0"
-version = "0.15.2+0"
+version = "0.17.4+0"
 
 [[deps.libblastrampoline_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -1806,60 +1804,64 @@ uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
 version = "17.5.0+2"
 
 [[deps.x264_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "4fea590b89e6ec504593146bf8b988b2c00922b2"
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "14cc7083fc6dff3cc44f2bc435ee96d06ed79aa7"
 uuid = "1270edf5-f2f9-52d2-97e9-ab00b5d0237a"
-version = "2021.5.5+0"
+version = "10164.0.1+0"
 
 [[deps.x265_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "ee567a171cce03570d77ad3a43e90218e38937a9"
+deps = ["Artifacts", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "e7b67590c14d487e734dcb925924c5dc43ec85f3"
 uuid = "dfaa095f-4041-5dcd-9319-2fabd8486b76"
-version = "3.5.0+0"
+version = "4.1.0+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─c2da9ba4-baae-11ee-0cc3-b57fbb77937a
-# ╠═9429f399-7467-420e-afcf-b9181af88270
-# ╟─dbb3d523-1cf0-4112-b04c-68b50395e830
-# ╟─7f23773c-162f-4150-aa66-033410ab3d2c
-# ╟─82750fe5-3bdb-4b89-8bf5-19422d6daaaf
-# ╟─db223a90-32e2-45b3-a108-a8c3ada4f92e
-# ╠═de0a31bd-47b4-47e8-b361-d91e3667f73a
-# ╟─cdc8e99b-6234-40b4-ad4d-e45fecec337b
-# ╟─2fd03893-0248-4b34-83a1-05752da8f9dd
-# ╟─12b2542f-f0d6-4d17-9957-8c91f9648c4e
-# ╟─2e2ad7ea-ce8c-4ee3-bc6e-dd32ddf8c837
-# ╟─6023be98-dbf6-4020-92d2-d2ed78e2fbdb
-# ╠═196b5c37-5167-44bb-8f17-adcb2818900e
-# ╟─9ed23cfe-4c07-407a-9e25-eedc1467716e
-# ╠═6657d447-253f-4ac8-a426-bf90f92669ac
-# ╟─15f78543-f4d1-4d47-8be8-03e45ea25006
-# ╠═e4903e2e-ec02-4f0b-825f-18689236ff32
-# ╟─b2c11c9b-c992-4b10-a6a7-3d744bec2c51
-# ╠═31669c3f-d9fd-42e3-89f7-86f14a39235a
-# ╟─4a1f50b3-8301-455e-8ec5-f9573761e7d0
-# ╠═5535597a-22c5-409f-8500-f662aebed785
-# ╟─06ada909-87bf-4949-b1dc-ff58549f09e1
-# ╠═781e01fb-c9b5-4561-889f-c1df9e4986f6
-# ╟─3a34b575-2399-44ce-adc0-d29ec7b0fbb2
-# ╠═298d80e8-9ae6-4470-9725-065fc5f46d8a
-# ╟─a35840b5-8a3f-48be-8a12-fbe3129b6f25
-# ╟─b8134c42-652f-4b0f-af05-947a4b9a7930
-# ╟─3bf5db49-ebae-4e47-a49c-5bfd6ac666c4
-# ╠═aa738340-fc55-49ce-b862-bdb1adf1885e
-# ╟─fcd49655-bad0-406c-aa22-cf88ecedf9d4
-# ╠═29973056-7171-4463-ab1f-4f7160487f8c
-# ╟─d073c75b-2b0b-489e-8712-5586c6ca0498
-# ╠═158c38fd-9609-4d0f-b8e3-b395d4af35a8
-# ╟─cd33943d-3543-4fa0-804c-e752a44081a0
-# ╠═4fdbddf2-97c9-4879-8242-ddcabc0c2516
-# ╟─4a2e8b4d-d177-4bb0-8964-d9e26a4629c0
-# ╟─190bed26-2bec-4665-ab4e-ded2c8eb49e8
-# ╟─99fc99f6-36a3-4f6c-aad0-0a06a83dfb98
-# ╠═f0dfd2af-4bc3-47f5-ae5d-0351c1120b8b
-# ╟─7eda6966-5ed1-40c9-b3cf-f4fa91f866e2
-# ╟─b384882b-0b23-48b5-ba0d-ea81ef631eed
-# ╠═0e77a876-c179-457a-9e7b-93f5153b8c53
+# ╟─b3d978dd-3041-4ec7-aec0-bd53ec21e75d
+# ╠═97bc76ac-b166-4494-b9c1-b73e5ab8d389
+# ╟─a2a2794e-b539-11ee-07f7-97293df3f0ca
+# ╟─4e12467e-8d8f-418d-a4f6-13833e4c23eb
+# ╟─a8e2ab68-42df-4e36-820b-21433dc47746
+# ╟─29f74c73-90d7-4163-92a7-df99f3f6c3f8
+# ╟─a3e215d7-d14c-420e-8a97-729bc7ee145f
+# ╠═5d809482-7fd7-406d-be8f-dc6abb384f06
+# ╟─06370a0e-a331-47de-8be3-8bb02314f1ad
+# ╟─0f5f58b4-29b3-4f00-b0bb-f73dac14828c
+# ╟─3aa4afac-2348-4756-95a0-15d8db182cf3
+# ╟─47c44e15-9e58-4b63-aa29-e844a5789ccc
+# ╠═7dfc3a8b-0cc1-4a8c-be54-5a9a2c27388c
+# ╟─a108bde2-5e73-4f14-9425-0e2afce52ef2
+# ╠═2b569cfb-936b-4fee-b17b-dd1cea129233
+# ╟─37b38b5b-16d9-4f0b-97a9-07b62e571132
+# ╟─d421c935-77a7-4f18-ad54-7dd30d5e232a
+# ╟─0520fe4c-9927-42ed-bef3-714b9eb920d3
+# ╟─a64b376f-d4f8-4c77-a9a9-5d7fc5d2c411
+# ╠═736198ea-d8dc-4008-82f1-6d80229077fa
+# ╟─270edf87-0d78-4831-8a50-45cdd96c8068
+# ╠═86239573-6d79-4c71-818d-f80fef5263ce
+# ╟─63f3bcc9-f9e3-4257-ba08-c4afad2d7042
+# ╟─5830fd4e-cb08-485a-a75d-cbd8d098dc09
+# ╟─4f778f00-0a0b-4763-a575-8cbfdcbd9aba
+# ╠═20972438-39cf-400a-b829-fe6a6aa56c10
+# ╟─16ed6ae7-a9d3-4c2f-8524-1dccd5fa5336
+# ╠═0b78a08c-893d-4c64-8848-28c137b00330
+# ╟─fc20b9d1-4a8e-4c22-af14-9a2421e6edb9
+# ╠═4f1dae50-603d-49f3-a2b8-2c813ee40988
+# ╟─bb48c5fb-df25-4d53-b36c-70fea7a80673
+# ╟─ab5b8cc3-dcc6-47da-9444-5dd9640845f1
+# ╟─14f0c991-7321-4109-b937-f6a433fb0a52
+# ╠═43a4d22a-6f36-4e85-9f3a-fa398cfd9e4f
+# ╟─e5f5a4d6-0192-40d8-b690-e6694a50b86d
+# ╠═33d09181-2868-4b05-96fb-b6650bc49f1a
+# ╟─701b5932-64c5-4aa9-bc4a-ccce6909c300
+# ╠═7c5f34c4-8a03-48f5-b9c8-b4bbd4c787d3
+# ╟─dea304e5-5916-4990-9917-9a21266f94c0
+# ╟─a14de038-31ba-4dae-8610-6eb46b74c859
+# ╟─bfa9a76b-103d-4e2e-9cb1-ef15cb93604b
+# ╠═710ac1c1-d423-4b99-95c6-9260b4844b21
+# ╟─13bae35d-580f-4a49-8859-96410f4d7003
+# ╠═953b1980-9428-4551-8f05-6f9c34cd094e
+# ╟─8e8eb692-690f-4235-a6b9-521ee5254e4e
+# ╠═214f7f8a-2dca-4b14-8d9d-8bb45df00950
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

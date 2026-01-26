@@ -1,10 +1,10 @@
 ### A Pluto.jl notebook ###
-# v0.20.19
+# v0.20.21
 
 #> [frontmatter]
 #> homework_number = "12"
-#> order = 13.5
-#> title = "13. Aufgabenblatt"
+#> order = 12.5
+#> title = "12. Aufgabenblatt"
 #> layout = "layout.jlhtml"
 #> tags = ["assignments", "homeworks"]
 #> description = "Abgabe 30.01.2025, 23:59 Uhr"
@@ -12,26 +12,24 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 97bc76ac-b166-4494-b9c1-b73e5ab8d389
+# ╔═╡ 9429f399-7467-420e-afcf-b9181af88270
 begin
-    using CairoMakie # zum Plotten
-    using Statistics # erweiterte Statistikfunktionen
-    using Distributions # um Werte aus einer Distribution zu samplen
+    using CairoMakie
 end
 
-# ╔═╡ b3d978dd-3041-4ec7-aec0-bd53ec21e75d
+# ╔═╡ c2da9ba4-baae-11ee-0cc3-b57fbb77937a
 md"""
 ## Pakete die wir benötigen:
 """
 
-# ╔═╡ a2a2794e-b539-11ee-07f7-97293df3f0ca
+# ╔═╡ dbb3d523-1cf0-4112-b04c-68b50395e830
 html"""
 	<h1 style="text-align:center">
 		Computerorientierte Mathematik, Algorithmen & Strukturen
 	</h1>
 	<div style="text-align:center">
 		<p style="font-weight:bold; font-size: 35px; font-variant: small-caps; margin: 0px">
-			13. Aufgabenblatt - Julia
+			12. Aufgabenblatt - Julia
 		</p>
 		<p style="font-size: 20px;">
 			Universität Rostock, Institut für Mathematik, Winter 2025/26<br>
@@ -39,274 +37,230 @@ html"""
 	</div>
 """
 
-# ╔═╡ 4e12467e-8d8f-418d-a4f6-13833e4c23eb
+# ╔═╡ 7f23773c-162f-4150-aa66-033410ab3d2c
 md"""
-*Vorlesung*: Prof. H. Kösters
+*Vorlesung*: Prof. J. Starke, Prof. H. Köster
 
-*Praktika*: M.Beller, C. Rönnfeld, N. Kruse & H. Wallner
+*Praktika*: C. Rönnfeld, N. Kruse & H. Wallner
 """
 
-# ╔═╡ a8e2ab68-42df-4e36-820b-21433dc47746
-md"""
-**Abgabe bis**: siehe StudIP im "Aufgaben"-Menü der Vorlesung.
-"""
-
-# ╔═╡ a3e215d7-d14c-420e-8a97-729bc7ee145f
+# ╔═╡ db223a90-32e2-45b3-a108-a8c3ada4f92e
 md"""
 > Fügen Sie in der unteren Zelle Ihre Daten ein und drücken Sie anschließend 		`shift` + `enter` zum Ausführen der Zelle. Nun sollte sich oben alles angepasst haben. 
 """
 
-# ╔═╡ 5d809482-7fd7-406d-be8f-dc6abb384f06
+# ╔═╡ de0a31bd-47b4-47e8-b361-d91e3667f73a
 student = Dict("name" => "Max Mustermann", "fach" => "Studiumsfach", "matrikelnr" => "1234")
 
-# ╔═╡ 29f74c73-90d7-4163-92a7-df99f3f6c3f8
+# ╔═╡ 82750fe5-3bdb-4b89-8bf5-19422d6daaaf
 md"""
 **Autor der Abgabe**: $(student["name"]), **MNR**: $(student["matrikelnr"]), **Fach**: $(student["fach"])
 """
 
-# ╔═╡ 06370a0e-a331-47de-8be3-8bb02314f1ad
+# ╔═╡ cdc8e99b-6234-40b4-ad4d-e45fecec337b
 md"""
-!!! danger "Hinweis"
-	Es empfiehlt sich die Aufzeichnungen der Vorlesung von H. Kösters parallel anzusehen (Quellen auf StudIP).
+> ### Lernziele:
+>> - Wiederholung komplexe Zahlen 
+>> - Attraktorgebiete von iterativen Verfahren
+>> - Box-Counting-Dimension
 """
 
-# ╔═╡ 0f5f58b4-29b3-4f00-b0bb-f73dac14828c
+# ╔═╡ 2fd03893-0248-4b34-83a1-05752da8f9dd
 md"""
-## Teil 1
+## Teil 1: Mandelbrot-Menge
 """
 
-# ╔═╡ 3aa4afac-2348-4756-95a0-15d8db182cf3
-md"""
->#### Preliminaries
->> Ähnlich wie in Beispiel 2 der Vorlsung von Holger Kösters wird mit dem folgenden MAPLE-Code ein Näherungswert für die Wahrscheinlichkeit für das Ereignis "zweimal gleiche Augenzahl" bestimmt
-
-`sample1 := Sample(pt, 10000);`
-
-`sample2 := Sample(pt, 10000);`
-
-`add(sample1 =~ sample2)/ 10000;`
-
->> In der letzten Zeile wird die relative Häufigkeit für das Ergebnis "zweimal gleiche Augenzahl" mit Hilfe von elementweisen Operationen für Arrays/Listen (gekennzeichnet durch die Tilde ~) bestimmt.
-"""
-
-# ╔═╡ 47c44e15-9e58-4b63-aa29-e844a5789ccc
-md"""
-> #### Aufgabe 1a)
->> Übersetzen Sie den Code in Julia mit Hilfe des Befehls `rand(a:b, N)`. Dieser erzeugt dabei $N$ gleichverteile ganze Zahlen zwischen $a$ und $b$ (inklusive Grenzen). 
-"""
-
-# ╔═╡ 7dfc3a8b-0cc1-4a8c-be54-5a9a2c27388c
-let
-    #missing code
-end
-
-# ╔═╡ a108bde2-5e73-4f14-9425-0e2afce52ef2
-md"""
-> #### Aufgabe 1b)
->> Da hier nur die relative Häufigkeit nach s=10000 Schritten berechnet werden soll, ist eine Zwischenspeicherung von Simulationsergebnissen nicht erforderlich. Ändern Sie ihr Programm aus Teil a) ao ab, dass es ohne die Verwendung von Arrays auskommt.   
-"""
-
-# ╔═╡ 2b569cfb-936b-4fee-b17b-dd1cea129233
-let
-    #missing code
-end
-
-# ╔═╡ 37b38b5b-16d9-4f0b-97a9-07b62e571132
-md"""
-## Teil 2: Chevalier de Méré
-"""
-
-# ╔═╡ d421c935-77a7-4f18-ad54-7dd30d5e232a
+# ╔═╡ 12b2542f-f0d6-4d17-9957-8c91f9648c4e
 md"""
 > #### Preliminaries
->> Das folgende Programm führt uns zu den Anfängen der modernen Stochastik zurück; es soll nämlich im 17. Jahrhundert des Glücksspieler $\textit{Chevalier de M\'er\'e}$ beschäftigt und zu einem Briefwechsel zwischen ihm und dem Mathematiker $\textit{Blaise Pascal}$ geführt haben.
+>> Die Mandelbrot-Menge wird beschrieben durch alle komplexen Zahlen $c=x+\mathrm{i} y$, für die die rekursiv definierte Folge $z_{n+1}=z_n^2+c$ mit $z_0=0$ beschränkt bleibt. Als Schranke kann man $|z_i|<2$ setzen."""
 
-"""
-
-# ╔═╡ 0520fe4c-9927-42ed-bef3-714b9eb920d3
+# ╔═╡ 2e2ad7ea-ce8c-4ee3-bc6e-dd32ddf8c837
 md"""
->> Es werden 3 gewöhnliche Würfel (gleichzeitig) geworfen und die entstehende Augensumme notiert. Offensichtlich gibt es 6 Möglichkeiten, auf 11 zu kommen 
-
->> $(6-4-1), (6-3-2), (5-5-1), (5-4-2), (5-3-3), (4-4-3)$
-
->>und 6 Möglichkeiten, auf 12 zu kommen. 
-
->>$(6-5-1), (6-4-2), (6-3-3), (5-5-2), (5-4-3), (4-4-4)$
-
->>Man könnte daher vermuten, dass beide Ergebnisse die gleiche Wahrscheinlichkeit besitzen. Wiederholt man das Experiment hinreichend oft, so lässt sich allerdings beobachten, dass die Augenzahl häufiger 11 als 12 beträgt.  
+> #### Aufgabe 1a)
+>> Schreiben Sie eine Funktion `mandelbrot`, die für gegebene $x,y$ die Folgenglieder $z_i$ bestimmt. Zählen Sie hierbei die Iterationsschritte, solange die Iterierten die gegebene Schranke nicht überschreiten, mit einer maximalen Iterationsanzahl von  $50$. Nutzen Sie als Rückgabewert die gezählten Iterationsschritte. 
 """
 
-# ╔═╡ a64b376f-d4f8-4c77-a9a9-5d7fc5d2c411
+# ╔═╡ 6023be98-dbf6-4020-92d2-d2ed78e2fbdb
 md"""
-> #### Aufgabe 2a)
->> Bestätigen Sie Ihre Beobachtung mit Hilfe einer geeigneten Simualtion. 
+!!! warning "Hinweis: Komplexe Zahlen in Julia"
+	In Julia können komplexe Zahlen durch `z = a + im*b` erzeugt werden. Dabei ist a der Realteil und b der Imaginärteil. Nach der Initialisierung können wir auf `a` durch `z.re` und auf `b` durch `z.im` zurückgreifen.
 """
 
-# ╔═╡ 736198ea-d8dc-4008-82f1-6d80229077fa
-let
+# ╔═╡ 196b5c37-5167-44bb-8f17-adcb2818900e
+begin
     #missing code
 end
 
-# ╔═╡ 270edf87-0d78-4831-8a50-45cdd96c8068
+# ╔═╡ 9ed23cfe-4c07-407a-9e25-eedc1467716e
 md"""
-> #### Aufgabe 2b)
->> Erklären Sie den scheinbaren Widerspruch.
+> #### Aufgabe 1b)
+>> Nutzen Sie geignete plot-Befehle, um die Mandelbrotmenge für die Intervalle $x,y \in [-2,0.7]\times[-1.2,1.2]$ und $x,y \in [-0.83561,-0.78523]\times[0.15559,0.19343]$ darzustellen. Machen Sie sich hierfür noch einmal mit Makie und 3D-Grafiken vertraut. Nutzen Sie ein 150 $\times$ 150 Gitter. 
 """
 
-# ╔═╡ 86239573-6d79-4c71-818d-f80fef5263ce
+# ╔═╡ 6657d447-253f-4ac8-a426-bf90f92669ac
+begin
+    #missing code
+end
+
+# ╔═╡ 15f78543-f4d1-4d47-8be8-03e45ea25006
+md"""
+> #### Aufgabe 1c)
+>> Um eine bessere Art der Darstellung zuerzielen,erweitern Sie beide Plots um ein 150×150 Gitter. Außerdem soll eine Draufsicht der Figur erzeugt werden.
+"""
+
+# ╔═╡ e4903e2e-ec02-4f0b-825f-18689236ff32
+begin
+    #missing code
+end
+
+# ╔═╡ b2c11c9b-c992-4b10-a6a7-3d744bec2c51
+md"""
+> #### Aufgabe 1d)
+>> Da die farbliche Darstellung nun nicht mehr optimal ist, muss diese noch geändert werden. Dies kann realisiert werden, indem man als Farbe die Funktion aus Teilaufgabe a) übergibt.
+"""
+
+# ╔═╡ 31669c3f-d9fd-42e3-89f7-86f14a39235a
+begin
+    #missing code
+end
+
+# ╔═╡ 4a1f50b3-8301-455e-8ec5-f9573761e7d0
+md"""
+> #### Aufgabe 1e)
+>> Konvertieren Sie das Bild in eine 2D Grafik, indem Sie den ersten Parameter als 0 übergeben und vermeiden Sie, dass das Gitter in der Grafik dargestellt wird.
+"""
+
+# ╔═╡ 5535597a-22c5-409f-8500-f662aebed785
+begin
+    #missing code
+end
+
+# ╔═╡ 06ada909-87bf-4949-b1dc-ff58549f09e1
+md"""
+> #### Aufgabe 1f)
+>> Variieren Sie den dargestellten Bereich.
+"""
+
+# ╔═╡ 781e01fb-c9b5-4561-889f-c1df9e4986f6
+begin
+    #missing code
+end
+
+# ╔═╡ 3a34b575-2399-44ce-adc0-d29ec7b0fbb2
+md"""
+> #### Zusatzaufgabe 1g*)
+>> Zeigen Sie, dass die Folge divergiert, wenn bereits $|c| > 2$ gewählt wird, also $|c| = 2 + t, t > 0.$ Zeigen Sie hierfür, per Induktion, dass $|z_n| ≥ 2 + n · t$ gilt. Begründen Sie anschließend, warum es ausreicht, diese Ungleichung zu zeigen.
+
+"""
+
+# ╔═╡ 298d80e8-9ae6-4470-9725-065fc5f46d8a
 md"""
 text
 """
 
-# ╔═╡ 63f3bcc9-f9e3-4257-ba08-c4afad2d7042
+# ╔═╡ a35840b5-8a3f-48be-8a12-fbe3129b6f25
 md"""
-## Teil 3: Gefälschte Hausaufgabe 
+## Teil 2: Attraktorgebiete des Newton-Verfahrens im Komplexen
 """
 
-# ╔═╡ 5830fd4e-cb08-485a-a75d-cbd8d098dc09
+# ╔═╡ b8134c42-652f-4b0f-af05-947a4b9a7930
 md"""
 > #### Preliminaries
->> Wir betrachten Beispiel 5 aus der Vorlesung von Holger Kösters und wollen die Echtheit der Liste dieses Mal aber anhand der Anzahl der Wechsel zwischen Nullen und Einsen oder Einsen und Nullen überprüfen. 
+>> Die Nullstellen der Funktion $f:\mathbb{C}\rightarrow \mathbb{C}$ mit $f(z)=z^3-1$ sind durch $z^{(0)}=1$, $z^{(1)}=e^{\frac{2\pi i}{3}}$ und $z^{(2)}=e^{-\frac{2\pi i}{3}}$ gegeben.
 """
 
-# ╔═╡ 4f778f00-0a0b-4763-a575-8cbfdcbd9aba
+# ╔═╡ 3bf5db49-ebae-4e47-a49c-5bfd6ac666c4
 md"""
-> #### Aufgabe 3a)
->> Schreiben Sie eine Funktion `changes`, welche ein Array mit Einsen und Nullen übergeben wird und die Anzahl der Wechsel zurückgibt. 
+> #### Aufgabe 2a)
+>> Schreiben Sie eine Funktion in Julia, die die Nullstellen mit dem Newton-Verfahren berechnet. Ihre Funktion soll als Eingabe den (komplexwertigen) Startwert zur Initialisierung einlesen und soll die approximierte Nullstelle ausgeben. Wählen Sie hierfür eine Toleranz, so dass Ihr Resultat auf drei signifikante Stellen genau ist.
+"""
+
+# ╔═╡ aa738340-fc55-49ce-b862-bdb1adf1885e
+begin
+    #missing code
+end
+
+# ╔═╡ fcd49655-bad0-406c-aa22-cf88ecedf9d4
+md"""
+> #### Aufgabe 2b)
+>> Testen Sie Ihre Funktion mit den Startwerten $z_0=\frac{1}{2}$, $z_0=\frac{1}{2}+i$ und $z_0=\frac{1}{2}-i$.
+"""
+
+# ╔═╡ 29973056-7171-4463-ab1f-4f7160487f8c
+begin
+    #missing code
+end
+
+# ╔═╡ d073c75b-2b0b-489e-8712-5586c6ca0498
+md"""
+> #### Aufgabe 2c)
+>> Es sollen nun durch Anfärben aller Startwerte in der komplexen Ebene entsprechend der Grenzwerte $z^{(0)}$, $z^{(1)}$ oder zu $z^{(2)}$ , zu denen sie konvergieren, die sogenannten Attraktorgebiete dieser Grenzwerte des Iterationsverfahrens erhalten werden. Um dies zu erreichen, definiert man eine Funktion die den Real- und den Imaginärteil des Startwertes auf den Imaginärteil der Ausgabe des Newton-Verfahrens abbildet. Werten Sie diese Funktion für die im Teil b) erwähnten Startwerte aus. Welche Eigenschaft besitzt diese Funktion?
+"""
+
+# ╔═╡ 158c38fd-9609-4d0f-b8e3-b395d4af35a8
+begin
+    #missing code
+end
+
+# ╔═╡ cd33943d-3543-4fa0-804c-e752a44081a0
+md"""
+> #### Aufgabe 2d)
+>> Erstellen Sie einen Dichte-Plot der im Teil c) definierten Funktion in der komplexen Ebene. Zu diesem Zweck soll eine geeigenete Makie Plot-Funktion mit geeigneten Optionen (z.B. bzgl. des Gitters und der Art des Plottes) benutzt werden. Erstellen Sie auch eine Abbildung eines Ausschnittes der komplexen Ebene auf einer feineren Skala, so dass interessante Eigenschaften sichtbar werden."""
+
+# ╔═╡ 4fdbddf2-97c9-4879-8242-ddcabc0c2516
+begin
+    #missing code
+end
+
+# ╔═╡ 4a2e8b4d-d177-4bb0-8964-d9e26a4629c0
+md"""
+## Teil 3: Hausaufgabe: Berechnung der Fraktalen Dimension  der Koch-Kurve als Box-Counting-Dimension
+"""
+
+# ╔═╡ 190bed26-2bec-4665-ab4e-ded2c8eb49e8
+md"""
+> #### Preliminaries 
+>> Nutzen Sie erneut das auf den letzten Assignment genutzte Lindenmayer-System.
+"""
+
+# ╔═╡ 99fc99f6-36a3-4f6c-aad0-0a06a83dfb98
+md"""
+!!! warning "3a)"
+	Berechnen Sie die Box-Counting-Dimension der Koch-Kurve entsprechend der Ideen, die dazu in der Vorlesung vermittelt wurden. Hinweis: Pro Strecke kann eine Box verwendet werden
+"""
+
+# ╔═╡ f0dfd2af-4bc3-47f5-ae5d-0351c1120b8b
+let
+    #code
+end
+
+# ╔═╡ 7eda6966-5ed1-40c9-b3cf-f4fa91f866e2
+md"""
+## Feedback zur Website/Julia
+"""
+
+# ╔═╡ b384882b-0b23-48b5-ba0d-ea81ef631eed
+md"""
+!!! warning "Hannes hier:"
+	Hi, ich waere euch sehr dankbar, wenn ihr mir allgemein Feedback zur Website oder allgemein zum Seminar geben koenntet. Sollte ich strukturierter Definition auf dieser Website einfuegen? Denkt Ihr, Julia bietet sich fuer Erstsemester besser an als Maple? Wuerdet Ihr ein Tutorial wollen, indem erklaert wird, wie man ausserhalb der Pluto Umgebung in einen Code-Editor Julia programmiert? Habt ihr Aufgaben/Themen, die wir unbedingt in dieser Website auflisten sollten? etc. 
 	
-	Beispiel: `changes([1, 0, 0, 1, 0, 0, 0, 0, 1, 1]) = 4`
+	Cheers Hannes
 """
 
-# ╔═╡ 20972438-39cf-400a-b829-fe6a6aa56c10
-let
-    #missing code
-end
-
-# ╔═╡ 16ed6ae7-a9d3-4c2f-8524-1dccd5fa5336
+# ╔═╡ 0e77a876-c179-457a-9e7b-93f5153b8c53
 md"""
-> #### Aufgabe 3b)
->> Untersuchen Sie mittels Monte-Carlo-Simulation die Verteilung der Anzahl der Wechsel in einer Liste von 100 Münzwurfergbenissen. Wie beurteilen Sie Fritzchens Hausaufgabe angesichts dieser Ergebnisse?
+- stichpunkt
+- stichpunkt
 """
-
-# ╔═╡ 0b78a08c-893d-4c64-8848-28c137b00330
-let
-    #missing code
-end
-
-# ╔═╡ fc20b9d1-4a8e-4c22-af14-9a2421e6edb9
-md"""
-!!! danger "3c)*"
-	Man kann zeigen, dass die Verteilung in 3b) die sogenannte Binomialverteilung zu den Parametern `n=99` und `p=0.5` ist. (Das sollen Sie hier aber nicht tun) Informieren Sie sich über die Binomialverteilung und zeichnen Sie diese zum Vergleich in das Histrogramm aus 3b) ein!
-"""
-
-# ╔═╡ 4f1dae50-603d-49f3-a2b8-2c813ee40988
-let
-    #missing code
-end
-
-# ╔═╡ bb48c5fb-df25-4d53-b36c-70fea7a80673
-md"""
-# (Haus)aufgabe 4: Approximation von $\pi$
-"""
-
-# ╔═╡ ab5b8cc3-dcc6-47da-9444-5dd9640845f1
-md"""
-> #### Aufgabe 4a)
->> Schreiben Sie eine Funktion `approx_pi`, welche zwei postive Zahlen $n, R \in \mathbb{N}$ übergeben werden und welche ein Array von $n$ Punkten mit je zwei zufälligen Koordinaten $x_i$ und $y_i$ aus dem Intervall $[-R, R]$ erzeugt.
-"""
-
-# ╔═╡ 14f0c991-7321-4109-b937-f6a433fb0a52
-md"""
-!!! danger "Hinweis"
-	Nutzen Sie den Befehl `rand(Uniform(a,b), N)` um `N` Punkte aus einer gleichverteilten Distribution in den Grenzen `a` und `b` zu erzeugen.
-"""
-
-# ╔═╡ 43a4d22a-6f36-4e85-9f3a-fa398cfd9e4f
-let
-    #missing code
-end
-
-# ╔═╡ e5f5a4d6-0192-40d8-b690-e6694a50b86d
-md"""
-> #### Aufgabe 4b)
->> Bestimmen Sie nun in Ihrer Funktion die Anzahl A der Punkte ($x_i,y_i$), die im Innern des Kreises $x^2+y^2=R^2$ liegen, und berechnen daraus den Wert $4 A/n$, der eine Näherung für die Kreiszahl $\pi$ ist.
-"""
-
-# ╔═╡ 33d09181-2868-4b05-96fb-b6650bc49f1a
-let
-    #missing code
-end
-
-# ╔═╡ 701b5932-64c5-4aa9-bc4a-ccce6909c300
-md"""
-> #### Aufgabe 4c)
->> Testen Sie ihre Funktion mit verschiedenen Eingabewerten. Für $n = R = 1000$ soll der Sachverhalt abschließend geeignet graphisch dargestellt und der Näherungswert für $\pi$ mit genau drei Nachkommastellen zurückgegeben werden Ergänzen Sie entsprechend der benötigten Ausgabewerte Ihre Funktion.
-"""
-
-# ╔═╡ 7c5f34c4-8a03-48f5-b9c8-b4bbd4c787d3
-let
-    #missing code
-end
-
-# ╔═╡ dea304e5-5916-4990-9917-9a21266f94c0
-md"""
-## Zusatzaufgabe 5: Sammelbilder
-"""
-
-# ╔═╡ a14de038-31ba-4dae-8610-6eb46b74c859
-md"""
-Bei einer Sammelbildaktion eines Schokoladenriegelherstellers 
-können 10 Sammelbilder gesammelt werden. Jeder Schokoladenriegel enthält genau ein Sammelbild, das man vor dem Öffnen der Verpackung natürlich nicht sehen kann.
-Wir wollen vereinfachend annehmen, dass alle Sammelbilder gleich oft vorkommen.
-Sie kaufen und öffnen so lange Schokoladenriegel, bis Sie alle Sammelbilder zusammenhaben (ohne diese zu tauschen).
-"""
-
-# ╔═╡ bfa9a76b-103d-4e2e-9cb1-ef15cb93604b
-md"""
-!!! danger "5a)*"
-	Schreiben Sie ein Programm, die Ihre Strategie zum Sammeln aller Sammelbilder simuliert. Das Endergebnis soll die (zufällige) Anzahl der Schokoladenriegel sein,
-	nach der Sie alle Sammelbilder zusammenhaben.
-"""
-
-# ╔═╡ 710ac1c1-d423-4b99-95c6-9260b4844b21
-begin
-    #missing code
-end
-
-# ╔═╡ 13bae35d-580f-4a49-8859-96410f4d7003
-md"""
-!!! danger "5b)*"
-	Schreiben Sie ein Programm, das Ihre Simulation aus Teil 5a)
-	1000-mal verwendet und am Ende einen Näherungswert
-	für die $\textit{mittlere}$ Anzahl der Schokoladenriegel bestimmt, nach der Sie alle Sammelbilder zusammenhaben.
-"""
-
-# ╔═╡ 953b1980-9428-4551-8f05-6f9c34cd094e
-begin
-    #missing code
-end
-
-# ╔═╡ 8e8eb692-690f-4235-a6b9-521ee5254e4e
-md"""
-!!! danger "5c)"
-	Wie ändern sich die Resultate, wenn 2 der 10 Sammelbilder seltener (etwa nur halb so oft) vorkommen?
-"""
-
-# ╔═╡ 214f7f8a-2dca-4b14-8d9d-8bb45df00950
-begin
-    #missing code
-end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
-Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
-Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
 CairoMakie = "~0.15.6"
-Distributions = "~0.25.122"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -315,18 +269,21 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.12.0"
 manifest_format = "2.0"
-project_hash = "12c632e3c5252d2ce9c55d2850ae5e7606aec5e3"
+project_hash = "03909db48854b1364d209371e599b30440d332ab"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
 git-tree-sha1 = "d92ad398961a3ed262d8bf04a1a2b8340f915fef"
 uuid = "621f4979-c628-5d54-868e-fcf4e3e8185c"
 version = "1.5.0"
-weakdeps = ["ChainRulesCore", "Test"]
 
     [deps.AbstractFFTs.extensions]
     AbstractFFTsChainRulesCoreExt = "ChainRulesCore"
     AbstractFFTsTestExt = "Test"
+
+    [deps.AbstractFFTs.weakdeps]
+    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
+    Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.AbstractTrees]]
 git-tree-sha1 = "2d9c9a55f9c93e8887ad391fbae72f8ef55e1177"
@@ -453,9 +410,9 @@ weakdeps = ["SparseArrays"]
 
 [[deps.ColorBrewer]]
 deps = ["Colors", "JSON"]
-git-tree-sha1 = "e771a63cc8b539eca78c85b0cabd9233d6c8f06f"
+git-tree-sha1 = "07da79661b919001e6863b81fc572497daa58349"
 uuid = "a2cac450-b92f-5266-8821-25eda20663c8"
-version = "0.4.1"
+version = "0.4.2"
 
 [[deps.ColorSchemes]]
 deps = ["ColorTypes", "ColorVectorSpace", "Colors", "FixedPointNumbers", "PrecompileTools", "Random"]
@@ -506,9 +463,9 @@ version = "1.3.0+1"
 
 [[deps.ComputePipeline]]
 deps = ["Observables", "Preferences"]
-git-tree-sha1 = "cb1299fee09da21e65ec88c1ff3a259f8d0b5802"
+git-tree-sha1 = "76dab592fa553e378f9dd8adea16fe2591aa3daa"
 uuid = "95dc2771-c249-4cd0-9c9f-1f3b4330693c"
-version = "0.1.4"
+version = "0.1.6"
 
 [[deps.ConstructionBase]]
 git-tree-sha1 = "b4b092499347b18a015186eae3042f72267106cb"
@@ -533,9 +490,9 @@ version = "1.16.0"
 
 [[deps.DataStructures]]
 deps = ["OrderedCollections"]
-git-tree-sha1 = "6c72198e6a101cccdd4c9731d3985e904ba26037"
+git-tree-sha1 = "e357641bb3e0638d353c4b29ea0e40ea644066a6"
 uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
-version = "0.19.1"
+version = "0.19.3"
 
 [[deps.DataValueInterfaces]]
 git-tree-sha1 = "bfc1187b79289637fa0ef6d4436ebdfe6905cbd6"
@@ -549,9 +506,9 @@ version = "1.11.0"
 
 [[deps.DelaunayTriangulation]]
 deps = ["AdaptivePredicates", "EnumX", "ExactPredicates", "Random"]
-git-tree-sha1 = "5620ff4ee0084a6ab7097a27ba0c19290200b037"
+git-tree-sha1 = "c55f5a9fd67bdbc8e089b5a3111fe4292986a8e8"
 uuid = "927a84f5-c5f4-47a5-9785-b46e178433df"
-version = "1.6.4"
+version = "1.6.6"
 
 [[deps.Distributed]]
 deps = ["Random", "Serialization", "Sockets"]
@@ -560,9 +517,9 @@ version = "1.11.0"
 
 [[deps.Distributions]]
 deps = ["AliasTables", "FillArrays", "LinearAlgebra", "PDMats", "Printf", "QuadGK", "Random", "SpecialFunctions", "Statistics", "StatsAPI", "StatsBase", "StatsFuns"]
-git-tree-sha1 = "3bc002af51045ca3b47d2e1787d6ce02e68b943a"
+git-tree-sha1 = "fbcc7610f6d8348428f722ecbe0e6cfe22e672c6"
 uuid = "31c24e10-a181-5473-b8eb-7969acd0382f"
-version = "0.25.122"
+version = "0.25.123"
 
     [deps.Distributions.extensions]
     DistributionsChainRulesCoreExt = "ChainRulesCore"
@@ -603,9 +560,9 @@ version = "2.2.9"
 
 [[deps.Expat_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "7bb1361afdb33c7f2b085aa49ea8fe1b0fb14e58"
+git-tree-sha1 = "27af30de8b5445644e8ffe3bcb0d72049c089cf1"
 uuid = "2e619515-83b5-522b-bb60-26c02a35a201"
-version = "2.7.1+0"
+version = "2.7.3+0"
 
 [[deps.Extents]]
 git-tree-sha1 = "b309b36a9e02fe7be71270dd8c0fd873625332b4"
@@ -653,11 +610,14 @@ deps = ["Compat", "Dates"]
 git-tree-sha1 = "3bab2c5aa25e7840a4b065805c0cdfc01f3068d2"
 uuid = "48062228-2e41-5def-b9a4-89aafe57970f"
 version = "0.9.24"
-weakdeps = ["Mmap", "Test"]
 
     [deps.FilePathsBase.extensions]
     FilePathsBaseMmapExt = "Mmap"
     FilePathsBaseTestExt = "Test"
+
+    [deps.FilePathsBase.weakdeps]
+    Mmap = "a63ad114-7e13-5084-954f-fe012c677804"
+    Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.FileWatching]]
 uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
@@ -665,9 +625,9 @@ version = "1.11.0"
 
 [[deps.FillArrays]]
 deps = ["LinearAlgebra"]
-git-tree-sha1 = "173e4d8f14230a7523ae11b9a3fa9edb3e0efd78"
+git-tree-sha1 = "5bfcd42851cf2f1b303f51525a54dc5e98d408a3"
 uuid = "1a297f60-69ca-5386-bcde-b61e274b549b"
-version = "1.14.0"
+version = "1.15.0"
 weakdeps = ["PDMats", "SparseArrays", "Statistics"]
 
     [deps.FillArrays.extensions]
@@ -742,9 +702,9 @@ version = "5.2.3+0"
 
 [[deps.Glib_jll]]
 deps = ["Artifacts", "GettextRuntime_jll", "JLLWrappers", "Libdl", "Libffi_jll", "Libiconv_jll", "Libmount_jll", "PCRE2_jll", "Zlib_jll"]
-git-tree-sha1 = "50c11ffab2a3d50192a228c313f05b5b5dc5acb2"
+git-tree-sha1 = "6b4d2dc81736fe3980ff0e8879a9fc7c33c44ddf"
 uuid = "7746bdde-850d-59dc-9ae8-88ece973131d"
-version = "2.86.0+0"
+version = "2.86.2+0"
 
 [[deps.Graphics]]
 deps = ["Colors", "LinearAlgebra", "NaNMath"]
@@ -813,9 +773,9 @@ version = "0.9.10"
 
 [[deps.Imath_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "0936ba688c6d201805a83da835b55c61a180db52"
+git-tree-sha1 = "dcc8d0cd653e55213df9b75ebc6fe4a8d3254c65"
 uuid = "905a6f67-0a94-5f89-b386-d35d92009cd1"
-version = "3.1.11+0"
+version = "3.2.2+0"
 
 [[deps.IndirectArrays]]
 git-tree-sha1 = "012e604e1c7458645cb8b436f8fba789a51b257f"
@@ -854,9 +814,9 @@ version = "0.16.2"
 
 [[deps.IntervalArithmetic]]
 deps = ["CRlibm", "MacroTools", "OpenBLASConsistentFPCSR_jll", "Printf", "Random", "RoundingEmulator"]
-git-tree-sha1 = "815e74f416953c348c9da1d1bc977bbc97c84e18"
+git-tree-sha1 = "02b61501dbe6da3b927cc25dacd7ce32390ee970"
 uuid = "d1acc4aa-44c8-5952-acd4-ba5d80a2a253"
-version = "1.0.0"
+version = "1.0.2"
 
     [deps.IntervalArithmetic.extensions]
     IntervalArithmeticArblibExt = "Arblib"
@@ -877,9 +837,9 @@ version = "1.0.0"
     SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [[deps.IntervalSets]]
-git-tree-sha1 = "5fbb102dcb8b1a858111ae81d56682376130517d"
+git-tree-sha1 = "d966f85b3b7a8e49d034d27a189e9a4874b4391a"
 uuid = "8197267c-284f-5f27-9208-e0e47529a953"
-version = "0.7.11"
+version = "0.7.13"
 
     [deps.IntervalSets.extensions]
     IntervalSetsRandomExt = "Random"
@@ -895,16 +855,19 @@ version = "0.7.11"
 git-tree-sha1 = "a779299d77cd080bf77b97535acecd73e1c5e5cb"
 uuid = "3587e190-3f89-42d0-90ee-14403ec27112"
 version = "0.1.17"
-weakdeps = ["Dates", "Test"]
 
     [deps.InverseFunctions.extensions]
     InverseFunctionsDatesExt = "Dates"
     InverseFunctionsTestExt = "Test"
 
+    [deps.InverseFunctions.weakdeps]
+    Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+    Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
 [[deps.IrrationalConstants]]
-git-tree-sha1 = "e2222959fbc6c19554dc15174c81bf7bf3aa691c"
+git-tree-sha1 = "b2d91fe939cae05960e760110b328288867b5758"
 uuid = "92d709cd-6900-40b7-9082-c6be49f344b6"
-version = "0.2.4"
+version = "0.2.6"
 
 [[deps.Isoband]]
 deps = ["isoband_jll"]
@@ -929,10 +892,16 @@ uuid = "692b3bcd-3c85-4b1f-b108-f13ce0eb3210"
 version = "1.7.1"
 
 [[deps.JSON]]
-deps = ["Dates", "Mmap", "Parsers", "Unicode"]
-git-tree-sha1 = "31e996f0a15c7b280ba9f76636b3ff9e2ae58c9a"
+deps = ["Dates", "Logging", "Parsers", "PrecompileTools", "StructUtils", "UUIDs", "Unicode"]
+git-tree-sha1 = "b3ad4a0255688dcb895a52fafbaae3023b588a90"
 uuid = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
-version = "0.21.4"
+version = "1.4.0"
+
+    [deps.JSON.extensions]
+    JSONArrowExt = ["ArrowTypes"]
+
+    [deps.JSON.weakdeps]
+    ArrowTypes = "31f734f8-188a-4ce0-8406-c8a06bd891cd"
 
 [[deps.JpegTurbo]]
 deps = ["CEnum", "FileIO", "ImageCore", "JpegTurbo_jll", "TOML"]
@@ -942,9 +911,9 @@ version = "0.1.6"
 
 [[deps.JpegTurbo_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "4255f0032eafd6451d707a51d5f0248b8a165e4d"
+git-tree-sha1 = "b6893345fd6658c8e475d40155789f4860ac3b21"
 uuid = "aacddb02-875f-59d6-b918-886e6ef4fbf8"
-version = "3.1.3+0"
+version = "3.1.4+0"
 
 [[deps.JuliaSyntaxHighlighting]]
 deps = ["StyledStrings"]
@@ -1104,9 +1073,9 @@ uuid = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
 version = "0.24.6"
 
 [[deps.MappedArrays]]
-git-tree-sha1 = "2dab0221fe2b0f2cb6754eaa743cc266339f527e"
+git-tree-sha1 = "0ee4497a4e80dbd29c058fcee6493f5219556f40"
 uuid = "dbb5928d-eab1-5f90-85c2-b9b0edb7c900"
-version = "0.4.2"
+version = "0.4.3"
 
 [[deps.Markdown]]
 deps = ["Base64", "JuliaSyntaxHighlighting", "StyledStrings"]
@@ -1115,9 +1084,9 @@ version = "1.11.0"
 
 [[deps.MathTeXEngine]]
 deps = ["AbstractTrees", "Automa", "DataStructures", "FreeTypeAbstraction", "GeometryBasics", "LaTeXStrings", "REPL", "RelocatableFolders", "UnicodeFun"]
-git-tree-sha1 = "a370fef694c109e1950836176ed0d5eabbb65479"
+git-tree-sha1 = "7eb8cdaa6f0e8081616367c10b31b9d9b34bb02a"
 uuid = "0a4f8689-d25c-4efe-a92b-7142dfc1aa53"
-version = "0.6.6"
+version = "0.6.7"
 
 [[deps.Missings]]
 deps = ["DataAPI"]
@@ -1194,9 +1163,9 @@ version = "0.3.3"
 
 [[deps.OpenEXR_jll]]
 deps = ["Artifacts", "Imath_jll", "JLLWrappers", "Libdl", "Zlib_jll"]
-git-tree-sha1 = "8292dd5c8a38257111ada2174000a33745b06d4e"
+git-tree-sha1 = "df9b7c88c2e7a2e77146223c526bf9e236d5f450"
 uuid = "18a262bb-aa17-5467-a713-aee519bc75cb"
-version = "3.2.4+0"
+version = "3.4.4+0"
 
 [[deps.OpenLibm_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -1216,9 +1185,9 @@ version = "0.5.6+0"
 
 [[deps.Opus_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "c392fc5dd032381919e3b22dd32d6443760ce7ea"
+git-tree-sha1 = "39a11854f0cba27aa41efaedf43c77c5daa6be51"
 uuid = "91d4177d-7536-5919-b921-800302f37372"
-version = "1.5.2+0"
+version = "1.6.0+0"
 
 [[deps.OrderedCollections]]
 git-tree-sha1 = "05868e21324cede2207c6f0f466b4bfef6d5e7ee"
@@ -1256,9 +1225,9 @@ version = "0.5.12"
 
 [[deps.Pango_jll]]
 deps = ["Artifacts", "Cairo_jll", "Fontconfig_jll", "FreeType2_jll", "FriBidi_jll", "Glib_jll", "HarfBuzz_jll", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "1f7f9bbd5f7a2e5a9f7d96e51c9754454ea7f60b"
+git-tree-sha1 = "0662b083e11420952f2e62e17eddae7fc07d5997"
 uuid = "36c8627f-9965-5494-a995-c6b170f724f3"
-version = "1.56.4+0"
+version = "1.57.0+0"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]
@@ -1289,9 +1258,9 @@ version = "0.3.3"
 
 [[deps.PlotUtils]]
 deps = ["ColorSchemes", "Colors", "Dates", "PrecompileTools", "Printf", "Random", "Reexport", "StableRNGs", "Statistics"]
-git-tree-sha1 = "3ca9a356cd2e113c420f2c13bea19f8d3fb1cb18"
+git-tree-sha1 = "26ca162858917496748aad52bb5d3be4d26a228a"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
-version = "1.4.3"
+version = "1.4.4"
 
 [[deps.PolygonOps]]
 git-tree-sha1 = "77b3d3605fc1cd0b42d95eba87dfcd2bf67d5ff6"
@@ -1306,9 +1275,9 @@ version = "1.3.3"
 
 [[deps.Preferences]]
 deps = ["TOML"]
-git-tree-sha1 = "0f27480397253da18fe2c12a4ba4eb9eb208bf3d"
+git-tree-sha1 = "522f093a29b31a93e34eaea17ba055d850edea28"
 uuid = "21216c6a-2e73-6563-6e65-726566657250"
-version = "1.5.0"
+version = "1.5.1"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -1328,9 +1297,9 @@ version = "1.3.0"
 
 [[deps.QOI]]
 deps = ["ColorTypes", "FileIO", "FixedPointNumbers"]
-git-tree-sha1 = "8b3fc30bc0390abdce15f8822c889f669baed73d"
+git-tree-sha1 = "472daaa816895cb7aee81658d4e7aec901fa1106"
 uuid = "4b34888f-f399-49d4-9bb3-47ed5cae4e65"
-version = "1.0.1"
+version = "1.0.2"
 
 [[deps.QuadGK]]
 deps = ["DataStructures", "LinearAlgebra"]
@@ -1388,9 +1357,9 @@ version = "1.3.1"
 
 [[deps.Rmath]]
 deps = ["Random", "Rmath_jll"]
-git-tree-sha1 = "852bd0f55565a9e973fcfee83a84413270224dc4"
+git-tree-sha1 = "5b3d50eb374cea306873b371d3f8d3915a018f0b"
 uuid = "79098fc4-a85e-5d69-aa6a-4863f24498fa"
-version = "0.8.0"
+version = "0.9.0"
 
 [[deps.Rmath_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -1441,10 +1410,10 @@ uuid = "992d4aef-0814-514b-bc4d-f2e9a6c4116f"
 version = "1.0.3"
 
 [[deps.SignedDistanceFields]]
-deps = ["Random", "Statistics", "Test"]
-git-tree-sha1 = "d263a08ec505853a5ff1c1ebde2070419e3f28e9"
+deps = ["Statistics"]
+git-tree-sha1 = "3949ad92e1c9d2ff0cd4a1317d5ecbba682f4b92"
 uuid = "73760f76-fbc4-59ce-8f25-708e95d2df96"
-version = "0.4.0"
+version = "0.4.1"
 
 [[deps.SimpleTraits]]
 deps = ["InteractiveUtils", "MacroTools"]
@@ -1485,9 +1454,9 @@ weakdeps = ["ChainRulesCore"]
 
 [[deps.StableRNGs]]
 deps = ["Random"]
-git-tree-sha1 = "95af145932c2ed859b63329952ce8d633719f091"
+git-tree-sha1 = "4f96c596b8c8258cc7d3b19797854d368f243ddc"
 uuid = "860ef19b-820b-49d6-a774-d7a799459cd3"
-version = "1.0.3"
+version = "1.0.4"
 
 [[deps.StackViews]]
 deps = ["OffsetArrays"]
@@ -1497,9 +1466,9 @@ version = "0.1.2"
 
 [[deps.StaticArrays]]
 deps = ["LinearAlgebra", "PrecompileTools", "Random", "StaticArraysCore"]
-git-tree-sha1 = "b8693004b385c842357406e3af647701fe783f98"
+git-tree-sha1 = "eee1b9ad8b29ef0d936e3ec9838c7ec089620308"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "1.9.15"
+version = "1.9.16"
 weakdeps = ["ChainRulesCore", "Statistics"]
 
     [deps.StaticArrays.extensions]
@@ -1507,9 +1476,9 @@ weakdeps = ["ChainRulesCore", "Statistics"]
     StaticArraysStatisticsExt = "Statistics"
 
 [[deps.StaticArraysCore]]
-git-tree-sha1 = "192954ef1208c7019899fbf8049e717f92959682"
+git-tree-sha1 = "6ab403037779dae8c514bad259f32a447262455a"
 uuid = "1e83bf80-4336-4d27-bf5d-d5a4f845583c"
-version = "1.4.3"
+version = "1.4.4"
 
 [[deps.Statistics]]
 deps = ["LinearAlgebra"]
@@ -1523,9 +1492,9 @@ weakdeps = ["SparseArrays"]
 
 [[deps.StatsAPI]]
 deps = ["LinearAlgebra"]
-git-tree-sha1 = "9d72a13a3f4dd3795a195ac5a44d7d6ff5f552ff"
+git-tree-sha1 = "178ed29fd5b2a2cfc3bd31c13375ae925623ff36"
 uuid = "82ae8749-77ed-4fe6-ae5f-f523153014b0"
-version = "1.7.1"
+version = "1.8.0"
 
 [[deps.StatsBase]]
 deps = ["AliasTables", "DataAPI", "DataStructures", "LinearAlgebra", "LogExpFunctions", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics", "StatsAPI"]
@@ -1535,9 +1504,9 @@ version = "0.34.6"
 
 [[deps.StatsFuns]]
 deps = ["HypergeometricFunctions", "IrrationalConstants", "LogExpFunctions", "Reexport", "Rmath", "SpecialFunctions"]
-git-tree-sha1 = "8e45cecc66f3b42633b8ce14d431e8e57a3e242e"
+git-tree-sha1 = "91f091a8716a6bb38417a6e6f274602a19aaa685"
 uuid = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
-version = "1.5.0"
+version = "1.5.2"
 weakdeps = ["ChainRulesCore", "InverseFunctions"]
 
     [deps.StatsFuns.extensions]
@@ -1546,9 +1515,9 @@ weakdeps = ["ChainRulesCore", "InverseFunctions"]
 
 [[deps.StructArrays]]
 deps = ["ConstructionBase", "DataAPI", "Tables"]
-git-tree-sha1 = "8ad2e38cbb812e29348719cc63580ec1dfeb9de4"
+git-tree-sha1 = "a2c37d815bf00575332b7bd0389f771cb7987214"
 uuid = "09ab397b-f2b6-538f-b94a-2f83cf4a842a"
-version = "0.7.1"
+version = "0.7.2"
 
     [deps.StructArrays.extensions]
     StructArraysAdaptExt = "Adapt"
@@ -1564,6 +1533,20 @@ version = "0.7.1"
     LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
     SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
     StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
+
+[[deps.StructUtils]]
+deps = ["Dates", "UUIDs"]
+git-tree-sha1 = "9297459be9e338e546f5c4bedb59b3b5674da7f1"
+uuid = "ec057cc2-7a8d-4b58-b3b3-92acb9f63b42"
+version = "2.6.2"
+
+    [deps.StructUtils.extensions]
+    StructUtilsMeasurementsExt = ["Measurements"]
+    StructUtilsTablesExt = ["Tables"]
+
+    [deps.StructUtils.weakdeps]
+    Measurements = "eff96d63-e80a-5855-80a2-b1b0885c5ab7"
+    Tables = "bd369af6-aec1-5ad0-b16a-f7cc5008161c"
 
 [[deps.StyledStrings]]
 uuid = "f489334b-da3d-4c2e-b8f0-e476e12c162b"
@@ -1606,11 +1589,6 @@ git-tree-sha1 = "1feb45f88d133a655e001435632f019a9a1bcdb6"
 uuid = "62fd8b95-f654-4bbd-a8a5-9c27f68ccd50"
 version = "0.1.1"
 
-[[deps.Test]]
-deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
-uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-version = "1.11.0"
-
 [[deps.TiffImages]]
 deps = ["ColorTypes", "DataStructures", "DocStringExtensions", "FileIO", "FixedPointNumbers", "IndirectArrays", "Inflate", "Mmap", "OffsetArrays", "PkgVersion", "PrecompileTools", "ProgressMeter", "SIMD", "UUIDs"]
 git-tree-sha1 = "98b9352a24cb6a2066f9ababcc6802de9aed8ad8"
@@ -1644,15 +1622,16 @@ version = "0.4.1"
 
 [[deps.Unitful]]
 deps = ["Dates", "LinearAlgebra", "Random"]
-git-tree-sha1 = "cec2df8cf14e0844a8c4d770d12347fda5931d72"
+git-tree-sha1 = "c25751629f5baaa27fef307f96536db62e1d754e"
 uuid = "1986cc42-f94f-5a68-af5c-568840ba703d"
-version = "1.25.0"
+version = "1.27.0"
 
     [deps.Unitful.extensions]
     ConstructionBaseUnitfulExt = "ConstructionBase"
     ForwardDiffExt = "ForwardDiff"
     InverseFunctionsUnitfulExt = "InverseFunctions"
     LatexifyExt = ["Latexify", "LaTeXStrings"]
+    NaNMathExt = "NaNMath"
     PrintfExt = "Printf"
 
     [deps.Unitful.weakdeps]
@@ -1661,6 +1640,7 @@ version = "1.25.0"
     InverseFunctions = "3587e190-3f89-42d0-90ee-14403ec27112"
     LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
     Latexify = "23fbe1c1-3f47-55db-b15f-69d7ec21a316"
+    NaNMath = "77ba4419-2d1f-58cd-9bb1-8ffee604a2e3"
     Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 [[deps.WebP]]
@@ -1671,15 +1651,15 @@ version = "0.1.3"
 
 [[deps.WoodburyMatrices]]
 deps = ["LinearAlgebra", "SparseArrays"]
-git-tree-sha1 = "c1a7aa6219628fcd757dede0ca95e245c5cd9511"
+git-tree-sha1 = "248a7031b3da79a127f14e5dc5f417e26f9f6db7"
 uuid = "efce3f68-66dc-5838-9240-27a6d6f5f9b6"
-version = "1.0.0"
+version = "1.1.0"
 
 [[deps.XZ_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "fee71455b0aaa3440dfdd54a9a36ccef829be7d4"
+git-tree-sha1 = "9cce64c0fdd1960b597ba7ecda2950b5ed957438"
 uuid = "ffd25f8a-64ca-5728-b0f7-c24cf3aae800"
-version = "5.8.1+0"
+version = "5.8.2+0"
 
 [[deps.Xorg_libX11_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Xorg_libxcb_jll", "Xorg_xtrans_jll"]
@@ -1765,9 +1745,9 @@ version = "2.0.4+0"
 
 [[deps.libpng_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Zlib_jll"]
-git-tree-sha1 = "07b6a107d926093898e82b3b1db657ebe33134ec"
+git-tree-sha1 = "6ab498eaf50e0495f89e7a5b582816e2efb95f64"
 uuid = "b53b4c65-9356-5827-b1ea-8c7a1a84506f"
-version = "1.6.50+0"
+version = "1.6.54+0"
 
 [[deps.libsixel_jll]]
 deps = ["Artifacts", "JLLWrappers", "JpegTurbo_jll", "Libdl", "libpng_jll"]
@@ -1793,10 +1773,10 @@ uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
 version = "1.64.0+1"
 
 [[deps.oneTBB_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "d5a767a3bb77135a99e433afe0eb14cd7f6914c3"
+deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl"]
+git-tree-sha1 = "1350188a69a6e46f799d3945beef36435ed7262f"
 uuid = "1317d2d5-d96f-522e-a858-c73665f53c3e"
-version = "2022.0.0+0"
+version = "2022.0.0+1"
 
 [[deps.p7zip_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -1817,51 +1797,47 @@ version = "4.1.0+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─b3d978dd-3041-4ec7-aec0-bd53ec21e75d
-# ╠═97bc76ac-b166-4494-b9c1-b73e5ab8d389
-# ╟─a2a2794e-b539-11ee-07f7-97293df3f0ca
-# ╟─4e12467e-8d8f-418d-a4f6-13833e4c23eb
-# ╟─a8e2ab68-42df-4e36-820b-21433dc47746
-# ╟─29f74c73-90d7-4163-92a7-df99f3f6c3f8
-# ╟─a3e215d7-d14c-420e-8a97-729bc7ee145f
-# ╠═5d809482-7fd7-406d-be8f-dc6abb384f06
-# ╟─06370a0e-a331-47de-8be3-8bb02314f1ad
-# ╟─0f5f58b4-29b3-4f00-b0bb-f73dac14828c
-# ╟─3aa4afac-2348-4756-95a0-15d8db182cf3
-# ╟─47c44e15-9e58-4b63-aa29-e844a5789ccc
-# ╠═7dfc3a8b-0cc1-4a8c-be54-5a9a2c27388c
-# ╟─a108bde2-5e73-4f14-9425-0e2afce52ef2
-# ╠═2b569cfb-936b-4fee-b17b-dd1cea129233
-# ╟─37b38b5b-16d9-4f0b-97a9-07b62e571132
-# ╟─d421c935-77a7-4f18-ad54-7dd30d5e232a
-# ╟─0520fe4c-9927-42ed-bef3-714b9eb920d3
-# ╟─a64b376f-d4f8-4c77-a9a9-5d7fc5d2c411
-# ╠═736198ea-d8dc-4008-82f1-6d80229077fa
-# ╟─270edf87-0d78-4831-8a50-45cdd96c8068
-# ╠═86239573-6d79-4c71-818d-f80fef5263ce
-# ╟─63f3bcc9-f9e3-4257-ba08-c4afad2d7042
-# ╟─5830fd4e-cb08-485a-a75d-cbd8d098dc09
-# ╟─4f778f00-0a0b-4763-a575-8cbfdcbd9aba
-# ╠═20972438-39cf-400a-b829-fe6a6aa56c10
-# ╟─16ed6ae7-a9d3-4c2f-8524-1dccd5fa5336
-# ╠═0b78a08c-893d-4c64-8848-28c137b00330
-# ╟─fc20b9d1-4a8e-4c22-af14-9a2421e6edb9
-# ╠═4f1dae50-603d-49f3-a2b8-2c813ee40988
-# ╟─bb48c5fb-df25-4d53-b36c-70fea7a80673
-# ╟─ab5b8cc3-dcc6-47da-9444-5dd9640845f1
-# ╟─14f0c991-7321-4109-b937-f6a433fb0a52
-# ╠═43a4d22a-6f36-4e85-9f3a-fa398cfd9e4f
-# ╟─e5f5a4d6-0192-40d8-b690-e6694a50b86d
-# ╠═33d09181-2868-4b05-96fb-b6650bc49f1a
-# ╟─701b5932-64c5-4aa9-bc4a-ccce6909c300
-# ╠═7c5f34c4-8a03-48f5-b9c8-b4bbd4c787d3
-# ╟─dea304e5-5916-4990-9917-9a21266f94c0
-# ╟─a14de038-31ba-4dae-8610-6eb46b74c859
-# ╟─bfa9a76b-103d-4e2e-9cb1-ef15cb93604b
-# ╠═710ac1c1-d423-4b99-95c6-9260b4844b21
-# ╟─13bae35d-580f-4a49-8859-96410f4d7003
-# ╠═953b1980-9428-4551-8f05-6f9c34cd094e
-# ╟─8e8eb692-690f-4235-a6b9-521ee5254e4e
-# ╠═214f7f8a-2dca-4b14-8d9d-8bb45df00950
+# ╟─c2da9ba4-baae-11ee-0cc3-b57fbb77937a
+# ╠═9429f399-7467-420e-afcf-b9181af88270
+# ╟─dbb3d523-1cf0-4112-b04c-68b50395e830
+# ╟─7f23773c-162f-4150-aa66-033410ab3d2c
+# ╟─82750fe5-3bdb-4b89-8bf5-19422d6daaaf
+# ╟─db223a90-32e2-45b3-a108-a8c3ada4f92e
+# ╠═de0a31bd-47b4-47e8-b361-d91e3667f73a
+# ╟─cdc8e99b-6234-40b4-ad4d-e45fecec337b
+# ╟─2fd03893-0248-4b34-83a1-05752da8f9dd
+# ╟─12b2542f-f0d6-4d17-9957-8c91f9648c4e
+# ╟─2e2ad7ea-ce8c-4ee3-bc6e-dd32ddf8c837
+# ╟─6023be98-dbf6-4020-92d2-d2ed78e2fbdb
+# ╠═196b5c37-5167-44bb-8f17-adcb2818900e
+# ╟─9ed23cfe-4c07-407a-9e25-eedc1467716e
+# ╠═6657d447-253f-4ac8-a426-bf90f92669ac
+# ╟─15f78543-f4d1-4d47-8be8-03e45ea25006
+# ╠═e4903e2e-ec02-4f0b-825f-18689236ff32
+# ╟─b2c11c9b-c992-4b10-a6a7-3d744bec2c51
+# ╠═31669c3f-d9fd-42e3-89f7-86f14a39235a
+# ╟─4a1f50b3-8301-455e-8ec5-f9573761e7d0
+# ╠═5535597a-22c5-409f-8500-f662aebed785
+# ╟─06ada909-87bf-4949-b1dc-ff58549f09e1
+# ╠═781e01fb-c9b5-4561-889f-c1df9e4986f6
+# ╟─3a34b575-2399-44ce-adc0-d29ec7b0fbb2
+# ╠═298d80e8-9ae6-4470-9725-065fc5f46d8a
+# ╟─a35840b5-8a3f-48be-8a12-fbe3129b6f25
+# ╟─b8134c42-652f-4b0f-af05-947a4b9a7930
+# ╟─3bf5db49-ebae-4e47-a49c-5bfd6ac666c4
+# ╠═aa738340-fc55-49ce-b862-bdb1adf1885e
+# ╟─fcd49655-bad0-406c-aa22-cf88ecedf9d4
+# ╠═29973056-7171-4463-ab1f-4f7160487f8c
+# ╟─d073c75b-2b0b-489e-8712-5586c6ca0498
+# ╠═158c38fd-9609-4d0f-b8e3-b395d4af35a8
+# ╟─cd33943d-3543-4fa0-804c-e752a44081a0
+# ╠═4fdbddf2-97c9-4879-8242-ddcabc0c2516
+# ╟─4a2e8b4d-d177-4bb0-8964-d9e26a4629c0
+# ╟─190bed26-2bec-4665-ab4e-ded2c8eb49e8
+# ╟─99fc99f6-36a3-4f6c-aad0-0a06a83dfb98
+# ╠═f0dfd2af-4bc3-47f5-ae5d-0351c1120b8b
+# ╟─7eda6966-5ed1-40c9-b3cf-f4fa91f866e2
+# ╟─b384882b-0b23-48b5-ba0d-ea81ef631eed
+# ╠═0e77a876-c179-457a-9e7b-93f5153b8c53
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
