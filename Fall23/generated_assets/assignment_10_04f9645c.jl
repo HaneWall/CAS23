@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.19
+# v0.20.21
 
 #> [frontmatter]
 #> homework_number = "10"
@@ -17,7 +17,7 @@ begin
 	using CairoMakie
 	CairoMakie.activate!(type="png")
 	using LinearAlgebra
-	using PlutoUI
+	using PlutoUI, Graphs, GraphMakie
 end
 
 # ╔═╡ fd35467c-aa3d-11ee-0388-45ec600a7c1d
@@ -104,8 +104,23 @@ md"""
 ## Teil 2: Page Rank
 """
 
-# ╔═╡ c82ce64c-5514-4cf9-a06c-6969e976d5c5
-PlutoUI.Resource("https://i.imgur.com/53h366Z.png")
+# ╔═╡ 8ee449b0-d28d-4045-ae87-6895c2f1abff
+let 
+K = [0 1 1 0 0 0 0 0
+ 0 0 0 1 0 0 0 0
+ 0 1 0 0 1 0 0 0
+ 0 1 0 0 1 1 0 0
+ 0 0 0 0 0 1 1 1
+ 0 0 0 0 0 0 0 1
+ 1 0 0 0 1 0 0 1
+ 0 0 0 0 0 1 1 0]
+	
+fig = Figure()
+ax = Axis(fig[1, 1])
+graphplot!(ax, SimpleDiGraph(K), node_color=:orange, node_size=30, arrow_size=20,  ilabels=collect(1:8))
+hidedecorations!(ax)
+fig
+end
 
 # ╔═╡ 4d36ba4b-37c0-4791-8be4-de25d7d70616
 md"""
@@ -247,11 +262,15 @@ end
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+GraphMakie = "1ecd5474-83a3-4783-bb4f-06765db800d2"
+Graphs = "86223c79-3864-5bf0-83f7-82e725a168b6"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
 CairoMakie = "~0.15.6"
+GraphMakie = "~0.6.3"
+Graphs = "~1.13.3"
 PlutoUI = "~0.7.71"
 """
 
@@ -261,7 +280,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.12.0"
 manifest_format = "2.0"
-project_hash = "c2e638dc0c292a93ef0e00a7c9ee2f8fb652c0fa"
+project_hash = "387c67218d8b942d755ef6e114698fd7d7cd4090"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -316,6 +335,12 @@ version = "0.4.2"
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
 version = "1.1.2"
+
+[[deps.ArnoldiMethod]]
+deps = ["LinearAlgebra", "Random", "StaticArrays"]
+git-tree-sha1 = "d57bd3762d308bded22c3b82d033bff85f6195c6"
+uuid = "ec485272-7323-5ecc-a04f-4719b315124d"
+version = "0.4.0"
 
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
@@ -698,6 +723,12 @@ git-tree-sha1 = "50c11ffab2a3d50192a228c313f05b5b5dc5acb2"
 uuid = "7746bdde-850d-59dc-9ae8-88ece973131d"
 version = "2.86.0+0"
 
+[[deps.GraphMakie]]
+deps = ["DataStructures", "GeometryBasics", "Graphs", "LinearAlgebra", "Makie", "NetworkLayout", "PolynomialRoots", "SimpleTraits", "StaticArrays"]
+git-tree-sha1 = "98b32aaa0007dee58428379c921974b510af0654"
+uuid = "1ecd5474-83a3-4783-bb4f-06765db800d2"
+version = "0.6.3"
+
 [[deps.Graphics]]
 deps = ["Colors", "LinearAlgebra", "NaNMath"]
 git-tree-sha1 = "a641238db938fff9b2f60d08ed9030387daf428c"
@@ -709,6 +740,16 @@ deps = ["Artifacts", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "8a6dbda1fd736d60cc477d99f2e7a042acfa46e8"
 uuid = "3b182d85-2403-5c21-9c21-1e1f0cc25472"
 version = "1.3.15+0"
+
+[[deps.Graphs]]
+deps = ["ArnoldiMethod", "DataStructures", "Inflate", "LinearAlgebra", "Random", "SimpleTraits", "SparseArrays", "Statistics"]
+git-tree-sha1 = "cbf93df308fe790f9068b7e177e8baa2f46b86c9"
+uuid = "86223c79-3864-5bf0-83f7-82e725a168b6"
+version = "1.13.3"
+weakdeps = ["Distributed", "SharedArrays"]
+
+    [deps.Graphs.extensions]
+    GraphsSharedArraysExt = "SharedArrays"
 
 [[deps.GridLayoutBase]]
 deps = ["GeometryBasics", "InteractiveUtils", "Observables"]
@@ -1126,6 +1167,16 @@ git-tree-sha1 = "d92b107dbb887293622df7697a2223f9f8176fcd"
 uuid = "f09324ee-3d7c-5217-9330-fc30815ba969"
 version = "1.1.1"
 
+[[deps.NetworkLayout]]
+deps = ["GeometryBasics", "LinearAlgebra", "Random", "Requires", "StaticArrays"]
+git-tree-sha1 = "f7466c23a7c5029dc99e8358e7ce5d81a117c364"
+uuid = "46757867-2c16-5918-afeb-47bfcb05e46a"
+version = "0.4.10"
+weakdeps = ["Graphs"]
+
+    [deps.NetworkLayout.extensions]
+    NetworkLayoutGraphsExt = "Graphs"
+
 [[deps.NetworkOptions]]
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
 version = "1.3.0"
@@ -1278,6 +1329,11 @@ version = "0.7.71"
 git-tree-sha1 = "77b3d3605fc1cd0b42d95eba87dfcd2bf67d5ff6"
 uuid = "647866c9-e3ac-4575-94e7-e3d426903924"
 version = "0.1.2"
+
+[[deps.PolynomialRoots]]
+git-tree-sha1 = "5f807b5345093487f733e520a1b7395ee9324825"
+uuid = "3a141323-8675-5d76-9d11-e1df1406c778"
+version = "1.0.0"
 
 [[deps.PrecompileTools]]
 deps = ["Preferences"]
@@ -1784,7 +1840,7 @@ uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
 version = "1.64.0+1"
 
 [[deps.oneTBB_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl"]
+deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl"]
 git-tree-sha1 = "d5a767a3bb77135a99e433afe0eb14cd7f6914c3"
 uuid = "1317d2d5-d96f-522e-a858-c73665f53c3e"
 version = "2022.0.0+0"
@@ -1821,7 +1877,7 @@ version = "4.1.0+0"
 # ╟─9f20a161-e504-49dd-87db-ecf9e74b9a88
 # ╠═d04c8dc0-86ae-4b1e-8f9f-7634724fd0d7
 # ╟─c4284d72-123c-43ed-ba35-67f583d521fb
-# ╟─c82ce64c-5514-4cf9-a06c-6969e976d5c5
+# ╟─8ee449b0-d28d-4045-ae87-6895c2f1abff
 # ╟─4d36ba4b-37c0-4791-8be4-de25d7d70616
 # ╠═71aadcdf-444e-4479-8fdc-9e244450d079
 # ╟─66b090b5-96b2-448d-a0ca-0e65e097f0a4
