@@ -14,7 +14,10 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 8ff7d6d7-53c0-4e39-ad72-e9b89e07dfff
-using DelaunayTriangulation, CairoMakie
+using DelaunayTriangulation, CairoMakie, LinearAlgebra, PlutoUI, PlutoImageCoordinatePicker
+
+# ╔═╡ e398f8df-802d-4288-9c9e-6d923eaf9af5
+CairoMakie.activate!(type = "png")
 
 # ╔═╡ 8e61148a-fab6-11f0-b96d-4f2018d35a0d
 html"""
@@ -59,7 +62,7 @@ md"""
 
 # ╔═╡ 439b449a-0c9e-48d5-8e51-1a1dec8fec3a
 md"""
-## Teil 1: Projekt Facemorphing: Kontinuirliche Transformation eines Gesichtes
+## Teil 1: Morphing: Kontinuirliche Transformationen von Dreicken
 """
 
 # ╔═╡ 2b99d840-d843-437c-8b68-5486bde2568a
@@ -72,102 +75,132 @@ md"""
 # ╔═╡ d90288fb-ae25-4c10-905c-92a4333dc6d4
 md"""
 > #### Aufgabe 1a)
->> Formulieren Sie entsprechend der in der Vorlesung behandelten Vorgehensweise die lineare Transformation eines Dreiecks in der Ebene in ein anderes Dreieck, wobei eine Ecke der Dreiecke im Ursprung festgehalten wird. Verwenden Sie als Test die Transformation des Dreiecks A mit den Eckpunkten $a_1 = (0, 0), a_2 = (1, 0.1), a_3 = (0.8, 0.6)$ in das Dreieck B mit den Eckpunkten $b_1 = (0, 0), b_2 = (1.1, 0.2), b_3 = (0.7, 0.7)$. 
+>> Formulieren Sie entsprechend der in der Vorlesung behandelten Vorgehensweise die lineare Transformation eines Dreiecks in der Ebene in ein anderes Dreieck, wobei eine Ecke der Dreiecke im Ursprung festgehalten wird. Verwenden Sie als Test die Transformation des Dreiecks A mit den Eckpunkten $a_1 = (0, 0), a_2 = (1, 0.1), a_3 = (0.8, 0.6)$ in das Dreieck B mit den Eckpunkten $b_1 = (0, 0), b_2 = (1.1, 0.2), b_3 = (0.7, 0.7)$.
+
+>> Erstellen Sie hierfuer eine Funktion `homotopie(A::Matrix{Float64}, B::Matrix{Float64}, t::Real)`, welche die Matrizen `A`, `B` sowie den skalaren Parameter `t` uebergeben bekommt. Die Matrizen $A \in \mathbb{R}^{2\times 3}$ und $B \in \mathbb{R}^{2\times 3}$ sollen dabei spaltenweise aus den Eckpunktskoordinaaten (engl. vertices) der Dreiecke bestehen. Wie repraesentieren unsere Dreiecke also durch Matrizen! Als Ausgabe wollen wir eine Matrix $X \in \mathbb{R}^{2\times 3}$. Die Spalten der Matrix $X$ werden dabei durch das Homotopie-Verfahren bestimmt, wobei hier $a_i$ und $b_i$ jeweils die $i$-ten Spalten von $A$ und $B$ sind:
+
+>> $$x_i = (1-t)a_i + tb_i \quad\text{fuer} \quad i\in\{1, 2, 3\}\quad \text{und} \quad t\in [0,1].$$
+
+>> Plotten Sie das erhaltene Dreieck $X$ für die Werte $t = 0, t = 0.25, t = 0.5, t = 0.75, t = 1$ in das gleiche Koordinatensystem. Hierbei kann der Makie-Befehl `triplot!(axis, X)` genutzt werden. 
 """
 
-# ╔═╡ 2f00ae7c-eff2-4359-bc94-0940d8f455cf
+# ╔═╡ 56125f81-5eb8-445b-b56d-f465c9d07b83
 let
-    # ur code
+    #ur code
 end
 
-# ╔═╡ 86c18e9b-2e72-473f-b3c1-4a78482abba0
+# ╔═╡ 9e0e1bfb-2f7d-4612-bc97-f90b2df7299f
 md"""
 > #### Aufgabe 1b)
->> Formulieren Sie durch Einführen eines Parameters und Transformation der Eckpunkte die stetige Transformation (Homotopie-Verfahren) des Dreicks A in das Dreieck B: 
-
->> $$x_i = (1-t)\cdot a_i + t\cdot b_i \quad\text{fuer} \quad i\in\{1, 2, 3\}\quad \text{und} \quad t\in [0,1].$$
-
->> Plotten Sie die Dreiecke für die Werte $t = 0, t = 0.25, t = 0.5, t = 0.75, t = 1$ in das gleiche Koordinatensystem. 
+>> Bisher konnten wir unsere Eckpunkte von einen *Source* Dreieck auf ein *Target* Dreieck transformieren. Aber was passiert bzw. wo landet ein Punkt $P = (x,y) \in \mathbb{R}^2$ innerhalb des *Source* Dreiecks nach der Transformation, bzw. des Homotopie-Verfahrens bei $t=1$,  im *Target* Dreieck? Hierzu moechten wir baryzentrische Koordinaten benutzen, siehe Einschub 1 und 2 unten.
 """
 
-# ╔═╡ c54c0f42-8037-4819-ae45-a0208ca56de2
+# ╔═╡ 141c3b28-33cd-4bef-a9b4-a2483f4e179d
+md"""
+>> ### Einschub I: Baryzentrische Koordinaten
+> Es gibt nun mehrere Moeglichkeiten die Transformation eines Punktes $P = (x, y) \in \mathbb{R}^2$ innerhalb des *Source* Dreiecks in den entprechenden Punkt $\tilde{P} = (\tilde{x},\tilde{y})$ des *Target* Dreiecks darzustellen. Wir moechten hierfuer sogenannte baryzentrische Koordinaten nutzen, da diese fuer unsere Zwecke sehr einfach sind. Stellen wir uns ein *Source* und ein *Target* Dreieck vor. In der vorherigen Aufgabe haben wir nun mittels Homotopie die Eckpunkte ineinander transformiert. Nun betrachten wir einen einen Punkt $P$ im *Source* Dreieck. Wo landet der blaue Punkt $P$ waehrend der Homotopie und nach der Transformation vom schwarzen ins rote Dreieck?
+"""
+
+# ╔═╡ ab93f977-6118-45f4-856b-7d857a23d36d
 let
-    # ur code
+    c1 = [0.2, 0.2]
+    c2 = [1.0, 0.1]
+    c3 = [0.8, 0.6]
+    C = hcat(c1, c2, c3)
+    C2 = hcat([-0.2, 0.3], c1, c3)
+
+    d1 = [2.0, 0.3]
+    d2 = [3.1, 0.2]
+    d3 = [2.7, 0.7]
+    D = hcat(d1, d2, d3)
+
+
+    with_theme(theme_latexfonts()) do
+        fig = Figure()
+        ax = Axis(fig[1, 1])
+        triplot!(ax, C, strokecolor = :black, strokewidth = 2)
+        scatter!(ax, 0.5, 0.2)
+        triplot!(ax, D, strokecolor = :orangered, strokewidth = 2)
+        fig
+    end
 end
 
-# ╔═╡ 8cb275e2-335d-44b4-9ed7-f4c8c5f8840a
+# ╔═╡ 164d2a68-b69f-4434-9129-827446815abf
 md"""
-> #### Aufgabe 1c)
->> Betrachten Sie nun die Transformationen mehrerer (Anzahl N) Dreieckspaare $A_i$ und $B_i$ mit $i \in {1, ..., N}$ ineinander. Formulieren Sie eine große gebietsweise linear affine Gesamt-Transformation $T$, die die einzelnen Dreieckstransformationen und geeignete Translationen zusammenfasst. 
+>> ### Einschub II: Baryzentrische Koordinaten
+> Eine Moeglichkeit dieses Problem zu loesen besteht darin, weiterhin globale euklidische Koordinaten zu nutzen und Translationen durchzufuehren, siehe Vorlesung. Identisch und eleganter ist eine Loesung, welche die Lage bzw. die Position des blauen Punktes $P$ durch die Koordinaten der Eckpunkte des Dreicks beschreibt. Diese Eckpunkte werden ja durch unsere Homotopie ohnehin vom schwarzen ins rote Dreieck ueberfuehrt. Wenn wir also die Lage des Punktes $P$ durch eben jene Eckpunkte beschreiben, transformiert sich der blaue Punkt automatisch mit. Dies ist bereits die ganze Idee von baryzentrischen Koordinaten in Simplezes (in 2D, Dreiecke). Aber wie kommen wir nun von euklidischen Koordinaten also hier: $P=(0.5, 0.2)$ in baryzentrische Koordinaten?  Die zentrale Idee der baryzentrischen Koordinaten $(\lambda_1, \lambda_2, \lambda_3) \in \mathbb{R}^3$ ist das Aufspannen eines lokalen Koordinatensystems von einen Ankerpunkt aus. Wir wahlen hier als Ankerpunkt $a_1$. Wir koennen also unseren Punkt $P$ durch unseren *Anker* $a_1$ und einer Linearkombination unserer Seitenvektoren des Dreiecks erreichen:
+
+$$P = a_1 + \beta(a_2 - a_1) + \gamma(a_3 - a_1)$$
+$$P = (1 - \beta - \gamma) a_1 + \beta a_2 + \gamma a_3$$
+>> Nennen wir nun unsere Vorfaktoren um: 
+$$\lambda_1 = (1 - \beta - \gamma), \qquad \lambda_2 = \beta, \qquad \lambda_3 = \gamma$$
+>> Es gilt also:
+$$\lambda_1 + \lambda_2 + \lambda_3 = (1 - \beta - \gamma) + \beta + \gamma = 1$$
+>> Und P vor der Transformation ist: 
+$$P = \lambda_1 a_1+\lambda_2 a_2 + \lambda_3 a_3$$
+>> und nach der Transformation, da baryzentrische Koordinaten invariant gegenueber affinen Abbildungen sind:
+$$\tilde{P} = \lambda_1 b_1+\lambda_2 b_2 + \lambda_3 b_3$$
+
+>> Okay, aber wo bekommen wir $\lambda_2$ und $\lambda_3$ her? Wir koennen die erste Gleichung umstellen in: 
+$$P - a_1 = \lambda_2(a_2 - a_1) + \lambda_3(a_3 - a_1)$$
+>> Scharfes hinblicken und man erkennt, das ist einfach eine Lineare Gleichung, die wir durch Matrixschreibweise verkuerzen koennen.
+
+$$\begin{pmatrix} 
+a_{2, x} - a_{1, x} & a_{3,x} - a_{1,x} \\ 
+a_{2, y} - a_{1, y} & a_{3,y} - a_{1,y} 
+\end{pmatrix} 
+\begin{pmatrix} 
+\lambda_2 \\ 
+\lambda_3 
+\end{pmatrix} 
+= 
+\begin{pmatrix} 
+x - a_{1,x} \\ 
+y - a_{1,y} 
+\end{pmatrix}$$
+
+>> Solche linearen Gleichungssysteme haben wir bereits oftmals numerisch in Julia geloest. $\lambda_1$ ist dann gegeben durch $\lambda_1 = 1 - \lambda_2 - \lambda_3$
+
+> Die Ruecktransformation von baryzentrischen in globale euklidische Koordinaten ist bereits  oben gegeben. Falls ein Punkt $P$ innerhalb eines Dreiecks ist so sind seine baryzentrischen Koordinaten alle im Intervall zwischen 0 und 1. $\lambda_i \in [0, 1], \quad i\in\{1,2,3\}$. Falls dem nicht so ist, so ist $P$ nicht im gewaehlten Dreieck. Wir werden spaeter diesen Fakt nutzen um zu klassifizieren welcher Pixel eines Bildes zu welchen Dreieck gehoert. 
 """
 
-# ╔═╡ 43fecd6f-3846-4518-b9be-c7d06adb38a0
-let
-    # ur code
-end
-
-# ╔═╡ 85d66c14-9c79-4464-8eea-b5ca254aefe0
+# ╔═╡ 0cce0a38-5751-4b50-9f60-e1c04da76518
 md"""
-> #### Aufgabe 1d)
->> Wählen Sie Fotos zweier geeigneter Gesichter aus, die Sie kontinuierlich ineinander transformieren wollen. Sie können hierfür die Beispielfotos auf StudIP verwenden. Schreiben Sie eine Funktion, die gegebene Fotos in einem selbst gewählten Format einliest. 
+>#### Aufgabe:
+>> Schreiben Sie eine Funktion `barycoords(A::Matrix{Float64}, P::Array{Float64})`. Der Funktion  wird das Dreieck $A$ in Matrixform und der euklidische Punkt $P=(x,y)$, der sich im Dreieck befindet, uebergeben. Die Ausgabe soll aus den baryzentrischen Koordinaten $(\lambda_1, \lambda_2, \lambda_3)$ des Punktes $P$ bestehen. 
 """
 
-# ╔═╡ d7ee8bdb-c7e1-444d-a087-d0cedba94beb
-let
-    # ur code
-end
-
-# ╔═╡ a5c0e579-999c-41f7-b756-9ea85436ab1c
-md"""
-> #### Aufgabe 1e)
->> Bestimmen Sie die Zeile und Spalte relevanter Pixel. Sie können hierfür den auf StudIP zur Verfügung gestellten Programmcode nutzen. Die relevanten Pixel sollen als Merkmalspunkte des menschlichen Gesichts gewählt werden, zum Beispiel die Mundwinkel, die Augen bzw. Augenwinkel, die Nase und diskretisiert die Umrisslinie des Gesichts. Diese werden im Anschluss als Knoten der Triangulierung verwendet. Der Einfachheit halber sollen nur wenige (ca. 7 bis 16) gut gewählte Merkmalspunkte verwendet werden. Sie können auf Wunsch auch die Koordinaten der bereits bestimmten Merkmalspunkte der Beispielgesichter verwenden. 
-"""
-
-# ╔═╡ 51d6e3d9-204f-4c3c-84ac-eba3b85cb938
-let
-    # ur code
-end
-
-# ╔═╡ cef704b7-7b5e-4908-a143-4505779329a2
-md"""
-> #### Aufgabe 1f)
->> Bestimmen Sie von Hand (gewissermaßen durch scharfes Draufschauen) überschneidungsfreie Dreieckszerlegung des zweidimensionalen Objekts basierend auf den gewählten Merkmalspunkten beider Fotos. Alle Dreieckswinkel sollen dabei möglichst groß sein. Dies wird von der sogenannten Delauney-Dreieckszerlegung erreicht. Sie können hierfür auch einen fertigen Befehl oder ein fertiges Programm verwenden. Plotten Sie die Dreieckszerlegung auf die Fotos. Dabei können Sie nacheinander die einzelnen Dreiecke plotten (wobei die Kanten dann doppelt geplottet werden, was aber nichts ausmacht). 
-"""
-
-# ╔═╡ 55332238-9e85-4c59-a201-eeca71cf79df
+# ╔═╡ 7c946191-445f-461c-8876-ea564e84d051
 let
     #ur code
 end
 
-# ╔═╡ bf9d68ba-662d-45d3-8e65-e8d9ee3dfd7f
+# ╔═╡ 647b5ab6-f1ea-4e3a-825a-2bf7bd0abadd
 md"""
-> #### Aufgabe 1g)
->> Wenden Sie nun die in b) behandelte Transformation eines Dreiecks auf alle Pixel innerhalb dieses Dreiecks an. Die Gesamt-Transformation des Gesichts erfolgt somit entsprechend der Triangulierung gebietsweise linear affin. Die Farbwerte der Pixel berechnen sich ebenfalls mit einem Homotopieverfahren, wie in b) formuliert, wobei der Farbwert des Urbildpunktes und des Bildpunktes entsprechend des Homotopie-Parameters gewichtet gemittelt werden. Die Anzahl der Pixel in einem Dreieck $A_i$ muss nicht mit der Anzahl der Pixel in $B_i$ übereinstimmen. Aus diesem Grund kann es bei der durchgeführten Vorgehensweise “Löcher” geben. 
+>#### Aufgabe 1c):
+>> Testen Sie nun diese Funktion. Gegeben Sei dafuer das *source* Dreieck $C$ mit $c_1=[0.2, 0.2], c_2=[1., 0.1], c_3=[0.8, 0.6]$, der Punkt $P = [0.5, 0.2]$ in $C$ sowie das *target* Dreieck $D$ mit $d_1=[3., 0.3], d_2=[4.1, 0.2], d_3=[5.7, 0.4]$. Benutzen Sie das Homotopie-Verfahren und Ihre bereits geschriebene `homotopie`-Funktion um das Dreieck sowie den Punkt $P$ fuer $t\in\{0., 0.25, 0.5, 0.75, 1.\}$ darzustellen.
 """
 
-# ╔═╡ b7abf913-5c50-452b-ac5b-7352c02c12b6
+# ╔═╡ 17b18594-e5be-495c-a7a6-b9ae21de6b48
 let
     #ur code
 end
 
-# ╔═╡ bc73a463-2296-4408-9ba1-1aac70dbeb31
+# ╔═╡ 3bbdf13c-3e08-4d40-b7f4-e647c024054b
 md"""
-> #### Zusatzaufgabe 1h)
->> Die in g) erwähnten “Löcher” können mit Mittelungstechniken oder inversen Transformationen $T^{-1}$ (man sucht für jeden Bildpunkt den passenden, d.h. in der Nähe liegenden Urbildpunkt) vermieden werden. Entwickeln und implementieren Sie hierfür eine geeignete Strategie. 
+>#### Aufgabe 1d):
+>> Wir moechten nun Aufgabe 1c) wiederholen mit einen kleinen Kniff: Wir wollen nun zusaetzlich eine Homotopie zwischen zwei Farben simulieren. Farben werden haeufig in Computern durch Ihren prozentualen Rot-Gelb-Blau (RGB) Anteil gemessen. Wir koennen Farben auf eine sollche Art aund Weise auch in Julia erzeugen: 
 """
 
-# ╔═╡ c5826463-7955-4ede-97f0-38fbecb66411
-let
-    #ur code
-end
+# ╔═╡ 2a5013f6-65e4-4ba5-89e3-d4b0d419838e
+testfarbe = RGBf(0.2, 0.3, 0.3)
 
-# ╔═╡ dd05a8c0-b0b7-4525-a62b-a8fc400dc074
+# ╔═╡ 69ba9b42-3ef9-408a-b5d9-3a1d9066c96c
 md"""
-> #### Aufgabe 1i)
->> Erstellen Sie ein Video von dem Face-Morphing und geben Sie eine Sequenz von 5 Momentaufnahmen des Videos als Abbildungen nebeneinander in einer Grafik aus. 
+>> Schreiben Sie eine Funktion `homotopieColor(color1, color2, t)`, der Sie eine *source* Farbe, eine *Target* Farbe und ein Skalar $t$ uebergeben. Tipp: Diese Funktion sieht identisch zu obiger homotopie-Funktion aus, bloss ohne for-loop. Machen Sie sich keine Gedanken zur Addition von Farben, dies uebernimmt Julia fuer Sie. Die Farbe von $P$ soll im *Source* Dreieck `RGBf(0.05, 0.05, 0.05)` sein und am *Target* Dreick `RGBf(0.9, 0.9. 0.9)`. Reproduzieren Sie die Abbildung der vorherigen Aufgabe 1c), jedoch soll die Farbe des Punktes $P$ sich ueber die Transformation entprechend aendern.    
 """
 
-# ╔═╡ 007679a3-7b6c-4fce-a7a0-ceab7850d26d
+# ╔═╡ 8d44312a-0969-4250-9236-3fc768316b20
 let
     #ur code
 end
@@ -177,10 +210,15 @@ PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 DelaunayTriangulation = "927a84f5-c5f4-47a5-9785-b46e178433df"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+PlutoImageCoordinatePicker = "79686372-6169-7274-6170-6568746b6366"
+PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 
 [compat]
 CairoMakie = "~0.15.6"
 DelaunayTriangulation = "~1.6.6"
+PlutoImageCoordinatePicker = "~1.4.2"
+PlutoUI = "~0.7.79"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -189,21 +227,24 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.12.0"
 manifest_format = "2.0"
-project_hash = "4bd465462705727848304bd3354fecd79816dd58"
+project_hash = "6883772eb5b39797d433572d87637365dfe6f031"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
 git-tree-sha1 = "d92ad398961a3ed262d8bf04a1a2b8340f915fef"
 uuid = "621f4979-c628-5d54-868e-fcf4e3e8185c"
 version = "1.5.0"
+weakdeps = ["ChainRulesCore", "Test"]
 
     [deps.AbstractFFTs.extensions]
     AbstractFFTsChainRulesCoreExt = "ChainRulesCore"
     AbstractFFTsTestExt = "Test"
 
-    [deps.AbstractFFTs.weakdeps]
-    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
-    Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+[[deps.AbstractPlutoDingetjes]]
+deps = ["Pkg"]
+git-tree-sha1 = "6e1d2a35f2f90a4bc7c2ed98079b2ba09c35b83a"
+uuid = "6e696c72-6542-2067-7265-42206c756150"
+version = "1.3.2"
 
 [[deps.AbstractTrees]]
 git-tree-sha1 = "2d9c9a55f9c93e8887ad391fbae72f8ef55e1177"
@@ -468,9 +509,9 @@ uuid = "5ae413db-bbd1-5e63-b57d-d24a61df00f5"
 version = "2.2.4+0"
 
 [[deps.EnumX]]
-git-tree-sha1 = "bddad79635af6aec424f53ed8aad5d7555dc6f00"
+git-tree-sha1 = "7bebc8aad6ee6217c78c5ddcf7ed289d65d0263e"
 uuid = "4e289a0a-7415-4d19-859d-a7e5c4648b56"
-version = "1.0.5"
+version = "1.0.6"
 
 [[deps.ExactPredicates]]
 deps = ["IntervalArithmetic", "Random", "StaticArrays"]
@@ -495,17 +536,11 @@ git-tree-sha1 = "eaa040768ea663ca695d442be1bc97edfe6824f2"
 uuid = "b22a6f82-2f65-5046-a5b2-351ab43fb4e5"
 version = "6.1.3+0"
 
-[[deps.FFTW]]
-deps = ["AbstractFFTs", "FFTW_jll", "Libdl", "LinearAlgebra", "MKL_jll", "Preferences", "Reexport"]
-git-tree-sha1 = "97f08406df914023af55ade2f843c39e99c5d969"
-uuid = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
-version = "1.10.0"
-
-[[deps.FFTW_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "6d6219a004b8cf1e0b4dbe27a2860b8e04eba0be"
-uuid = "f5851436-0d7a-5f13-b9de-f02708fd171a"
-version = "3.3.11+0"
+[[deps.FFTA]]
+deps = ["AbstractFFTs", "DocStringExtensions", "LinearAlgebra", "MuladdMacro", "Primes", "Random", "Reexport"]
+git-tree-sha1 = "65e55303b72f4a567a51b174dd2c47496efeb95a"
+uuid = "b86e33f2-c0db-4aa1-a6e0-ab43e668529e"
+version = "0.3.1"
 
 [[deps.FileIO]]
 deps = ["Pkg", "Requires", "UUIDs"]
@@ -530,14 +565,11 @@ deps = ["Compat", "Dates"]
 git-tree-sha1 = "3bab2c5aa25e7840a4b065805c0cdfc01f3068d2"
 uuid = "48062228-2e41-5def-b9a4-89aafe57970f"
 version = "0.9.24"
+weakdeps = ["Mmap", "Test"]
 
     [deps.FilePathsBase.extensions]
     FilePathsBaseMmapExt = "Mmap"
     FilePathsBaseTestExt = "Test"
-
-    [deps.FilePathsBase.weakdeps]
-    Mmap = "a63ad114-7e13-5084-954f-fe012c677804"
-    Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.FileWatching]]
 uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
@@ -545,14 +577,15 @@ version = "1.11.0"
 
 [[deps.FillArrays]]
 deps = ["LinearAlgebra"]
-git-tree-sha1 = "5bfcd42851cf2f1b303f51525a54dc5e98d408a3"
+git-tree-sha1 = "2f979084d1e13948a3352cf64a25df6bd3b4dca3"
 uuid = "1a297f60-69ca-5386-bcde-b61e274b549b"
-version = "1.15.0"
-weakdeps = ["PDMats", "SparseArrays", "Statistics"]
+version = "1.16.0"
+weakdeps = ["PDMats", "SparseArrays", "StaticArrays", "Statistics"]
 
     [deps.FillArrays.extensions]
     FillArraysPDMatsExt = "PDMats"
     FillArraysSparseArraysExt = "SparseArrays"
+    FillArraysStaticArraysExt = "StaticArrays"
     FillArraysStatisticsExt = "Statistics"
 
 [[deps.FixedPointNumbers]]
@@ -661,6 +694,24 @@ git-tree-sha1 = "68c173f4f449de5b438ee67ed0c9c748dc31a2ec"
 uuid = "34004b35-14d8-5ef3-9330-4cdb6864b03a"
 version = "0.3.28"
 
+[[deps.Hyperscript]]
+deps = ["Test"]
+git-tree-sha1 = "179267cfa5e712760cd43dcae385d7ea90cc25a4"
+uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
+version = "0.0.5"
+
+[[deps.HypertextLiteral]]
+deps = ["Tricks"]
+git-tree-sha1 = "7134810b1afce04bbc1045ca1985fbe81ce17653"
+uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
+version = "0.9.5"
+
+[[deps.IOCapture]]
+deps = ["Logging", "Random"]
+git-tree-sha1 = "0ee181ec08df7d7c911901ea38baf16f755114dc"
+uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
+version = "1.0.0"
+
 [[deps.ImageAxes]]
 deps = ["AxisArrays", "ImageBase", "ImageCore", "Reexport", "SimpleTraits"]
 git-tree-sha1 = "e12629406c6c4442539436581041d372d69c55ba"
@@ -707,11 +758,10 @@ git-tree-sha1 = "d1b1b796e47d94588b3757fe84fbf65a5ec4a80d"
 uuid = "d25df0c9-e2be-5dd7-82c8-3ad0b3e990b9"
 version = "0.1.5"
 
-[[deps.IntelOpenMP_jll]]
-deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl"]
-git-tree-sha1 = "ec1debd61c300961f98064cfb21287613ad7f303"
-uuid = "1d5cc7b8-4909-519e-a0f8-d0f5ad9712d0"
-version = "2025.2.0+0"
+[[deps.IntegerMathUtils]]
+git-tree-sha1 = "4c1acff2dc6b6967e7e750633c50bc3b8d83e617"
+uuid = "18e54dd8-cb9d-406c-a71d-865a43cbb235"
+version = "0.1.3"
 
 [[deps.InteractiveUtils]]
 deps = ["Markdown"]
@@ -775,14 +825,11 @@ version = "0.7.13"
 git-tree-sha1 = "a779299d77cd080bf77b97535acecd73e1c5e5cb"
 uuid = "3587e190-3f89-42d0-90ee-14403ec27112"
 version = "0.1.17"
+weakdeps = ["Dates", "Test"]
 
     [deps.InverseFunctions.extensions]
     InverseFunctionsDatesExt = "Dates"
     InverseFunctionsTestExt = "Test"
-
-    [deps.InverseFunctions.weakdeps]
-    Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
-    Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [[deps.IrrationalConstants]]
 git-tree-sha1 = "b2d91fe939cae05960e760110b328288867b5758"
@@ -841,10 +888,10 @@ uuid = "ac6e5ff7-fb65-4e79-a425-ec3bc9c03011"
 version = "1.12.0"
 
 [[deps.KernelDensity]]
-deps = ["Distributions", "DocStringExtensions", "FFTW", "Interpolations", "StatsBase"]
-git-tree-sha1 = "ba51324b894edaf1df3ab16e2cc6bc3280a2f1a7"
+deps = ["Distributions", "DocStringExtensions", "FFTA", "Interpolations", "StatsBase"]
+git-tree-sha1 = "4260cfc991b8885bf747801fb60dd4503250e478"
 uuid = "5ab0869b-81aa-558d-bb23-cbf5423bbe9b"
-version = "0.6.10"
+version = "0.6.11"
 
 [[deps.LAME_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -874,11 +921,6 @@ version = "2.10.3+0"
 git-tree-sha1 = "dda21b8cbd6a6c40d9d02a73230f9d70fed6918c"
 uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 version = "1.4.0"
-
-[[deps.LazyArtifacts]]
-deps = ["Artifacts", "Pkg"]
-uuid = "4af54fe1-eca0-43a8-85a7-787d91b784e3"
-version = "1.11.0"
 
 [[deps.LazyModules]]
 git-tree-sha1 = "a560dd966b386ac9ae60bdd3a3d3a326062d3c3e"
@@ -975,11 +1017,10 @@ version = "0.3.29"
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 version = "1.11.0"
 
-[[deps.MKL_jll]]
-deps = ["Artifacts", "IntelOpenMP_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "oneTBB_jll"]
-git-tree-sha1 = "282cadc186e7b2ae0eeadbd7a4dffed4196ae2aa"
-uuid = "856f044c-d86e-5d09-b602-aeab76dc8ba7"
-version = "2025.2.0+0"
+[[deps.MIMEs]]
+git-tree-sha1 = "c64d943587f7187e751162b3b84445bbbd79f691"
+uuid = "6c6e2e6c-3030-632d-7369-2d6c69616d65"
+version = "1.1.0"
 
 [[deps.MacroTools]]
 git-tree-sha1 = "1e0228a030642014fe5cfe68c2c0a818f9e3f522"
@@ -1028,6 +1069,11 @@ version = "0.3.4"
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
 version = "2025.5.20"
 
+[[deps.MuladdMacro]]
+git-tree-sha1 = "cac9cc5499c25554cba55cd3c30543cff5ca4fab"
+uuid = "46d2c3a1-f734-5fdb-9937-b9b9aeba4221"
+version = "0.2.4"
+
 [[deps.NaNMath]]
 deps = ["OpenLibm_jll"]
 git-tree-sha1 = "9b8215b1ee9e78a293f99797cd31375471b2bcae"
@@ -1066,9 +1112,9 @@ version = "1.3.6+0"
 
 [[deps.OpenBLASConsistentFPCSR_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "567515ca155d0020a45b05175449b499c63e7015"
+git-tree-sha1 = "f2b3b9e52a5eb6a3434c8cca67ad2dde011194f4"
 uuid = "6cdc7f73-28fd-5e50-80fb-958a8875b1af"
-version = "0.3.29+0"
+version = "0.3.30+0"
 
 [[deps.OpenBLAS_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
@@ -1121,9 +1167,13 @@ version = "10.44.0+1"
 
 [[deps.PDMats]]
 deps = ["LinearAlgebra", "SparseArrays", "SuiteSparse"]
-git-tree-sha1 = "f07c06228a1c670ae4c87d1276b92c7c597fdda0"
+git-tree-sha1 = "e4cff168707d441cd6bf3ff7e4832bdf34278e4a"
 uuid = "90014a1f-27ba-587c-ab20-58faa44d9150"
-version = "0.11.35"
+version = "0.11.37"
+weakdeps = ["StatsBase"]
+
+    [deps.PDMats.extensions]
+    StatsBaseExt = "StatsBase"
 
 [[deps.PNGFiles]]
 deps = ["Base64", "CEnum", "ImageCore", "IndirectArrays", "OffsetArrays", "libpng_jll"]
@@ -1182,6 +1232,18 @@ git-tree-sha1 = "26ca162858917496748aad52bb5d3be4d26a228a"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
 version = "1.4.4"
 
+[[deps.PlutoImageCoordinatePicker]]
+deps = ["AbstractPlutoDingetjes", "Base64", "HypertextLiteral", "InteractiveUtils", "Markdown"]
+git-tree-sha1 = "07038a9658bfc6607ab27d26663c3b7a181f4025"
+uuid = "79686372-6169-7274-6170-6568746b6366"
+version = "1.4.2"
+
+[[deps.PlutoUI]]
+deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "Downloads", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
+git-tree-sha1 = "3ac7038a98ef6977d44adeadc73cc6f596c08109"
+uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+version = "0.7.79"
+
 [[deps.PolygonOps]]
 git-tree-sha1 = "77b3d3605fc1cd0b42d95eba87dfcd2bf67d5ff6"
 uuid = "647866c9-e3ac-4575-94e7-e3d426903924"
@@ -1198,6 +1260,12 @@ deps = ["TOML"]
 git-tree-sha1 = "522f093a29b31a93e34eaea17ba055d850edea28"
 uuid = "21216c6a-2e73-6563-6e65-726566657250"
 version = "1.5.1"
+
+[[deps.Primes]]
+deps = ["IntegerMathUtils"]
+git-tree-sha1 = "25cdd1d20cd005b52fc12cb6be3f75faaf59bb9b"
+uuid = "27ebfcd6-29c5-5fa9-bf4b-fb8fc14df3ae"
+version = "0.5.7"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -1417,10 +1485,10 @@ uuid = "82ae8749-77ed-4fe6-ae5f-f523153014b0"
 version = "1.8.0"
 
 [[deps.StatsBase]]
-deps = ["AliasTables", "DataAPI", "DataStructures", "LinearAlgebra", "LogExpFunctions", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics", "StatsAPI"]
-git-tree-sha1 = "2c962245732371acd51700dbb268af311bddd719"
+deps = ["AliasTables", "DataAPI", "DataStructures", "IrrationalConstants", "LinearAlgebra", "LogExpFunctions", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics", "StatsAPI"]
+git-tree-sha1 = "aceda6f4e598d331548e04cc6b2124a6148138e3"
 uuid = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
-version = "0.34.6"
+version = "0.34.10"
 
 [[deps.StatsFuns]]
 deps = ["HypergeometricFunctions", "IrrationalConstants", "LogExpFunctions", "Reexport", "Rmath", "SpecialFunctions"]
@@ -1509,6 +1577,11 @@ git-tree-sha1 = "1feb45f88d133a655e001435632f019a9a1bcdb6"
 uuid = "62fd8b95-f654-4bbd-a8a5-9c27f68ccd50"
 version = "0.1.1"
 
+[[deps.Test]]
+deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
+uuid = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+version = "1.11.0"
+
 [[deps.TiffImages]]
 deps = ["ColorTypes", "DataStructures", "DocStringExtensions", "FileIO", "FixedPointNumbers", "IndirectArrays", "Inflate", "Mmap", "OffsetArrays", "PkgVersion", "PrecompileTools", "ProgressMeter", "SIMD", "UUIDs"]
 git-tree-sha1 = "98b9352a24cb6a2066f9ababcc6802de9aed8ad8"
@@ -1520,10 +1593,20 @@ git-tree-sha1 = "0c45878dcfdcfa8480052b6ab162cdd138781742"
 uuid = "3bb67fe8-82b1-5028-8e26-92a6c54297fa"
 version = "0.11.3"
 
+[[deps.Tricks]]
+git-tree-sha1 = "311349fd1c93a31f783f977a71e8b062a57d4101"
+uuid = "410a4b4d-49e4-4fbc-ab6d-cb71b17b3775"
+version = "0.1.13"
+
 [[deps.TriplotBase]]
 git-tree-sha1 = "4d4ed7f294cda19382ff7de4c137d24d16adc89b"
 uuid = "981d1d27-644d-49a2-9326-4793e63143c3"
 version = "0.1.0"
+
+[[deps.URIs]]
+git-tree-sha1 = "bef26fb046d031353ef97a82e3fdb6afe7f21b1a"
+uuid = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"
+version = "1.6.1"
 
 [[deps.UUIDs]]
 deps = ["Random", "SHA"]
@@ -1692,12 +1775,6 @@ deps = ["Artifacts", "Libdl"]
 uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
 version = "1.64.0+1"
 
-[[deps.oneTBB_jll]]
-deps = ["Artifacts", "JLLWrappers", "LazyArtifacts", "Libdl"]
-git-tree-sha1 = "1350188a69a6e46f799d3945beef36435ed7262f"
-uuid = "1317d2d5-d96f-522e-a858-c73665f53c3e"
-version = "2022.0.0+1"
-
 [[deps.p7zip_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
@@ -1718,6 +1795,7 @@ version = "4.1.0+0"
 
 # ╔═╡ Cell order:
 # ╠═8ff7d6d7-53c0-4e39-ad72-e9b89e07dfff
+# ╠═e398f8df-802d-4288-9c9e-6d923eaf9af5
 # ╟─8e61148a-fab6-11f0-b96d-4f2018d35a0d
 # ╟─1b49b6bb-9c74-4fc6-bcc2-dbd79016f6c5
 # ╟─785024e6-99ee-4458-baa5-a9d3b2c63360
@@ -1726,22 +1804,18 @@ version = "4.1.0+0"
 # ╟─439b449a-0c9e-48d5-8e51-1a1dec8fec3a
 # ╟─2b99d840-d843-437c-8b68-5486bde2568a
 # ╟─d90288fb-ae25-4c10-905c-92a4333dc6d4
-# ╠═2f00ae7c-eff2-4359-bc94-0940d8f455cf
-# ╟─86c18e9b-2e72-473f-b3c1-4a78482abba0
-# ╠═c54c0f42-8037-4819-ae45-a0208ca56de2
-# ╟─8cb275e2-335d-44b4-9ed7-f4c8c5f8840a
-# ╠═43fecd6f-3846-4518-b9be-c7d06adb38a0
-# ╟─85d66c14-9c79-4464-8eea-b5ca254aefe0
-# ╠═d7ee8bdb-c7e1-444d-a087-d0cedba94beb
-# ╟─a5c0e579-999c-41f7-b756-9ea85436ab1c
-# ╠═51d6e3d9-204f-4c3c-84ac-eba3b85cb938
-# ╟─cef704b7-7b5e-4908-a143-4505779329a2
-# ╠═55332238-9e85-4c59-a201-eeca71cf79df
-# ╟─bf9d68ba-662d-45d3-8e65-e8d9ee3dfd7f
-# ╠═b7abf913-5c50-452b-ac5b-7352c02c12b6
-# ╟─bc73a463-2296-4408-9ba1-1aac70dbeb31
-# ╠═c5826463-7955-4ede-97f0-38fbecb66411
-# ╟─dd05a8c0-b0b7-4525-a62b-a8fc400dc074
-# ╠═007679a3-7b6c-4fce-a7a0-ceab7850d26d
+# ╠═56125f81-5eb8-445b-b56d-f465c9d07b83
+# ╟─9e0e1bfb-2f7d-4612-bc97-f90b2df7299f
+# ╟─141c3b28-33cd-4bef-a9b4-a2483f4e179d
+# ╟─ab93f977-6118-45f4-856b-7d857a23d36d
+# ╟─164d2a68-b69f-4434-9129-827446815abf
+# ╟─0cce0a38-5751-4b50-9f60-e1c04da76518
+# ╠═7c946191-445f-461c-8876-ea564e84d051
+# ╟─647b5ab6-f1ea-4e3a-825a-2bf7bd0abadd
+# ╠═17b18594-e5be-495c-a7a6-b9ae21de6b48
+# ╟─3bbdf13c-3e08-4d40-b7f4-e647c024054b
+# ╠═2a5013f6-65e4-4ba5-89e3-d4b0d419838e
+# ╟─69ba9b42-3ef9-408a-b5d9-3a1d9066c96c
+# ╠═8d44312a-0969-4250-9236-3fc768316b20
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
